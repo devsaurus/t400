@@ -1,0 +1,303 @@
+-------------------------------------------------------------------------------
+--
+-- Testbench for the T411 system toplevel.
+--
+-- $Id: tb_t411.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+--
+-- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
+--
+-- All rights reserved
+--
+-- Redistribution and use in source and synthezised forms, with or without
+-- modification, are permitted provided that the following conditions are met:
+--
+-- Redistributions of source code must retain the above copyright notice,
+-- this list of conditions and the following disclaimer.
+--
+-- Redistributions in synthesized form must reproduce the above copyright
+-- notice, this list of conditions and the following disclaimer in the
+-- documentation and/or other materials provided with the distribution.
+--
+-- Neither the name of the author nor the names of other contributors may
+-- be used to endorse or promote products derived from this software without
+-- specific prior written permission.
+--
+-- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+-- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+-- THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+-- PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE
+-- LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+-- CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+-- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+-- INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+-- CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+-- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+-- POSSIBILITY OF SUCH DAMAGE.
+--
+-- Please report bugs to the author, but before you do so, please
+-- make sure that this is not a derivative work and that
+-- you have the latest version of this file.
+--
+-- The latest version of this file can be found at:
+--      http://www.opencores.org/cvsweb.shtml/t400/
+--
+-------------------------------------------------------------------------------
+
+entity tb_t411 is
+
+end tb_t411;
+
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+use work.t400_system_comp_pack.t411;
+
+architecture behav of tb_t411 is
+
+  -- 210.4 kHz clock
+  --  -> 52.6 kHz internal clock
+  constant period_c : time := 4.75 us;
+  signal   ck_s     : std_logic;
+  signal   en_ck_s  : std_logic;
+
+  signal reset_n_s  : std_logic;
+
+  signal io_l_s     : std_logic_vector(7 downto 0);
+  signal io_d_s     : std_logic_vector(1 downto 0);
+  signal io_g_s     : std_logic_vector(2 downto 0);
+
+  signal si_s,
+         so_s,
+         sk_s       : std_logic;
+  signal sk_flt_s   : std_logic;
+
+  signal vdd_s      : std_logic;
+
+begin
+
+  en_ck_s   <= 'H';
+
+  vdd_s     <= '1';
+  reset_n_s <= '1';
+
+  -----------------------------------------------------------------------------
+  -- DUT
+  -----------------------------------------------------------------------------
+  t411_b : t411
+    port map (
+      ck_i      => ck_s,
+      ck_en_i   => vdd_s,
+      reset_n_i => reset_n_s,
+      si_i      => si_s,
+      so_o      => so_s,
+      sk_o      => sk_s,
+      io_l_b    => io_l_s,
+      io_d_o    => io_d_s,
+      io_g_b    => io_g_s
+    );
+
+  io_l_s <= (others => 'H');
+  io_d_s <= (others => 'H');
+  io_g_s <= (others => 'H');
+
+
+  -----------------------------------------------------------------------------
+  -- Pass/fail catcher
+  -----------------------------------------------------------------------------
+  pass_fail: process (io_l_s)
+    type pass_fail_t is (IDLE,
+                         GOT_0, GOT_A, GOT_5);
+    variable state_v : pass_fail_t := IDLE;
+    variable sig_v   : std_logic_vector(3 downto 0);
+  begin
+    sig_v := to_X01(io_l_s(7 downto 4));
+
+    case state_v is
+      when IDLE =>
+        en_ck_s <= 'Z';
+        if sig_v = "0000" then
+          state_v := GOT_0;
+        end if;
+      when GOT_0 =>
+        if    sig_v = "1010" then
+          state_v := GOT_A;
+        elsif sig_v /= "0000" then
+          state_v := IDLE;
+        end if;
+      when GOT_A =>
+        if    sig_v = "0101" then
+          state_v := GOT_5;
+        elsif sig_v /= "1010" then
+          state_v := IDLE;
+        end if;
+      when GOT_5 =>
+        if    sig_v = "0000" then
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with PASS."
+            severity note;
+        elsif sig_v = "1111" then
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with FAIL."
+            severity note;
+        elsif sig_v /= "0101" then
+          state_v := IDLE;
+        end if;
+    end case;
+  end process pass_fail;
+
+
+  -----------------------------------------------------------------------------
+  -- D monitor
+  -----------------------------------------------------------------------------
+  d_moni: process (io_d_s)
+    type d_moni_t is (IDLE,
+                      STEP_1, STEP_2);
+    variable state_v : d_moni_t := IDLE;
+    variable sig_v   : unsigned(3 downto 0);
+  begin
+    sig_v := (others => '0');
+    sig_v(io_d_s'range) := unsigned(to_X01(io_d_s));
+
+    case state_v is
+      when IDLE =>
+        en_ck_s   <= 'Z';
+        if sig_v = 1 then
+          state_v := STEP_1;
+        end if;
+      when STEP_1 =>
+        if sig_v = 2 then
+          state_v := STEP_2;
+        else
+          state_v := IDLE;
+        end if;
+      when STEP_2 =>
+        if sig_v /= 0 then
+          state_v := IDLE;
+        else
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with PASS (D-Port)."
+            severity note;
+        end if;
+
+      when others =>
+        null;
+    end case;
+
+  end process d_moni;
+
+
+  -----------------------------------------------------------------------------
+  -- G monitor
+  -----------------------------------------------------------------------------
+  g_moni: process (io_g_s)
+    type d_moni_t is (IDLE,
+                      STEP_1, STEP_2, STEP_3);
+    variable state_v : d_moni_t := IDLE;
+    variable sig_v   : unsigned(3 downto 0);
+  begin
+    sig_v := (others => '0');
+    sig_v(io_g_s'range) := unsigned(to_X01(io_g_s));
+
+    case state_v is
+      when IDLE =>
+        en_ck_s   <= 'Z';
+        if sig_v = 1 then
+          state_v := STEP_1;
+        end if;
+      when STEP_1 =>
+        if sig_v = 2 then
+          state_v := STEP_2;
+        else
+          state_v := IDLE;
+        end if;
+      when STEP_2 =>
+        if sig_v = 4 then
+          state_v := STEP_3;
+        else
+          state_v := IDLE;
+        end if;
+      when STEP_3 =>
+        if sig_v /= 0 then
+          state_v := IDLE;
+        else
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with PASS (G-Port)."
+            severity note;
+        end if;
+
+      when others =>
+        null;
+    end case;
+
+  end process g_moni;
+
+
+  -----------------------------------------------------------------------------
+  -- Delta cycle filter on sk_s
+  -----------------------------------------------------------------------------
+  sk_flt: process
+  begin
+    wait until sk_s'event;
+
+    wait for 1 ns;
+
+    sk_flt_s <= sk_s;
+  end process sk_flt;
+
+
+  -----------------------------------------------------------------------------
+  -- SIO peer
+  -----------------------------------------------------------------------------
+  sio_peer: process
+  begin
+    si_s <= '0';
+
+    wait until io_l_s(4) = '0';
+
+    while io_l_s(4) = '0' loop
+      wait for 10 us;
+      si_s <= so_s xor sk_s;
+
+      wait until io_l_s'event or so_s'event or sk_s'event;
+    end loop;
+
+    -- now feed SO back to SI upon SK edge
+    loop
+      wait until sk_flt_s'event and sk_flt_s = '1';
+      wait for 10 us;
+      si_s <= so_s;
+    end loop;
+
+    wait;
+  end process sio_peer;
+
+
+  -----------------------------------------------------------------------------
+  -- Clock generator
+  -----------------------------------------------------------------------------
+  clk: process
+  begin
+    ck_s <= '0';
+    wait for period_c / 2;
+    ck_s <= '1';
+    wait for period_c / 2;
+
+    if to_X01(en_ck_s) /= '1' then
+      wait;
+    end if;
+  end process clk;
+
+end behav;
+
+
+-------------------------------------------------------------------------------
+-- File History:
+--
+-- $Log: not supported by cvs2svn $
+-------------------------------------------------------------------------------
