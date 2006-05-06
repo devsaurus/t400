@@ -2,7 +2,7 @@
 --
 -- Testbench for the T411 system toplevel.
 --
--- $Id: tb_t411.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id: tb_t411.vhd,v 1.2 2006-05-06 13:34:25 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -71,7 +71,6 @@ architecture behav of tb_t411 is
   signal si_s,
          so_s,
          sk_s       : std_logic;
-  signal sk_flt_s   : std_logic;
 
   signal vdd_s      : std_logic;
 
@@ -239,19 +238,6 @@ begin
 
 
   -----------------------------------------------------------------------------
-  -- Delta cycle filter on sk_s
-  -----------------------------------------------------------------------------
-  sk_flt: process
-  begin
-    wait until sk_s'event;
-
-    wait for 1 ns;
-
-    sk_flt_s <= sk_s;
-  end process sk_flt;
-
-
-  -----------------------------------------------------------------------------
   -- SIO peer
   -----------------------------------------------------------------------------
   sio_peer: process
@@ -269,7 +255,7 @@ begin
 
     -- now feed SO back to SI upon SK edge
     loop
-      wait until sk_flt_s'event and sk_flt_s = '1';
+      wait until sk_s'event and sk_s = '1';
       wait for 10 us;
       si_s <= so_s;
     end loop;
@@ -300,4 +286,7 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
