@@ -2,7 +2,7 @@
 --
 -- The serial input/output unit.
 --
--- $Id: t400_sio.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id: t400_sio.vhd,v 1.2 2006-05-06 13:34:58 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -104,6 +104,7 @@ architecture rtl of t400_sio is
   signal new_sio_s,
          sio_q      : unsigned(dw_range_t);
   signal skl_q      : std_logic;
+  signal phi1_en_q  : std_logic;
 
   signal so_s,
          sk_s       : std_logic;
@@ -125,6 +126,7 @@ begin
     if    por_i then
       sio_q     <= (others => '0');
       skl_q     <= '1';
+      phi1_en_q <= '1';
       si_q      <= '1';
       si_flt_q  <= SI_LOW_0;
       si_0_ok_q <= false;
@@ -133,7 +135,8 @@ begin
     elsif ck_i'event and ck_i = '1' then
       if res_i then
         -- synchronous reset upon external reset event
-        skl_q <= '1';
+        skl_q     <= '1';
+        phi1_en_q <= '1';
       else
         if in_en_i then
           -- sample asynchronous SI input
@@ -156,6 +159,13 @@ begin
 
         else
           sio_q <= new_sio_s;
+        end if;
+
+        if ck_en_i then
+          -- delay enable of PHI1 by one clock cycle
+          -- this prevents glitches on sk_o when enabling/disabling
+          -- sk_o as a clock output
+          phi1_en_q <= skl_q;
         end if;
 
       end if;
@@ -267,7 +277,7 @@ begin
   -----------------------------------------------------------------------------
   sio_o   <= std_logic_vector(new_sio_s);
   so_s    <= en3_i and (en0_i or sio_q(3));
-  sk_s    <= skl_q and (en0_i or phi1_i);
+  sk_s    <= phi1_en_q and (en0_i or phi1_i);
   so_o    <= io_out_f(dat => so_s, opt => opt_so_output_type_g);
   so_en_o <= io_en_f (en  => vdd_s,
                       dat => so_s, opt => opt_so_output_type_g);
@@ -282,4 +292,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
