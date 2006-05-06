@@ -2,6 +2,8 @@
 #
 # Makefile for the T400 Core project.
 #
+# $Id: Makefile,v 1.2 2006-05-06 02:04:27 arniml Exp $
+#
 # The dependencies for all VHDL source files are stored here.
 #
 # Copyright (c) 2006, Arnim Laeuger (arnim.laeuger@gmx.net)
@@ -250,16 +252,6 @@ work/t410_rom-lpm-c.o: $(BENCH_DIR)/t410_rom-lpm-c.vhd \
                        work/t410_rom-lpm-a.o
 	$(ANALYZE) $<
 
-work/tb_core.o: $(BENCH_DIR)/tb_core.vhd     \
-                work/t400_opt_pack-p.o       \
-                work/t400_core_comp_pack-p.o
-	$(ANALYZE) $<
-work/tb_core-c.o: $(BENCH_DIR)/tb_core-c.vhd \
-                  work/t400_core-c.o         \
-                  work/lpm_ram_dq.o          \
-                  work/tb_core.o
-	$(ANALYZE) $<
-
 work/tb_t411.o: $(BENCH_DIR)/tb_t411.vhd       \
                 work/t400_opt_pack-p.o         \
                 work/t400_system_comp_pack-p.o
@@ -273,22 +265,18 @@ work/tb_t411-c.o: $(BENCH_DIR)/tb_t411-c.vhd \
 
 
 .PHONY: elaborate
-elaborate: tb_core_behav_c0 tb_t411_behav_c0
-
-tb_core_behav_c0: work/tb_core-c.o
-	$(ELABORATE) $@
+elaborate: tb_t411_behav_c0
 
 tb_t411_behav_c0: work/tb_t411-c.o
 	$(ELABORATE) $@
 
 
 .PHONY: analyze
-analyze: work work/tb_core-c.o work/tb_t411-c.o
+analyze: work work/tb_t411-c.o
 
 
 .PHONY: clean
 clean:
 	rm -rf *~ UNUSED *hex \
-        tb_core_behav_c0      \
         tb_t411_behav_c0      \
         work
