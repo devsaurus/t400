@@ -2,7 +2,7 @@
 --
 -- The serial input/output unit.
 --
--- $Id: t400_sio.vhd,v 1.2 2006-05-06 13:34:58 arniml Exp $
+-- $Id: t400_sio.vhd,v 1.3 2006-05-07 02:24:16 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -186,6 +186,7 @@ begin
   new_sio: process (out_en_i,
                     en0_i,
                     sio_q,
+                    si_q,
                     dec_sio_s)
   begin
     -- default value
@@ -292,6 +293,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/06 13:34:58  arniml
+-- phi1_en_q is dedicated enable for PHI1 clock to suppress glitches on sk_o
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --

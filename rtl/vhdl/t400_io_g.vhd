@@ -2,7 +2,7 @@
 --
 -- The G port controller.
 --
--- $Id: t400_io_g.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id: t400_io_g.vhd,v 1.2 2006-05-07 02:24:16 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -126,7 +126,8 @@ begin
   -- Purpose:
   --   Implements the output driver data and enable.
   --
-  out_driver: process (g_q)
+  out_driver: process (g_q,
+                       vdd_s)
   begin
     -- bit 3
     io_g_o(3)    <= io_out_f(dat => g_q(3),
@@ -163,4 +164,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------

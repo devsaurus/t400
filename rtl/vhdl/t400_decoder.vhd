@@ -3,7 +3,7 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id: t400_decoder.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id: t400_decoder.vhd,v 1.2 2006-05-07 02:24:16 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -259,7 +259,7 @@ begin
   decoder_ctrl: process (icyc_en_i,
                          out_en_i, in_en_i,
                          cyc_cnt_q,
-                         mnemonic_s, second_cyc_q, last_cycle_s,
+                         mnemonic_q, second_cyc_q, last_cycle_s,
                          ibyte1_q, ibyte2_q,
                          skip_i, skip_lbi_i,
                          pm_addr_i, pm_data_i)
@@ -785,4 +785,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
