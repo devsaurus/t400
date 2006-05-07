@@ -1,17 +1,20 @@
 -------------------------------------------------------------------------------
--- $Id: t400_por-c.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id: t400_por-c.vhd,v 1.2 2006-05-07 01:49:16 arniml Exp $
 -------------------------------------------------------------------------------
 
-configuration t400_por_cyclone_c0 of t400_por is
+configuration t400_por_rtl_c0 of t400_por is
 
   for cyclone
   end for;
 
-end t400_por_cyclone_c0;
+end t400_por_rtl_c0;
 
 
 -------------------------------------------------------------------------------
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
