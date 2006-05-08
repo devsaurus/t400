@@ -2,7 +2,7 @@
 --
 -- T410/411 controller toplevel without tri-states.
 --
--- $Id: t410_notri.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id: t410_notri.vhd,v 1.2 2006-05-08 02:36:38 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -131,7 +131,7 @@ begin
   core_b : t400_core
     generic map (
       opt_type_g           => t400_opt_type_410_c,
-      opt_ck_div_g         => t400_opt_ck_div_16_c,
+      opt_ck_div_g         => opt_ck_div_g,
       opt_cko_g            => opt_cko_g,
       opt_l_out_type_7_g   => opt_l_out_type_7_g,
       opt_l_out_type_6_g   => opt_l_out_type_6_g,
@@ -230,4 +230,7 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
