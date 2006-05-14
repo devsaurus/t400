@@ -12,7 +12,7 @@ all: $(TARGETS)
 t41x: $(SIM_DIR)/rom_41x.hex
 
 .PHONY: t42x
-t42x:
+t42x: $(SIM_DIR)/rom_42x.hex
 
 $(SIM_DIR)/rom_41x.hex: $(MODULE)_41x.p
 	p2hex $< $@
