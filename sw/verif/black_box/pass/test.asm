@@ -1,11 +1,11 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-14 22:32:37 arniml Exp $
 	;;
 	;; Pass test.
 	;; Always finds the pass mark.
 	;;
 
-	CPU	COP410
+	;; the cpu type is defined on asl's command line
 
 	org	0x00
 	clra
