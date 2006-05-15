@@ -2,7 +2,7 @@
 --
 -- Testbench for the T411 system toplevel.
 --
--- $Id: tb_t411.vhd,v 1.2 2006-05-06 13:34:25 arniml Exp $
+-- $Id: tb_t411.vhd,v 1.3 2006-05-15 21:56:02 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -50,9 +50,9 @@ end tb_t411;
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 use work.t400_system_comp_pack.t411;
+use work.tb_pack.tb_elems;
 
 architecture behav of tb_t411 is
 
@@ -76,7 +76,6 @@ architecture behav of tb_t411 is
 
 begin
 
-  en_ck_s   <= 'H';
 
   vdd_s     <= '1';
   reset_n_s <= '1';
@@ -103,181 +102,23 @@ begin
 
 
   -----------------------------------------------------------------------------
-  -- Pass/fail catcher
+  -- Testbench elements
   -----------------------------------------------------------------------------
-  pass_fail: process (io_l_s)
-    type pass_fail_t is (IDLE,
-                         GOT_0, GOT_A, GOT_5);
-    variable state_v : pass_fail_t := IDLE;
-    variable sig_v   : std_logic_vector(3 downto 0);
-  begin
-    sig_v := to_X01(io_l_s(7 downto 4));
-
-    case state_v is
-      when IDLE =>
-        en_ck_s <= 'Z';
-        if sig_v = "0000" then
-          state_v := GOT_0;
-        end if;
-      when GOT_0 =>
-        if    sig_v = "1010" then
-          state_v := GOT_A;
-        elsif sig_v /= "0000" then
-          state_v := IDLE;
-        end if;
-      when GOT_A =>
-        if    sig_v = "0101" then
-          state_v := GOT_5;
-        elsif sig_v /= "1010" then
-          state_v := IDLE;
-        end if;
-      when GOT_5 =>
-        if    sig_v = "0000" then
-          en_ck_s <= '0';
-          assert false
-            report "Simulation finished with PASS."
-            severity note;
-        elsif sig_v = "1111" then
-          en_ck_s <= '0';
-          assert false
-            report "Simulation finished with FAIL."
-            severity note;
-        elsif sig_v /= "0101" then
-          state_v := IDLE;
-        end if;
-    end case;
-  end process pass_fail;
-
-
-  -----------------------------------------------------------------------------
-  -- D monitor
-  -----------------------------------------------------------------------------
-  d_moni: process (io_d_s)
-    type d_moni_t is (IDLE,
-                      STEP_1, STEP_2);
-    variable state_v : d_moni_t := IDLE;
-    variable sig_v   : unsigned(3 downto 0);
-  begin
-    sig_v := (others => '0');
-    sig_v(io_d_s'range) := unsigned(to_X01(io_d_s));
-
-    case state_v is
-      when IDLE =>
-        en_ck_s   <= 'Z';
-        if sig_v = 1 then
-          state_v := STEP_1;
-        end if;
-      when STEP_1 =>
-        if sig_v = 2 then
-          state_v := STEP_2;
-        else
-          state_v := IDLE;
-        end if;
-      when STEP_2 =>
-        if sig_v /= 0 then
-          state_v := IDLE;
-        else
-          en_ck_s <= '0';
-          assert false
-            report "Simulation finished with PASS (D-Port)."
-            severity note;
-        end if;
-
-      when others =>
-        null;
-    end case;
-
-  end process d_moni;
-
-
-  -----------------------------------------------------------------------------
-  -- G monitor
-  -----------------------------------------------------------------------------
-  g_moni: process (io_g_s)
-    type d_moni_t is (IDLE,
-                      STEP_1, STEP_2, STEP_3);
-    variable state_v : d_moni_t := IDLE;
-    variable sig_v   : unsigned(3 downto 0);
-  begin
-    sig_v := (others => '0');
-    sig_v(io_g_s'range) := unsigned(to_X01(io_g_s));
-
-    case state_v is
-      when IDLE =>
-        en_ck_s   <= 'Z';
-        if sig_v = 1 then
-          state_v := STEP_1;
-        end if;
-      when STEP_1 =>
-        if sig_v = 2 then
-          state_v := STEP_2;
-        else
-          state_v := IDLE;
-        end if;
-      when STEP_2 =>
-        if sig_v = 4 then
-          state_v := STEP_3;
-        else
-          state_v := IDLE;
-        end if;
-      when STEP_3 =>
-        if sig_v /= 0 then
-          state_v := IDLE;
-        else
-          en_ck_s <= '0';
-          assert false
-            report "Simulation finished with PASS (G-Port)."
-            severity note;
-        end if;
-
-      when others =>
-        null;
-    end case;
-
-  end process g_moni;
-
-
-  -----------------------------------------------------------------------------
-  -- SIO peer
-  -----------------------------------------------------------------------------
-  sio_peer: process
-  begin
-    si_s <= '0';
-
-    wait until io_l_s(4) = '0';
-
-    while io_l_s(4) = '0' loop
-      wait for 10 us;
-      si_s <= so_s xor sk_s;
-
-      wait until io_l_s'event or so_s'event or sk_s'event;
-    end loop;
-
-    -- now feed SO back to SI upon SK edge
-    loop
-      wait until sk_s'event and sk_s = '1';
-      wait for 10 us;
-      si_s <= so_s;
-    end loop;
-
-    wait;
-  end process sio_peer;
-
-
-  -----------------------------------------------------------------------------
-  -- Clock generator
-  -----------------------------------------------------------------------------
-  clk: process
-  begin
-    ck_s <= '0';
-    wait for period_c / 2;
-    ck_s <= '1';
-    wait for period_c / 2;
-
-    if to_X01(en_ck_s) /= '1' then
-      wait;
-    end if;
-  end process clk;
+  tb_elems_b : tb_elems
+    generic map (
+      period_g  => period_c,
+      d_width_g => 2,
+      g_width_g => 3
+    )
+    port map (
+      io_l_i => io_l_s,
+      io_d_i => io_d_s,
+      io_g_i => io_g_s,
+      so_i   => so_s,
+      si_o   => si_s,
+      sk_i   => sk_s,
+      ck_o   => ck_s
+    );
 
 end behav;
 
@@ -286,6 +127,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/06 13:34:25  arniml
+-- remove delta cycle filter on sk_s
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
