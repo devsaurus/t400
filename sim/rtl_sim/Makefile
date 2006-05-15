@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.2 2006-05-06 02:04:27 arniml Exp $
+# $Id: Makefile,v 1.3 2006-05-15 22:22:49 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -207,6 +207,8 @@ work/t400_core_comp_pack-p.o: $(RTL_DIR)/t400_core_comp_pack-p.vhd \
 #
 work/t410_rom-e.o: $(SYSTEM_DIR)/t410_rom-e.vhd
 	$(ANALYZE) $<
+work/t420_rom-e.o: $(SYSTEM_DIR)/t420_rom-e.vhd
+	$(ANALYZE) $<
 
 work/t410_notri.o: $(SYSTEM_DIR)/t410_notri.vhd \
                    work/t400_opt_pack-p.o       \
@@ -221,6 +223,19 @@ work/t410_notri-c.o: $(SYSTEM_DIR)/t410_notri-c.vhd \
                      work/t410_notri.o
 	$(ANALYZE) $<
 
+work/t420_notri.o: $(SYSTEM_DIR)/t420_notri.vhd \
+                   work/t400_opt_pack-p.o       \
+                   work/t400_core_comp_pack-p.o \
+                   work/t400_tech_comp_pack-p.o
+	$(ANALYZE) $<
+work/t420_notri-c.o: $(SYSTEM_DIR)/t420_notri-c.vhd \
+                     work/t400_core-c.o             \
+                     work/generic_ram-c.o           \
+                     work/t420_rom-lpm-c.o          \
+                     work/t400_por-c.o              \
+                     work/t420_notri.o
+	$(ANALYZE) $<
+
 work/t400_system_comp_pack-p.o: $(SYSTEM_DIR)/t400_system_comp_pack-p.vhd
 	$(ANALYZE) $<
 
@@ -231,6 +246,14 @@ work/t411-c.o: $(SYSTEM_DIR)/t411-c.vhd \
                work/t410_notri-c.o      \
                work/t411.o
 	$(ANALYZE) $<
+
+work/t420.o: $(SYSTEM_DIR)/t420.vhd         \
+             work/t400_system_comp_pack-p.o
+	$(ANALYZE) $<
+work/t420-c.o: $(SYSTEM_DIR)/t420-c.vhd \
+               work/t420_notri-c.o      \
+               work/t420.o
+	$(ANALYZE) $<
 #
 ##############################################################################
 
@@ -238,6 +261,9 @@ work/t411-c.o: $(SYSTEM_DIR)/t411-c.vhd \
 ##############################################################################
 # Testbenches
 #
+work/tb_pack-p.o: $(BENCH_DIR)/tb_pack-p.vhd
+	$(ANALYZE) $<
+
 work/lpm_rom.o: $(BENCH_DIR)/lpm_rom.vhd
 	$(ANALYZE) $<
 
@@ -252,31 +278,62 @@ work/t410_rom-lpm-c.o: $(BENCH_DIR)/t410_rom-lpm-c.vhd \
                        work/t410_rom-lpm-a.o
 	$(ANALYZE) $<
 
+work/t420_rom-lpm-a.o: $(BENCH_DIR)/t420_rom-lpm-a.vhd \
+                       work/t420_rom-e.o
+	$(ANALYZE) $<
+work/t420_rom-lpm-c.o: $(BENCH_DIR)/t420_rom-lpm-c.vhd \
+                       work/lpm_rom.o                  \
+                       work/t420_rom-lpm-a.o
+	$(ANALYZE) $<
+
+work/tb_elems.o: $(BENCH_DIR)/tb_elems.vhd
+	$(ANALYZE) $<
+work/tb_elems-c.o: $(BENCH_DIR)/tb_elems-c.vhd \
+                   work/tb_elems.o
+	$(ANALYZE) $<
+
 work/tb_t411.o: $(BENCH_DIR)/tb_t411.vhd       \
                 work/t400_opt_pack-p.o         \
+                work/tb_pack-p.o               \
                 work/t400_system_comp_pack-p.o
 	$(ANALYZE) $<
 work/tb_t411-c.o: $(BENCH_DIR)/tb_t411-c.vhd \
                   work/t411-c.o              \
+                  work/tb_elems-c.o          \
                   work/tb_t411.o
 	$(ANALYZE) $<
 
+work/tb_t420.o: $(BENCH_DIR)/tb_t420.vhd       \
+                work/t400_opt_pack-p.o         \
+                work/tb_pack-p.o               \
+                work/t400_system_comp_pack-p.o
+	$(ANALYZE) $<
+work/tb_t420-c.o: $(BENCH_DIR)/tb_t420-c.vhd \
+                  work/t420-c.o              \
+                  work/tb_elems-c.o          \
+                  work/tb_t420.o
+	$(ANALYZE) $<
+#
 ##############################################################################
 
 
 .PHONY: elaborate
-elaborate: tb_t411_behav_c0
+elaborate: tb_t411_behav_c0 tb_t420_behav_c0
 
 tb_t411_behav_c0: work/tb_t411-c.o
 	$(ELABORATE) $@
 
+tb_t420_behav_c0: work/tb_t420-c.o
+	$(ELABORATE) $@
+
 
 .PHONY: analyze
-analyze: work work/tb_t411-c.o
+analyze: work work/tb_t411-c.o work/tb_t420-c.o
 
 
 .PHONY: clean
 clean:
 	rm -rf *~ UNUSED *hex \
         tb_t411_behav_c0      \
+        tb_t420_behav_c0      \
         work
