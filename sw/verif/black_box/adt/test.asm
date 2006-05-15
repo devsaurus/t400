@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-15 23:36:16 arniml Exp $
 	;;
 	;; Checks the ADT instruction.
 	;;
@@ -15,7 +15,18 @@
 	smb	0x1
 	rmb	0x0
 
-	;; test a0 + 10
+	;; test 0 + 10
+	adt
+	ske
+	jmp	fail
+
+	;; preload M0 with 0x4
+	rmb	0x3
+	smb	0x2
+	rmb	0x1
+	rmb	0x0
+
+	;; test 0xa + 10
 	adt
 	ske
 	jmp	fail
