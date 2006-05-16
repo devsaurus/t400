@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-16 23:43:45 arniml Exp $
 	;;
 	;; Checks the ASC instruction.
 	;;
@@ -126,7 +126,7 @@ ok_a5_m5_c1_c:
 	jmp	fail
 	skc
 	jmp	fail
-	aisc	16+5 - 21
+	;; aisc	16+5 - 21
 	nop
 	ske
 	jmp	fail
@@ -177,7 +177,7 @@ ok_a0_m15_c0_c:
 	jmp	fail
 	skc
 	jmp	fail
-	aisc	16+15 - 31
+	;; aisc	16+15 - 31
 	nop
 	ske
 	jmp	fail
