@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-16 22:54:07 arniml Exp $
 	;;
 	;; Checks the OGI instruction.
 	;;
@@ -18,14 +18,11 @@
 	;; output 4 on G
 	ogi	0x4
 
-	;; output 0 on G
-	ogi     0x0
-
 	;; output 8 on G
 	ogi	0x8
 
-	;; output 0 on G
-	ogi	0x0
+	;; output f on G
+	ogi	0xf
 
 	jmp	fail
 
