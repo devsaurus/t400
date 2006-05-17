@@ -2,7 +2,7 @@
 --
 -- T420 system toplevel.
 --
--- $Id: t420.vhd,v 1.1 2006-05-14 22:29:01 arniml Exp $
+-- $Id: t420.vhd,v 1.2 2006-05-17 00:38:31 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -92,8 +92,7 @@ architecture struct of t420 is
          io_l_en_s         : std_logic_vector(7 downto 0);
   signal io_d_from_t420_s,
          io_d_en_s         : std_logic_vector(3 downto 0);
-  signal io_g_to_t420_s,
-         io_g_from_t420_s,
+  signal io_g_from_t420_s,
          io_g_en_s         : std_logic_vector(3 downto 0);
 
   signal so_s,
@@ -143,7 +142,7 @@ begin
       io_l_en_o => io_l_en_s,
       io_d_o    => io_d_from_t420_s,
       io_d_en_o => io_d_en_s,
-      io_g_i    => io_g_to_t420_s,
+      io_g_i    => io_g_b,
       io_g_o    => io_g_from_t420_s,
       io_g_en_o => io_g_en_s,
       io_in_i   => io_in_i,
@@ -191,4 +190,7 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2006/05/14 22:29:01  arniml
+-- initial check-in
+--
 -------------------------------------------------------------------------------
