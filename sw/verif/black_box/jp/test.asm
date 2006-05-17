@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-17 00:29:52 arniml Exp $
 	;;
 	;; Checks the JP instruction.
 	;; Both for pages 2,3 and other pages.
@@ -169,7 +169,7 @@ page_10_loc:
 	jmp	page_11
 	jmp	fail
 
-	org	0x2fc - 2
+	org	0x2fa - 2
 	jmp	fail
 page_11:
 	jp	page_11_loc
