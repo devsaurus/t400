@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-17 00:39:13 arniml Exp $
 	;;
 	;; Checks the OMG and ING instructions.
 	;;
@@ -48,16 +48,8 @@
 	ske
 	jmp	fail
 
-	;; output 0 on G
-	;; note: last action on COP411L
-	clra
-	x	0x0
-	omg
-	ing
-	ske
-	jmp	fail
-
 	;; output 8 on G
+	;; note: last action on COP411L
 	clra
 	aisc	0x8
 	x	0x0
@@ -66,8 +58,9 @@
 	ske
 	jmp	fail
 
-	;; output 0 on G
+	;; output 0xf on G
 	clra
+	aisc	0xf
 	x	0x0
 	omg
 	ing
