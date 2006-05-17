@@ -2,7 +2,7 @@
 --
 -- Generic testbench elements
 --
--- $Id: tb_elems.vhd,v 1.1 2006-05-15 21:55:27 arniml Exp $
+-- $Id: tb_elems.vhd,v 1.2 2006-05-17 00:47:45 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -170,7 +170,8 @@ begin
   -----------------------------------------------------------------------------
   g_moni: process (io_g_i)
     type d_moni_t is (IDLE,
-                      STEP_1, STEP_2, STEP_3);
+                      STEP_1, STEP_2, STEP_3,
+                      STEP_4);
     variable state_v : d_moni_t := IDLE;
     variable sig_v   : unsigned(3 downto 0);
   begin
@@ -196,7 +197,18 @@ begin
           state_v := IDLE;
         end if;
       when STEP_3 =>
-        if sig_v /= 0 then
+        if    sig_v = 8 then
+          state_v := STEP_4;
+        elsif sig_v /= 0 then
+          state_v := IDLE;
+        else
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with PASS (G-Port)."
+            severity note;
+        end if;
+      when STEP_4 =>
+        if sig_v /= 15 then
           state_v := IDLE;
         else
           en_ck_s <= '0';
@@ -261,4 +273,7 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2006/05/15 21:55:27  arniml
+-- initial check-in
+--
 -------------------------------------------------------------------------------
