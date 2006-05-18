@@ -2,7 +2,7 @@
 --
 -- Generic testbench elements
 --
--- $Id: tb_elems.vhd,v 1.2 2006-05-17 00:47:45 arniml Exp $
+-- $Id: tb_elems.vhd,v 1.3 2006-05-18 00:24:18 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -129,7 +129,8 @@ begin
   -----------------------------------------------------------------------------
   d_moni: process (io_d_i)
     type d_moni_t is (IDLE,
-                      STEP_1, STEP_2);
+                      STEP_1, STEP_2,
+                      STEP_3, STEP_4);
     variable state_v : d_moni_t := IDLE;
     variable sig_v   : unsigned(3 downto 0);
   begin
@@ -149,12 +150,37 @@ begin
           state_v := IDLE;
         end if;
       when STEP_2 =>
-        if sig_v /= 0 then
+        if    sig_v = 4 then
+          state_v := STEP_3;
+        elsif sig_v /= 0 then
           state_v := IDLE;
         else
+          -- sim finished for 2-bit D ports
           en_ck_s <= '0';
           assert false
-            report "Simulation finished with PASS (D-Port)."
+            report "Simulation finished with PASS (D-Port 2 bit)."
+            severity note;
+        end if;
+      when STEP_3 =>
+        if    sig_v = 8 then
+          state_v := STEP_4;
+        elsif sig_v /= 0 then
+          state_v := IDLE;
+        else
+          -- sim finished for 3-bit D ports
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with PASS (D-Port 3 bit)."
+            severity note;
+        end if;
+      when STEP_4 =>
+        if sig_v /= 15 then
+          state_v := IDLE;
+        else
+          -- sim finished for 4-bit D ports
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with PASS (D-Port 4 bit)."
             severity note;
         end if;
 
@@ -202,18 +228,20 @@ begin
         elsif sig_v /= 0 then
           state_v := IDLE;
         else
+          -- sim finished for 3-bit G ports
           en_ck_s <= '0';
           assert false
-            report "Simulation finished with PASS (G-Port)."
+            report "Simulation finished with PASS (G-Port 3 bit)."
             severity note;
         end if;
       when STEP_4 =>
         if sig_v /= 15 then
           state_v := IDLE;
         else
+          -- sim finished for 4-bit G ports
           en_ck_s <= '0';
           assert false
-            report "Simulation finished with PASS (G-Port)."
+            report "Simulation finished with PASS (G-Port 4 bit)."
             severity note;
         end if;
 
@@ -273,6 +301,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/17 00:47:45  arniml
+-- enhance G-port check for T420
+--
 -- Revision 1.1  2006/05/15 21:55:27  arniml
 -- initial check-in
 --
