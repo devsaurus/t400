@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-18 00:22:43 arniml Exp $
 	;;
 	;; Checks the OBD instruction.
 	;;
@@ -19,18 +19,19 @@
 	cab
 	obd
 
-	;; output 0 on D
-	clra
-	cab
-	obd
-
 	;; output 4 on D
-	aisc	0x4
+	;; note: last action on COP411L
+	aisc	0x2
 	cab
 	obd
 
 	;; output 8 on D
 	aisc	0x4
+	cab
+	obd
+
+	;; output 0xf on D
+	aisc	0x7
 	cab
 	obd
 
