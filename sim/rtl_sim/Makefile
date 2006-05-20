@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.3 2006-05-15 22:22:49 arniml Exp $
+# $Id: Makefile,v 1.4 2006-05-20 02:48:36 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -174,6 +174,13 @@ work/t400_sio-c.o: $(RTL_DIR)/t400_sio-c.vhd \
                    work/t400_sio.o
 	$(ANALYZE) $<
 
+work/t400_timer.o: $(RTL_DIR)/t400_timer.vhd \
+                   work/t400_pack-p.o
+	$(ANALYZE) $<
+work/t400_timer-c.o: $(RTL_DIR)/t400_timer-c.vhd \
+                     work/t400_timer.o
+	$(ANALYZE) $<
+
 work/t400_core.o: $(RTL_DIR)/t400_core.vhd \
                   work/t400_opt_pack-p.o   \
                   work/t400_pack-p.o       \
@@ -192,6 +199,7 @@ work/t400_core-c.o: $(RTL_DIR)/t400_core-c.vhd \
                     work/t400_io_d-c.o         \
                     work/t400_io_g-c.o         \
                     work/t400_sio-c.o          \
+                    work/t400_timer-c.o        \
                     work/t400_core.o
 	$(ANALYZE) $<
 
