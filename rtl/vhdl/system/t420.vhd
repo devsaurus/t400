@@ -2,7 +2,7 @@
 --
 -- T420 system toplevel.
 --
--- $Id: t420.vhd,v 1.2 2006-05-17 00:38:31 arniml Exp $
+-- $Id: t420.vhd,v 1.3 2006-05-20 02:49:04 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -51,7 +51,7 @@ use work.t400_opt_pack.all;
 entity t420 is
 
   generic (
-    opt_ck_div_g         : integer := t400_opt_ck_div_16_c;
+    opt_ck_div_g         : integer := t400_opt_ck_div_8_c;
     opt_l_out_type_7_g   : integer := t400_opt_out_type_std_c;
     opt_l_out_type_6_g   : integer := t400_opt_out_type_std_c;
     opt_l_out_type_5_g   : integer := t400_opt_out_type_std_c;
@@ -190,6 +190,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/17 00:38:31  arniml
+-- connect missing input direction for IO G
+--
 -- Revision 1.1  2006/05/14 22:29:01  arniml
 -- initial check-in
 --
