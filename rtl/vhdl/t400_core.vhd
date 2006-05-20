@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id: t400_core.vhd,v 1.2 2006-05-20 02:48:17 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -159,6 +159,7 @@ architecture struct of t400_core is
 
   signal skip_s,
          skip_lbi_s      : boolean;
+  signal tim_c_s         : boolean;
 
   signal in_s,
          il_s            : dw_t;
@@ -310,7 +311,7 @@ begin
       a_i        => a_s,
       m_i        => dm_data_i,
       g_i        => io_g_i,
-      tim_c_i    => gnd4_s(0),
+      tim_c_i    => tim_c_s,
       skip_o     => skip_s,
       skip_lbi_o => skip_lbi_s
     );
@@ -465,6 +466,26 @@ begin
       sk_en_o    => sk_en_o
     );
 
+
+  -----------------------------------------------------------------------------
+  -- Timer module
+  -----------------------------------------------------------------------------
+  tim: if opt_type_g = t400_opt_type_420_c generate
+    timer_b : t400_timer
+      port map (
+        ck_i      => ck_i,
+        ck_en_i   => ck_en_s,
+        por_i     => por_s,
+        icyc_en_i => icyc_en_s,
+        op_i      => skip_op_s,
+        c_o       => tim_c_s
+      );
+  end generate;
+
+  notim: if opt_type_g /= t400_opt_type_420_c generate
+    tim_c_s <= false;
+  end generate;
+
 end struct;
 
 
@@ -472,4 +493,7 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id: t400_comp_pack-p.vhd,v 1.2 2006-05-20 02:48:17 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -192,7 +192,7 @@ package t400_comp_pack is
       a_i        : in  dw_t;
       m_i        : in  dw_t;
       g_i        : in  dw_t;
-      tim_c_i    : in  std_logic;
+      tim_c_i    : in  boolean;
       skip_o     : out boolean;
       skip_lbi_o : out boolean
     );
@@ -309,6 +309,19 @@ package t400_comp_pack is
     );
   end component;
 
+  component t400_timer
+    port (
+      -- System Interface -----------------------------------------------------
+      ck_i      : in  std_logic;
+      ck_en_i   : in  boolean;
+      por_i     : in  boolean;
+      icyc_en_i : in  boolean;
+      -- Skip Interface -------------------------------------------------------
+      op_i      : in  skip_op_t;
+      c_o       : out boolean
+    );
+  end component;
+
 end t400_comp_pack;
 
 
@@ -316,4 +329,7 @@ end t400_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
