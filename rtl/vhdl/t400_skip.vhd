@@ -3,7 +3,7 @@
 -- The skip unit.
 -- Skip conditions are checked here and communicated to the decoder unit.
 --
--- $Id: t400_skip.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id: t400_skip.vhd,v 1.2 2006-05-20 02:47:52 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -65,7 +65,7 @@ entity t400_skip is
     a_i        : in  dw_t;
     m_i        : in  dw_t;
     g_i        : in  dw_t;
-    tim_c_i    : in  std_logic;
+    tim_c_i    : in  boolean;
     skip_o     : out boolean;
     skip_lbi_o : out boolean
   );
@@ -160,7 +160,7 @@ begin
 
             -- skip on timer carry --------------------------------------------
             when SKIP_TIMER =>
-              -- NOT YET IMPLEMENTED!
+              skip_next_q <= tim_c_i;
               null;
 
             when others =>
@@ -187,4 +187,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
