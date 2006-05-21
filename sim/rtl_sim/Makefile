@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.4 2006-05-20 02:48:36 arniml Exp $
+# $Id: Makefile,v 1.5 2006-05-21 21:48:24 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -100,7 +100,8 @@ work/t400_pmem_ctrl-c.o: $(RTL_DIR)/t400_pmem_ctrl-c.vhd \
 	$(ANALYZE) $<
 
 work/t400_alu.o: $(RTL_DIR)/t400_alu.vhd \
-                 work/t400_pack-p.o
+                 work/t400_pack-p.o      \
+                 work/t400_opt_pack-p.o
 	$(ANALYZE) $<
 work/t400_alu-c.o: $(RTL_DIR)/t400_alu-c.vhd \
                    work/t400_alu.o
