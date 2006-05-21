@@ -1,7 +1,7 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-05-21 03:09:13 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-21 17:30:32 arniml Exp $
 	;;
-	;; Checks the LQID instruction.
+	;; Checks the LQID and INL instruction.
 	;;
 
 	;; the cpu type is defined on asl's command line
