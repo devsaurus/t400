@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.2 2006-05-20 02:48:17 arniml Exp $
+-- $Id: t400_core.vhd,v 1.3 2006-05-21 21:47:40 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -321,11 +321,15 @@ begin
   -- ALU
   -----------------------------------------------------------------------------
   alu_b : t400_alu
+    generic map (
+      opt_cko_g => opt_cko_g
+    )
     port map (
       ck_i       => ck_i,
       ck_en_i    => ck_en_s,
       por_i      => por_s,
       res_i      => res_s,
+      cko_i      => cko_i,
       op_i       => alu_op_s,
       m_i        => dm_data_i,
       dec_data_i => dec_data_s,
@@ -493,6 +497,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/20 02:48:17  arniml
+-- timer module included
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --

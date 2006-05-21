@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.2 2006-05-20 02:48:17 arniml Exp $
+-- $Id: t400_comp_pack-p.vhd,v 1.3 2006-05-21 21:47:40 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -86,12 +86,16 @@ package t400_comp_pack is
   end component;
 
   component t400_alu
+    generic (
+      opt_cko_g : integer := t400_opt_cko_crystal_c
+    );
     port (
       -- System Interface -----------------------------------------------------
       ck_i       : in  std_logic;
       ck_en_i    : in  boolean;
       por_i      : in  boolean;
       res_i      : in  boolean;
+      cko_i      : in  std_logic;
       -- Control Interface ----------------------------------------------------
       op_i       : in  alu_op_t;
       -- Data Interface -------------------------------------------------------
@@ -329,6 +333,9 @@ end t400_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/20 02:48:17  arniml
+-- timer module included
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
