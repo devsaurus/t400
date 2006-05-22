@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.3 2006-05-21 21:47:40 arniml Exp $
+-- $Id: t400_core.vhd,v 1.4 2006-05-22 00:03:29 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -153,6 +153,7 @@ architecture struct of t400_core is
   signal io_l_op_s       : io_l_op_t;
   signal io_d_op_s       : io_d_op_t;
   signal io_g_op_s       : io_g_op_t;
+  signal io_in_op_s      : io_in_op_t;
   signal sio_op_s        : sio_op_t;
   signal is_lbi_s        : boolean;
   signal en_s            : dw_t;
@@ -161,8 +162,7 @@ architecture struct of t400_core is
          skip_lbi_s      : boolean;
   signal tim_c_s         : boolean;
 
-  signal in_s,
-         il_s            : dw_t;
+  signal in_s            : dw_t;
 
   signal vdd_s  : std_logic;
   signal gnd4_s : dw_t;
@@ -172,11 +172,9 @@ begin
   -- dummies
   vdd_s  <= '1';
   gnd4_s <= (others => '0');
-  in_s   <= (others => '0');
-  il_s   <= (others => '0');
 
   ck_en_s <= ck_en_i = '1';
-  por_s   <= por_n_i  = '0';
+  por_s   <= por_n_i = '0';
 
   -----------------------------------------------------------------------------
   -- Clock generator
@@ -282,6 +280,7 @@ begin
       io_l_op_o  => io_l_op_s,
       io_d_op_o  => io_d_op_s,
       io_g_op_o  => io_g_op_s,
+      io_in_op_o => io_in_op_s,
       sio_op_o   => sio_op_s,
       dec_data_o => dec_data_s,
       is_lbi_o   => is_lbi_s,
@@ -337,7 +336,6 @@ begin
       b_i        => b_s,
       g_i        => io_g_i,
       in_i       => in_s,
-      il_i       => il_s,
       sio_i      => sio_s,
       a_o        => a_s,
       carry_o    => carry_s,
@@ -419,7 +417,7 @@ begin
 
 
   -----------------------------------------------------------------------------
-  -- IO G modle
+  -- IO G module
   -----------------------------------------------------------------------------
   io_g_b : t400_io_g
     generic map (
@@ -439,6 +437,29 @@ begin
       io_g_o     => io_g_o,
       io_g_en_o  => io_g_en_o
     );
+
+
+  -----------------------------------------------------------------------------
+  -- IO IN module
+  -----------------------------------------------------------------------------
+  use_in: if opt_type_g = t400_opt_type_420_c generate
+    io_in_b : t400_io_in
+      port map (
+        ck_i    => ck_i,
+        ck_en_i => ck_en_s,
+        por_i   => por_s,
+        in_en_i => in_en_s,
+        op_i    => io_in_op_s,
+        en1_i   => en_s(1),
+        io_in_i => io_in_i,
+        in_o    => in_s,
+        int_o   => open
+      );
+  end generate;
+
+  no_in: if opt_type_g /= t400_opt_type_420_c generate
+    in_s <= (others => '0');
+  end generate;
 
 
   -----------------------------------------------------------------------------
@@ -474,7 +495,7 @@ begin
   -----------------------------------------------------------------------------
   -- Timer module
   -----------------------------------------------------------------------------
-  tim: if opt_type_g = t400_opt_type_420_c generate
+  use_tim: if opt_type_g = t400_opt_type_420_c generate
     timer_b : t400_timer
       port map (
         ck_i      => ck_i,
@@ -497,6 +518,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/21 21:47:40  arniml
+-- route cko to ALU for INIL instruction
+--
 -- Revision 1.2  2006/05/20 02:48:17  arniml
 -- timer module included
 --

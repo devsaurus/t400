@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.3 2006-05-21 21:47:40 arniml Exp $
+-- $Id: t400_comp_pack-p.vhd,v 1.4 2006-05-22 00:03:08 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -105,7 +105,6 @@ package t400_comp_pack is
       b_i        : in  b_t;
       g_i        : in  dw_t;
       in_i       : in  dw_t;
-      il_i       : in  dw_t;
       sio_i      : in  dw_t;
       a_o        : out dw_t;
       carry_o    : out std_logic;
@@ -170,6 +169,7 @@ package t400_comp_pack is
       io_l_op_o  : out io_l_op_t;
       io_d_op_o  : out io_d_op_t;
       io_g_op_o  : out io_g_op_t;
+      io_in_op_o : out io_in_op_t;
       sio_op_o   : out sio_op_t;
       dec_data_o : out dec_data_t;
       is_lbi_o   : out boolean;
@@ -282,6 +282,23 @@ package t400_comp_pack is
     );
   end component;
 
+  component t400_io_in
+    port (
+      -- System Interface -----------------------------------------------------
+      ck_i    : in  std_logic;
+      ck_en_i : in  boolean;
+      por_i   : in  boolean;
+      in_en_i : in  boolean;
+      -- Control Interface ----------------------------------------------------
+      op_i    : in  io_in_op_t;
+      en1_i   : in  std_logic;
+      -- Port Interface -------------------------------------------------------
+      io_in_i : in  dw_t;
+      in_o    : out dw_t;
+      int_o   : out boolean
+    );
+  end component;
+
   component t400_sio
     generic (
       opt_so_output_type_g : integer := t400_opt_out_type_std_c;
@@ -333,6 +350,9 @@ end t400_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/21 21:47:40  arniml
+-- route cko to ALU for INIL instruction
+--
 -- Revision 1.2  2006/05/20 02:48:17  arniml
 -- timer module included
 --
