@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_pack-p.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id: t400_pack-p.vhd,v 1.2 2006-05-22 00:01:21 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -105,6 +105,11 @@ package t400_pack is
                          IOG_LOAD_M,
                          IOG_LOAD_DEC);
 
+  -- IO IN port operations ----------------------------------------------------
+  type    io_in_op_t is (IOIN_NONE,
+                         IOIN_INIL,
+                         IOIN_LEI);
+
   -- SIO operations -----------------------------------------------------------
   type    sio_op_t   is (SIO_NONE,
                          SIO_LOAD);
@@ -159,4 +164,7 @@ end t400_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
