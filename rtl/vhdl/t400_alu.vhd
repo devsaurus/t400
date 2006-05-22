@@ -3,7 +3,7 @@
 -- The Arithmetic Logic Unit (ALU).
 -- It contains the accumulator and the C flag.
 --
--- $Id: t400_alu.vhd,v 1.2 2006-05-21 21:47:40 arniml Exp $
+-- $Id: t400_alu.vhd,v 1.3 2006-05-22 00:01:56 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -71,7 +71,6 @@ entity t400_alu is
     b_i        : in  b_t;
     g_i        : in  dw_t;
     in_i       : in  dw_t;
-    il_i       : in  dw_t;
     sio_i      : in  dw_t;
     a_o        : out dw_t;
     carry_o    : out std_logic;
@@ -134,14 +133,14 @@ begin
           when ALU_LOAD_IN =>
             a_q <= in_i;
           when ALU_LOAD_IL =>
-            a_q(3) <= il_i(3);
+            a_q(3) <= in_i(3);
             if opt_cko_g = t400_opt_cko_gpi_c then
               a_q(2) <= cko_i;
             else
               a_q(2) <= '1';
             end if;
             a_q(1) <= '0';
-            a_q(0) <= il_i(0);
+            a_q(0) <= in_i(0);
           when ALU_LOAD_BR =>
             a_q(3 downto 2) <= (others => '0');
             a_q(1 downto 0) <= b_i(br_range_t);
@@ -255,6 +254,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/21 21:47:40  arniml
+-- route cko to ALU for INIL instruction
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
