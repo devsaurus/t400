@@ -3,7 +3,7 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id: t400_decoder.vhd,v 1.2 2006-05-07 02:24:16 arniml Exp $
+-- $Id: t400_decoder.vhd,v 1.3 2006-05-22 00:02:36 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -72,6 +72,7 @@ entity t400_decoder is
     io_l_op_o  : out io_l_op_t;
     io_d_op_o  : out io_d_op_t;
     io_g_op_o  : out io_g_op_t;
+    io_in_op_o : out io_in_op_t;
     sio_op_o   : out sio_op_t;
     dec_data_o : out dec_data_t;
     is_lbi_o   : out boolean;
@@ -276,6 +277,7 @@ begin
     io_l_op_o   <= IOL_NONE;
     io_d_op_o   <= IOD_NONE;
     io_g_op_o   <= IOG_NONE;
+    io_in_op_o  <= IOIN_NONE;
     sio_op_o    <= SIO_NONE;
     dec_data_o  <= (others => '0');
     is_lbi_o    <= false;
@@ -728,6 +730,17 @@ begin
                   alu_op_o  <= ALU_LOAD_Q;
                   dmem_op_o <= DMEM_WB_SRC_Q;
                 end if;
+              -- ININ
+              when "00101000" =>
+                if not t41x_type_v and in_en_i then
+                  alu_op_o  <= ALU_LOAD_IN;
+                end if;
+              -- INIL
+              when "00101001" =>
+                if not t41x_type_v and in_en_i then
+                  alu_op_o   <= ALU_LOAD_IL;
+                  io_in_op_o <= IOIN_INIL;
+                end if;
               -- OBD
               when "00111110" =>
                 if out_en_i then
@@ -754,6 +767,7 @@ begin
                 if ibyte2_q(7 downto 4) = "0110" and in_en_i then
                   -- dec_data_o applied by default
                   set_en_s   <= true;
+                  io_in_op_o <= IOIN_LEI;
                 end if;
                 -- OGI
                 if ibyte2_q(7 downto 4) = "0101" and out_en_i and
@@ -785,6 +799,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/07 02:24:16  arniml
+-- fix sensitivity list
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
