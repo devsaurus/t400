@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.4 2006-05-22 00:03:29 arniml Exp $
+-- $Id: t400_core.vhd,v 1.5 2006-05-23 01:13:56 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -164,6 +164,8 @@ architecture struct of t400_core is
 
   signal in_s            : dw_t;
 
+  signal io_g_s          : std_logic_vector(io_g_i'range);
+
   signal vdd_s  : std_logic;
   signal gnd4_s : dw_t;
 
@@ -175,6 +177,8 @@ begin
 
   ck_en_s <= ck_en_i = '1';
   por_s   <= por_n_i = '0';
+
+  io_g_s  <= to_X01(io_g_i);
 
   -----------------------------------------------------------------------------
   -- Clock generator
@@ -309,7 +313,7 @@ begin
       is_lbi_i   => is_lbi_s,
       a_i        => a_s,
       m_i        => dm_data_i,
-      g_i        => io_g_i,
+      g_i        => io_g_s,
       tim_c_i    => tim_c_s,
       skip_o     => skip_s,
       skip_lbi_o => skip_lbi_s
@@ -334,7 +338,7 @@ begin
       dec_data_i => dec_data_s,
       q_low_i    => q_s(3 downto 0),
       b_i        => b_s,
-      g_i        => io_g_i,
+      g_i        => io_g_s,
       in_i       => in_s,
       sio_i      => sio_s,
       a_o        => a_s,
@@ -518,6 +522,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.4  2006/05/22 00:03:29  arniml
+-- io_in added
+--
 -- Revision 1.3  2006/05/21 21:47:40  arniml
 -- route cko to ALU for INIL instruction
 --
