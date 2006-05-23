@@ -2,7 +2,7 @@
 --
 -- The IN port controller.
 --
--- $Id: t400_io_in.vhd,v 1.1 2006-05-22 00:00:55 arniml Exp $
+-- $Id: t400_io_in.vhd,v 1.2 2006-05-23 01:13:28 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -93,14 +93,14 @@ begin
     variable neg_edge_v : std_logic_vector(2 downto 0);
   begin
     if por_i then
-      neg_edge_q <= (others => (others => '1'));
+      neg_edge_q <= (others => (others => '0'));
       il_q       <= (others => '0');
 
     elsif ck_i'event and ck_i = '1' then
       -- negative edge detector filp-flops ------------------------------------
-      neg_edge_v(idx_in3_c) := io_in_i(3);
-      neg_edge_v(idx_in0_c) := io_in_i(0);
-      neg_edge_v(idx_int_c) := io_in_i(1);
+      neg_edge_v(idx_in3_c) := to_X01(io_in_i(3));
+      neg_edge_v(idx_in0_c) := to_X01(io_in_i(0));
+      neg_edge_v(idx_int_c) := to_X01(io_in_i(1));
 
       if in_en_i then
         neg_edge_q(0) <= neg_edge_v;
@@ -146,4 +146,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2006/05/22 00:00:55  arniml
+-- initial check-in
+--
 -------------------------------------------------------------------------------
