@@ -2,7 +2,7 @@
 --
 -- The L port controller.
 --
--- $Id: t400_io_l.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id: t400_io_l.vhd,v 1.2 2006-05-23 01:14:28 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -127,7 +127,7 @@ begin
       -- Microbus functionality
       if opt_microbus_g = t400_opt_microbus_c then
         if cs_n_i = '0' and wr_n_i = '0' then
-          q_q <= io_l_i;
+          q_q <= to_X01(io_l_i);
         end if;
       end if;
     end if;
@@ -139,7 +139,7 @@ begin
   -----------------------------------------------------------------------------
   -- Multiplexer providing read data to the system.
   -----------------------------------------------------------------------------
-  q_o <=   io_l_i
+  q_o <=   to_X01(io_l_i)
          when op_i = IOL_OUTPUT_L else
            q_q;
 
@@ -219,4 +219,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
