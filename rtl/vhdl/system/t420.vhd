@@ -2,7 +2,7 @@
 --
 -- T420 system toplevel.
 --
--- $Id: t420.vhd,v 1.3 2006-05-20 02:49:04 arniml Exp $
+-- $Id: t420.vhd,v 1.4 2006-05-23 01:16:05 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -52,6 +52,7 @@ entity t420 is
 
   generic (
     opt_ck_div_g         : integer := t400_opt_ck_div_8_c;
+    opt_cko_g            : integer := t400_opt_cko_crystal_c;
     opt_l_out_type_7_g   : integer := t400_opt_out_type_std_c;
     opt_l_out_type_6_g   : integer := t400_opt_out_type_std_c;
     opt_l_out_type_5_g   : integer := t400_opt_out_type_std_c;
@@ -72,6 +73,7 @@ entity t420 is
     ck_i      : in    std_logic;
     ck_en_i   : in    std_logic;
     reset_n_i : in    std_logic;
+    cko_i     : in    std_logic;
     io_l_b    : inout std_logic_vector(7 downto 0);
     io_d_o    : out   std_logic_vector(3 downto 0);
     io_g_b    : inout std_logic_vector(3 downto 0);
@@ -100,11 +102,7 @@ architecture struct of t420 is
   signal sk_s,
          sk_en_s           : std_logic;
 
-  signal gnd_s             : std_logic;
-
 begin
-
-  gnd_s <= '0';
 
   -----------------------------------------------------------------------------
   -- T420 without tri-states
@@ -112,7 +110,7 @@ begin
   t420_notri_b : t420_notri
     generic map (
       opt_ck_div_g         => opt_ck_div_g,
-      opt_cko_g            => t400_opt_cko_crystal_c,
+      opt_cko_g            => opt_cko_g,
       opt_l_out_type_7_g   => opt_l_out_type_7_g,
       opt_l_out_type_6_g   => opt_l_out_type_6_g,
       opt_l_out_type_5_g   => opt_l_out_type_5_g,
@@ -136,7 +134,7 @@ begin
       ck_i      => ck_i,
       ck_en_i   => ck_en_i,
       reset_n_i => reset_n_i,
-      cko_i     => gnd_s,
+      cko_i     => cko_i,
       io_l_i    => io_l_b,
       io_l_o    => io_l_from_t420_s,
       io_l_en_o => io_l_en_s,
@@ -190,6 +188,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/20 02:49:04  arniml
+-- select CK divide by 8
+--
 -- Revision 1.2  2006/05/17 00:38:31  arniml
 -- connect missing input direction for IO G
 --

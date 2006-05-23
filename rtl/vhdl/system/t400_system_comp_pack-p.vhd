@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_system_comp_pack-p.vhd,v 1.2 2006-05-14 22:29:33 arniml Exp $
+-- $Id: t400_system_comp_pack-p.vhd,v 1.3 2006-05-23 01:16:19 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -139,6 +139,7 @@ package t400_system_comp_pack is
   component t420
     generic (
       opt_ck_div_g         : integer := t400_opt_ck_div_16_c;
+      opt_cko_g            : integer := t400_opt_cko_crystal_c;
       opt_l_out_type_7_g   : integer := t400_opt_out_type_std_c;
       opt_l_out_type_6_g   : integer := t400_opt_out_type_std_c;
       opt_l_out_type_5_g   : integer := t400_opt_out_type_std_c;
@@ -159,6 +160,7 @@ package t400_system_comp_pack is
       ck_i      : in    std_logic;
       ck_en_i   : in    std_logic;
       reset_n_i : in    std_logic;
+      cko_i     : in    std_logic;
       io_l_b    : inout std_logic_vector(7 downto 0);
       io_d_o    : out   std_logic_vector(3 downto 0);
       io_g_b    : inout std_logic_vector(3 downto 0);
@@ -176,6 +178,9 @@ end t400_system_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/14 22:29:33  arniml
+-- t420 hierarchies added
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
