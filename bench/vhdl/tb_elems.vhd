@@ -2,7 +2,7 @@
 --
 -- Generic testbench elements
 --
--- $Id: tb_elems.vhd,v 1.3 2006-05-18 00:24:18 arniml Exp $
+-- $Id: tb_elems.vhd,v 1.4 2006-05-23 01:17:25 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -54,13 +54,14 @@ entity tb_elems is
     g_width_g : integer := 4
   );
   port (
-    io_l_i : in  std_logic_vector(7 downto 0);
-    io_d_i : in  std_logic_vector(d_width_g-1 downto 0);
-    io_g_i : in  std_logic_vector(g_width_g-1 downto 0);
-    so_i   : in  std_logic;
-    si_o   : out std_logic;
-    sk_i   : in  std_logic;
-    ck_o   : out std_logic
+    io_l_i  : in  std_logic_vector(7 downto 0);
+    io_d_i  : in  std_logic_vector(d_width_g-1 downto 0);
+    io_g_i  : in  std_logic_vector(g_width_g-1 downto 0);
+    io_in_o : out std_logic_vector(g_width_g-1 downto 0);
+    so_i    : in  std_logic;
+    si_o    : out std_logic;
+    sk_i    : in  std_logic;
+    ck_o    : out std_logic
   );
 
 end tb_elems;
@@ -252,6 +253,10 @@ begin
   end process g_moni;
 
 
+  -- feed back G on IN
+  io_in_o <= io_g_i;
+
+
   -----------------------------------------------------------------------------
   -- SIO peer
   -----------------------------------------------------------------------------
@@ -301,6 +306,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/18 00:24:18  arniml
+-- extend D-port checks
+--
 -- Revision 1.2  2006/05/17 00:47:45  arniml
 -- enhance G-port check for T420
 --
