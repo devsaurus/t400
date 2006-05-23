@@ -2,7 +2,7 @@
 --
 -- Testbench for the T411 system toplevel.
 --
--- $Id: tb_t411.vhd,v 1.3 2006-05-15 21:56:02 arniml Exp $
+-- $Id: tb_t411.vhd,v 1.4 2006-05-23 01:18:26 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -111,13 +111,14 @@ begin
       g_width_g => 3
     )
     port map (
-      io_l_i => io_l_s,
-      io_d_i => io_d_s,
-      io_g_i => io_g_s,
-      so_i   => so_s,
-      si_o   => si_s,
-      sk_i   => sk_s,
-      ck_o   => ck_s
+      io_l_i  => io_l_s,
+      io_d_i  => io_d_s,
+      io_g_i  => io_g_s,
+      io_in_o => open,
+      so_i    => so_s,
+      si_o    => si_s,
+      sk_i    => sk_s,
+      ck_o    => ck_s
     );
 
 end behav;
@@ -127,6 +128,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/15 21:56:02  arniml
+-- moved elements to separate design unit tb_elems
+--
 -- Revision 1.2  2006/05/06 13:34:25  arniml
 -- remove delta cycle filter on sk_s
 --
