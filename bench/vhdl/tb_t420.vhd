@@ -2,7 +2,7 @@
 --
 -- Testbench for the T420 system toplevel.
 --
--- $Id: tb_t420.vhd,v 1.1 2006-05-15 22:21:59 arniml Exp $
+-- $Id: tb_t420.vhd,v 1.2 2006-05-23 01:18:10 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -53,6 +53,7 @@ use ieee.std_logic_1164.all;
 
 use work.t400_system_comp_pack.t420;
 use work.tb_pack.tb_elems;
+use work.t400_opt_pack.all;
 
 architecture behav of tb_t420 is
 
@@ -85,10 +86,14 @@ begin
   -- DUT
   -----------------------------------------------------------------------------
   t420_b : t420
+    generic map (
+      opt_cko_g => t400_opt_cko_gpi_c
+    )
     port map (
       ck_i      => ck_s,
       ck_en_i   => vdd_s,
       reset_n_i => reset_n_s,
+      cko_i     => vdd_s,
       si_i      => si_s,
       so_o      => so_s,
       sk_o      => sk_s,
@@ -114,13 +119,14 @@ begin
       g_width_g => 4
     )
     port map (
-      io_l_i => io_l_s,
-      io_d_i => io_d_s,
-      io_g_i => io_g_s,
-      so_i   => so_s,
-      si_o   => si_s,
-      sk_i   => sk_s,
-      ck_o   => ck_s
+      io_l_i  => io_l_s,
+      io_d_i  => io_d_s,
+      io_g_i  => io_g_s,
+      io_in_o => io_in_s,
+      so_i    => so_s,
+      si_o    => si_s,
+      sk_i    => sk_s,
+      ck_o    => ck_s
     );
 
 end behav;
@@ -130,4 +136,7 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2006/05/15 22:21:59  arniml
+-- initial check-in
+--
 -------------------------------------------------------------------------------
