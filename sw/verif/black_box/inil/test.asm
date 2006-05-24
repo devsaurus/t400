@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-05-23 01:11:13 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-24 00:48:04 arniml Exp $
 	;;
 	;; Checks the INIL instruction.
 	;;
@@ -14,6 +14,8 @@
 	x	0
 	skmbz	3
 	jmp	fail
+	skmbz	2		; CKO
+	jmp	fail
 	skmbz	0
 	jmp	fail
 
@@ -26,7 +28,10 @@
 	x	0
 	skmbz	3
 	jmp	fail
-	skmbz	0
+	skmbz	2		; CKO
+	jp	+
+	jmp	fail
++	skmbz	0
 	jmp	fail
 
 
@@ -37,11 +42,17 @@
 	x	0
 	skmbz	3
 	jmp	fail
-	skmbz	0
+	skmbz	2		; CKO
+	jp	+
+	jmp	fail
++	skmbz	0
 	jp	+
 	jmp	fail
 +
 
+	jmp	page_1
+	org	0x040
+page_1:
 
 	;; set IN3 to 0 and check that IL1 triggered
 	ogi	0x6
@@ -51,13 +62,13 @@
 	skmbz	3
 	jp	+
 	jmp	fail
++	skmbz	2		; CKO
+	jp	+
+	jmp	fail
 +	skmbz	0
 	jmp	fail
 
 
-	jmp	page_1
-	org	0x040
-page_1:
 	;; reload IN3 to trigger both IL latches
 	ogi	0x9
 	ogi	0x0
@@ -67,7 +78,9 @@ page_1:
 	skmbz	3
 	jp	+
 	jmp	fail
-+	skmbz	0
++	skmbz	2		; CKO
+	jmp	fail
+	skmbz	0
 	jp	+
 	jmp	fail
 +
@@ -80,6 +93,8 @@ page_1:
 	inil
 	x	0
 	skmbz	3
+	jmp	fail
+	skmbz	2		; CKO
 	jmp	fail
 	skmbz	0
 	jmp	fail
