@@ -2,7 +2,7 @@
 --
 -- Testbench for the T420 system toplevel.
 --
--- $Id: tb_t420.vhd,v 1.2 2006-05-23 01:18:10 arniml Exp $
+-- $Id: tb_t420.vhd,v 1.3 2006-05-24 00:48:49 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -93,7 +93,7 @@ begin
       ck_i      => ck_s,
       ck_en_i   => vdd_s,
       reset_n_i => reset_n_s,
-      cko_i     => vdd_s,
+      cko_i     => io_in_s(2),
       si_i      => si_s,
       so_o      => so_s,
       sk_o      => sk_s,
@@ -136,6 +136,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/23 01:18:10  arniml
+-- consider CKO and IN port
+--
 -- Revision 1.1  2006/05/15 22:21:59  arniml
 -- initial check-in
 --
