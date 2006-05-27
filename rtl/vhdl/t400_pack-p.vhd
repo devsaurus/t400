@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_pack-p.vhd,v 1.2 2006-05-22 00:01:21 arniml Exp $
+-- $Id: t400_pack-p.vhd,v 1.3 2006-05-27 19:16:52 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -46,7 +46,8 @@ package t400_pack is
                          PC_INC_PC,
                          PC_LOAD_6, PC_LOAD_7, PC_LOAD_8, PC_LOAD,
                          PC_POP,
-                         PC_LOAD_A_M);
+                         PC_LOAD_A_M,
+                         PC_INT);
 
   -- Data memory controller operations ----------------------------------------
   type    dmem_op_t  is (DMEM_RB,
@@ -88,7 +89,8 @@ package t400_pack is
                          SKIP_A_M,
                          SKIP_G_ZERO, SKIP_G_BIT,
                          SKIP_M_BIT,
-                         SKIP_TIMER);
+                         SKIP_TIMER,
+                         SKIP_PUSH, SKIP_POP);
 
   -- IO L port operations -----------------------------------------------------
   type    io_l_op_t  is (IOL_NONE,
@@ -108,7 +110,7 @@ package t400_pack is
   -- IO IN port operations ----------------------------------------------------
   type    io_in_op_t is (IOIN_NONE,
                          IOIN_INIL,
-                         IOIN_LEI);
+                         IOIN_INTACK);
 
   -- SIO operations -----------------------------------------------------------
   type    sio_op_t   is (SIO_NONE,
@@ -164,6 +166,9 @@ end t400_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/22 00:01:21  arniml
+-- operations for IN port added
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --

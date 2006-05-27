@@ -2,7 +2,7 @@
 --
 -- The Program memory controller.
 --
--- $Id: t400_pmem_ctrl.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id: t400_pmem_ctrl.vhd,v 1.2 2006-05-27 19:16:52 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -78,6 +78,10 @@ end t400_pmem_ctrl;
 library ieee;
 use ieee.numeric_std.all;
 
+-- pragma translate_off
+use work.tb_pack.tb_pc_s;
+-- pragma translate_on
+
 architecture rtl of t400_pmem_ctrl is
 
   signal pc_q      : pc_t;
@@ -146,6 +150,14 @@ begin
             pc_q(7 downto 4) <= unsigned(a_i);
             pc_q(3 downto 0) <= unsigned(m_i);
 
+          -- load interrupt vector --------------------------------------------
+          when PC_INT =>
+            if opt_type_g = t400_opt_type_420_c then
+              -- vector to address 0x0ff
+              pc_q <= (7 downto 0 => '1',
+                       others => '0');
+            end if;
+
           when others =>
             null;
         end case;
@@ -154,6 +166,12 @@ begin
   end process pc;
   --
   -----------------------------------------------------------------------------
+
+
+  -- pragma translate_off
+  -- instrument interrupt testbench
+  tb_pc_s <= pc_q;
+  -- pragma translate_on
 
 
   -----------------------------------------------------------------------------
@@ -169,4 +187,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id: t400_decoder.vhd,v 1.3 2006-05-22 00:02:36 arniml Exp $
+-- $Id: t400_decoder.vhd,v 1.4 2006-05-27 19:14:18 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -79,6 +79,7 @@ entity t400_decoder is
     en_o       : out dw_t;
     skip_i     : in  boolean;
     skip_lbi_i : in  boolean;
+    int_i      : in  boolean;
     pm_addr_i  : in  pc_t;
     pm_data_i  : in  byte_t
   );
@@ -108,13 +109,14 @@ architecture rtl of t400_decoder is
 
   signal en_q         : dw_t;
   signal set_en_s     : boolean;
+  signal ack_int_s    : boolean;
 
 begin
 
   -----------------------------------------------------------------------------
   -- Theory of operation:
   --
-  -- a) One instruction cycle lasts 4 ck_i cycles.
+  -- a) One instruction cycle lasts at least 4 ck_i cycles.
   -- b) PC for instruction/parameter fetch must be valid during cycle 2.
   --      => cycle 2 is the opcode fetch cycle
   -- c) Cycle 3 is the opcode decode cycle.
@@ -219,8 +221,11 @@ begin
         end if;
 
         -- EN register --------------------------------------------------------
-        if set_en_s then
+        if    set_en_s then
           en_q         <= ibyte2_q(dw_range_t);
+        elsif ack_int_s then
+          -- reset interrupt enable when INT has been acknowledged
+          en_q(1)      <= '0';
         end if;
 
       end if;
@@ -263,9 +268,12 @@ begin
                          mnemonic_q, second_cyc_q, last_cycle_s,
                          ibyte1_q, ibyte2_q,
                          skip_i, skip_lbi_i,
+                         en_q, int_i,
                          pm_addr_i, pm_data_i)
-    variable cyc_v       : natural range 0 to 4;
-    variable t41x_type_v : boolean;
+    variable cyc_v        : natural range 0 to 4;
+    variable t41x_type_v,
+             t420_type_v  : boolean;
+    variable no_int_v     : boolean;
   begin
     -- default assignments
     pc_op_o     <= PC_NONE;
@@ -283,9 +291,12 @@ begin
     is_lbi_o    <= false;
     set_en_s    <= false;
     force_mc_s  <= false;
+    no_int_v    := false;
+    ack_int_s   <= false;
     cyc_v       := to_integer(cyc_cnt_q);
     -- determine type
     t41x_type_v := opt_type_g = t400_opt_type_410_c;
+    t420_type_v := opt_type_g = t400_opt_type_420_c;
 
     if icyc_en_i then
       -- immediately increment program counter
@@ -379,6 +390,7 @@ begin
         -- Mnemonic JID -------------------------------------------------------
         when MN_JID =>
           force_mc_s     <= true;
+          no_int_v       := true;
           dec_data_o(byte_t'range) <= pm_data_i;
           if cyc_v = 1 then
             if not second_cyc_q then
@@ -397,6 +409,7 @@ begin
 
         -- Mnemonic JMP -------------------------------------------------------
         when MN_JMP =>
+          no_int_v       := true;
           dec_data_o <= ibyte1_q(1) & ibyte1_q(0) & ibyte2_q;
           if second_cyc_q and cyc_v = 1 then
             pc_op_o      <= PC_LOAD;
@@ -404,6 +417,7 @@ begin
 
         -- Mnemonic JP_JSRP ---------------------------------------------------
         when MN_JP_JSRP =>
+          no_int_v       := true;
           -- universal decoder data
           dec_data_o <= '0' & "01" & ibyte1_q(6 downto 0);
           if cyc_v = 1 then
@@ -422,6 +436,7 @@ begin
 
         -- Mnemonic JSR -------------------------------------------------------
         when MN_JSR =>
+          no_int_v       := true;
           dec_data_o <= ibyte1_q(1) & ibyte1_q(0) & ibyte2_q;
           if second_cyc_q and cyc_v = 1 then
             pc_op_o      <= PC_LOAD;
@@ -430,13 +445,20 @@ begin
 
         -- Mnemonic RET -------------------------------------------------------
         when MN_RET =>
+          no_int_v       := true;
           if cyc_v = 1 then
             pc_op_o      <= PC_POP;
             stack_op_o   <= STACK_POP;
+
+            if t420_type_v then
+              -- always restore skip state in case this was an interrupt
+              skip_op_o  <= SKIP_POP;
+            end if;
           end if;
 
         -- Mnemonic RETSK -----------------------------------------------------
         when MN_RETSK =>
+          no_int_v       := true;
           if cyc_v = 1 then
             pc_op_o      <= PC_POP;
             stack_op_o   <= STACK_POP;
@@ -493,6 +515,7 @@ begin
         -- Mnemonic LQID ------------------------------------------------------
         when MN_LQID =>
           force_mc_s     <= true;
+          no_int_v       := true;
           if not second_cyc_q then
             -- first cycle: push PC and set PC from A/M,
             --              read IOL from program memory
@@ -617,6 +640,7 @@ begin
         -- Mnemonic LBI -------------------------------------------------------
         when MN_LBI =>
           is_lbi_o       <= true;
+          no_int_v       := true;
           dec_data_o(br_range_t) <= ibyte1_q(br_range_t);
           dec_data_o(bd_range_t) <= ibyte1_q(bd_range_t);
           if cyc_v = 1 and not skip_lbi_i then
@@ -758,6 +782,7 @@ begin
                 -- LBI
                 if ibyte2_q(7 downto 6) = "10" and not t41x_type_v then
                   is_lbi_o    <= true;
+                  no_int_v    := true;
                   if cyc_v > 0 and not skip_lbi_i then
                     b_op_o    <= B_SET_B;
                     skip_op_o <= SKIP_LBI;
@@ -767,7 +792,13 @@ begin
                 if ibyte2_q(7 downto 4) = "0110" and in_en_i then
                   -- dec_data_o applied by default
                   set_en_s   <= true;
-                  io_in_op_o <= IOIN_LEI;
+
+                  -- acknowledge pending interrupt when EN(1) is not
+                  -- enabled - will clear them until interrupts are
+                  -- enabled with EN(1) = '1'
+                  if en_q(1) = '0' then
+                    io_in_op_o <= IOIN_INTACK;
+                  end if;
                 end if;
                 -- OGI
                 if ibyte2_q(7 downto 4) = "0101" and out_en_i and
@@ -782,6 +813,27 @@ begin
           null;
       end case;
     end if;
+
+
+    -- Interrupt handling -----------------------------------------------------
+    if t420_type_v and
+       en_q(1) = '1' and int_i and not no_int_v then
+      if last_cycle_s then
+        if cyc_v = 1 then
+          pc_op_o    <= PC_INT;
+          stack_op_o <= STACK_PUSH;
+        end if;
+        if icyc_en_i then
+          ack_int_s  <= true;
+          io_in_op_o <= IOIN_INTACK;
+          -- push skip state that was determined by current instruction
+          -- and will be valid for the next instruction which is delayed
+          -- by the interrupt
+          skip_op_o  <= SKIP_PUSH;
+        end if;
+      end if;
+    end if;
+
   end process decoder_ctrl;
   --
   -----------------------------------------------------------------------------
@@ -799,6 +851,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/22 00:02:36  arniml
+-- instructions ININ and INIL implemented
+--
 -- Revision 1.2  2006/05/07 02:24:16  arniml
 -- fix sensitivity list
 --

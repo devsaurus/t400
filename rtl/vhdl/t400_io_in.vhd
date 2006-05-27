@@ -2,7 +2,7 @@
 --
 -- The IN port controller.
 --
--- $Id: t400_io_in.vhd,v 1.2 2006-05-23 01:13:28 arniml Exp $
+-- $Id: t400_io_in.vhd,v 1.3 2006-05-27 19:14:18 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -52,17 +52,18 @@ entity t400_io_in is
 
   port (
     -- System Interface -------------------------------------------------------
-    ck_i    : in  std_logic;
-    ck_en_i : in  boolean;
-    por_i   : in  boolean;
-    in_en_i : in  boolean;
+    ck_i      : in  std_logic;
+    ck_en_i   : in  boolean;
+    por_i     : in  boolean;
+    icyc_en_i : in boolean;
+    in_en_i   : in  boolean;
     -- Control Interface ------------------------------------------------------
-    op_i    : in  io_in_op_t;
-    en1_i   : in  std_logic;
+    op_i      : in  io_in_op_t;
+    en1_i     : in  std_logic;
     -- Port Interface ---------------------------------------------------------
-    io_in_i : in  dw_t;
-    in_o    : out dw_t;
-    int_o   : out boolean
+    io_in_i   : in  dw_t;
+    in_o      : out dw_t;
+    int_o     : out boolean
   );
 
 end t400_io_in;
@@ -80,6 +81,8 @@ architecture rtl of t400_io_in is
   signal   neg_edge_s : std_logic_vector(2 downto 0);
 
   signal   il_q       : std_logic_vector(1 downto 0);
+  signal   int_q,
+           int_icyc_q : boolean;
 
 begin
 
@@ -95,6 +98,8 @@ begin
     if por_i then
       neg_edge_q <= (others => (others => '0'));
       il_q       <= (others => '0');
+      int_q      <= false;
+      int_icyc_q <= false;
 
     elsif ck_i'event and ck_i = '1' then
       -- negative edge detector filp-flops ------------------------------------
@@ -119,9 +124,28 @@ begin
         end if;
       end if;
 
+      -- Interrupt trigger ----------------------------------------------------
+      if in_en_i then
+        if neg_edge_q(1)(idx_int_c) = '1' and
+           ((neg_edge_q(0)(idx_int_c) or neg_edge_v(idx_int_c)) = '0') then
+          int_q <= true;
+        end if;
+      end if;
+      if icyc_en_i then
+        -- delay interrupt request until end of current instruction
+        -- this ensures that the interrupt is valid for a full instruction
+        -- (i.e. the next one)
+        int_icyc_q <= int_q;
+      end if;
+
       if ck_en_i then
         if op_i = IOIN_INIL then
           il_q <= (others => '0');
+        end if;
+
+        if op_i = IOIN_INTACK then
+          int_q      <= false;
+          int_icyc_q <= false;
         end if;
       end if;
 
@@ -137,7 +161,7 @@ begin
   in_o  <=   il_q(1) & "00" & il_q(0)
            when op_i = IOIN_INIL else
              io_in_i;
-  int_o <= false;
+  int_o <= int_icyc_q;
 
 end rtl;
 
@@ -146,6 +170,11 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/23 01:13:28  arniml
+-- + reset neg_edge flip-flops to '1'
+--   -> after por, a 1-to-0 edge is required to trigger the latches initially
+-- + use to_X01
+--
 -- Revision 1.1  2006/05/22 00:00:55  arniml
 -- initial check-in
 --

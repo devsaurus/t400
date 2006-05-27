@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.6 2006-05-22 00:03:55 arniml Exp $
+# $Id: Makefile,v 1.7 2006-05-27 19:18:20 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -85,7 +85,8 @@ work/t400_reset-c.o: $(RTL_DIR)/t400_reset-c.vhd \
 
 work/t400_stack.o: $(RTL_DIR)/t400_stack.vhd \
                    work/t400_opt_pack-p.o    \
-                   work/t400_pack-p.o
+                   work/t400_pack-p.o        \
+                   work/tb_pack-p.o
 	$(ANALYZE) $<
 work/t400_stack-c.o: $(RTL_DIR)/t400_stack-c.vhd \
                      work/t400_stack.o
@@ -93,7 +94,8 @@ work/t400_stack-c.o: $(RTL_DIR)/t400_stack-c.vhd \
 
 work/t400_pmem_ctrl.o: $(RTL_DIR)/t400_pmem_ctrl.vhd \
                        work/t400_opt_pack-p.o        \
-                       work/t400_pack-p.o
+                       work/t400_pack-p.o            \
+                       work/tb_pack-p.o
 	$(ANALYZE) $<
 work/t400_pmem_ctrl-c.o: $(RTL_DIR)/t400_pmem_ctrl-c.vhd \
                          work/t400_pmem_ctrl.o
@@ -279,7 +281,8 @@ work/t420-c.o: $(SYSTEM_DIR)/t420-c.vhd \
 ##############################################################################
 # Testbenches
 #
-work/tb_pack-p.o: $(BENCH_DIR)/tb_pack-p.vhd
+work/tb_pack-p.o: $(BENCH_DIR)/tb_pack-p.vhd \
+                  work/t400_pack-p.o
 	$(ANALYZE) $<
 
 work/lpm_rom.o: $(BENCH_DIR)/lpm_rom.vhd
@@ -331,17 +334,31 @@ work/tb_t420-c.o: $(BENCH_DIR)/tb_t420-c.vhd \
                   work/tb_elems-c.o          \
                   work/tb_t420.o
 	$(ANALYZE) $<
+
+work/tb_int.o: $(BENCH_DIR)/tb_int.vhd        \
+               work/t400_opt_pack-p.o         \
+               work/tb_pack-p.o               \
+               work/t400_system_comp_pack-p.o
+	$(ANALYZE) $<
+work/tb_int-c.o: $(BENCH_DIR)/tb_int-c.vhd \
+                 work/t420-c.o             \
+                 work/tb_elems-c.o         \
+                 work/tb_int.o
+	$(ANALYZE) $<
 #
 ##############################################################################
 
 
 .PHONY: elaborate
-elaborate: tb_t411_behav_c0 tb_t420_behav_c0
+elaborate: tb_t411_behav_c0 tb_t420_behav_c0 tb_int_behav_c0
 
 tb_t411_behav_c0: work/tb_t411-c.o
 	$(ELABORATE) $@
 
 tb_t420_behav_c0: work/tb_t420-c.o
+	$(ELABORATE) $@
+
+tb_int_behav_c0: work/tb_int-c.o
 	$(ELABORATE) $@
 
 

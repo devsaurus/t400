@@ -3,7 +3,7 @@
 -- The skip unit.
 -- Skip conditions are checked here and communicated to the decoder unit.
 --
--- $Id: t400_skip.vhd,v 1.2 2006-05-20 02:47:52 arniml Exp $
+-- $Id: t400_skip.vhd,v 1.3 2006-05-27 19:16:52 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -47,10 +47,14 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+use work.t400_opt_pack.all;
 use work.t400_pack.all;
 
 entity t400_skip is
 
+  generic (
+    opt_type_g : integer := t400_opt_type_420_c
+  );
   port (
     ck_i       : in  std_logic;
     ck_en_i    : in  boolean;
@@ -82,6 +86,8 @@ architecture rtl of t400_skip is
          skip_next_q : boolean;
   signal skip_lbi_q  : boolean;
 
+  signal skip_int_q  : boolean;
+
 begin
 
   -----------------------------------------------------------------------------
@@ -91,11 +97,13 @@ begin
   --   Implements the skip logic.
   --
   skip: process (ck_i, por_i)
+    variable t420_type_v : boolean;
   begin
     if por_i then
       skip_next_q <= false;
       skip_q      <= false;
       skip_lbi_q  <= false;
+      skip_int_q  <= false;
 
     elsif ck_i'event and ck_i = '1' then
       if    res_i then
@@ -103,8 +111,11 @@ begin
         skip_next_q    <= false;
         skip_q         <= false;
         skip_lbi_q     <= false;
+        skip_int_q     <= false;
 
       elsif ck_en_i then
+        t420_type_v := opt_type_g = t400_opt_type_420_c;
+
         if ck_en_i then
           case op_i is
             -- update skip information ----------------------------------------
@@ -163,6 +174,24 @@ begin
               skip_next_q <= tim_c_i;
               null;
 
+            -- push skip state when vectoring to interrupt routine ------------
+            when SKIP_PUSH =>
+              if t420_type_v then
+                -- save next skip flag
+                skip_int_q  <= skip_next_q;
+                skip_next_q <= false;
+                -- never skip first instruction of interrupt routine
+                skip_q      <= false;
+              end if;
+
+            -- pop skip state for RET from interrupt routine ------------------
+            when SKIP_POP =>
+              if t420_type_v then
+                skip_q      <= skip_int_q;
+                skip_next_q <= false;
+                skip_int_q  <= false;
+              end if;
+
             when others =>
               null;
           end case;
@@ -187,6 +216,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/20 02:47:52  arniml
+-- skip-on-timer implemented
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
