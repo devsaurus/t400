@@ -2,7 +2,7 @@
 --
 -- Generic testbench elements
 --
--- $Id: tb_elems.vhd,v 1.5 2006-05-27 19:08:53 arniml Exp $
+-- $Id: tb_elems.vhd,v 1.6 2006-05-27 22:48:00 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -273,8 +273,7 @@ begin
     wait until io_l_i(4) = '0';
 
     while io_l_i(4) = '0' loop
-      wait for 10 us;
-      si_o <= so_i xor sk_i;
+      si_o <= so_i xor sk_i after 10 us;
 
       wait until io_l_i'event or so_i'event or sk_i'event;
     end loop;
@@ -282,8 +281,7 @@ begin
     -- now feed SO back to SI upon SK edge
     loop
       wait until sk_i'event and sk_i = '1';
-      wait for 10 us;
-      si_o <= so_i;
+      si_o <= so_i after 10 us;
     end loop;
 
     wait;
@@ -312,6 +310,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.5  2006/05/27 19:08:53  arniml
+-- add fail reporting for port d
+--
 -- Revision 1.4  2006/05/23 01:17:25  arniml
 -- drive IN port
 --
