@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-05-06 13:16:36 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-27 22:46:29 arniml Exp $
 	;;
 	;; Checks the XAS instruction.
 	;;
@@ -19,6 +19,9 @@
 
 	;; clear SKL
 	xas
+	nop			; spend some time to let effect of SKL
+	nop			; falling edge pass by
+	nop			;
 
 	;; -------------------------------------------------------------------
 	;; step 1
