@@ -2,7 +2,7 @@
 --
 -- The stack unit.
 --
--- $Id: t400_stack.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id: t400_stack.vhd,v 1.2 2006-05-27 19:15:59 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -69,6 +69,10 @@ entity t400_stack is
 end t400_stack;
 
 
+-- pragma translate_off
+use work.tb_pack.tb_sa_s;
+-- pragma translate_on
+
 architecture rtl of t400_stack is
 
   signal sa_q,
@@ -122,6 +126,12 @@ begin
   -----------------------------------------------------------------------------
 
 
+  -- pragma translate_off
+  -- instrument interrupt testbench
+  tb_sa_s <= sa_q;
+  -- pragma translate_on
+
+
   -----------------------------------------------------------------------------
   -- Output mapping
   -----------------------------------------------------------------------------
@@ -134,4 +144,7 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------
