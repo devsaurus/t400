@@ -2,7 +2,7 @@
 --
 -- Testbench for the T411 system toplevel.
 --
--- $Id: tb_t411.vhd,v 1.4 2006-05-23 01:18:26 arniml Exp $
+-- $Id: tb_t411.vhd,v 1.5 2006-05-27 19:10:12 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -53,11 +53,11 @@ use ieee.std_logic_1164.all;
 
 use work.t400_system_comp_pack.t411;
 use work.tb_pack.tb_elems;
+use work.t400_opt_pack.all;
 
 architecture behav of tb_t411 is
 
   -- 210.4 kHz clock
-  --  -> 52.6 kHz internal clock
   constant period_c : time := 4.75 us;
   signal   ck_s     : std_logic;
   signal   en_ck_s  : std_logic;
@@ -84,6 +84,9 @@ begin
   -- DUT
   -----------------------------------------------------------------------------
   t411_b : t411
+    generic map (
+      opt_ck_div_g => t400_opt_ck_div_8_c
+    )
     port map (
       ck_i      => ck_s,
       ck_en_i   => vdd_s,
@@ -128,6 +131,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.4  2006/05/23 01:18:26  arniml
+-- consider IN port
+--
 -- Revision 1.3  2006/05/15 21:56:02  arniml
 -- moved elements to separate design unit tb_elems
 --
