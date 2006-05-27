@@ -2,7 +2,7 @@
 --
 -- Generic testbench elements
 --
--- $Id: tb_elems.vhd,v 1.4 2006-05-23 01:17:25 arniml Exp $
+-- $Id: tb_elems.vhd,v 1.5 2006-05-27 19:08:53 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -175,14 +175,20 @@ begin
             severity note;
         end if;
       when STEP_4 =>
-        if sig_v /= 15 then
-          state_v := IDLE;
-        else
-          -- sim finished for 4-bit D ports
+        if sig_v = 15 then
+          -- sim finished pass for 4-bit D ports
           en_ck_s <= '0';
           assert false
             report "Simulation finished with PASS (D-Port 4 bit)."
             severity note;
+        elsif sig_v = 0 then
+          -- sim finished fail for 4-bit D ports
+          en_ck_s <= '0';
+          assert false
+            report "Simulation finished with FAIL (D-Port 4 bit)."
+            severity note;
+        else
+          state_v := IDLE;
         end if;
 
       when others =>
@@ -306,6 +312,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.4  2006/05/23 01:17:25  arniml
+-- drive IN port
+--
 -- Revision 1.3  2006/05/18 00:24:18  arniml
 -- extend D-port checks
 --
