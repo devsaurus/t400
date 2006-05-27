@@ -4,7 +4,7 @@
 #
 # run_regression.pl
 #
-# $Id: run_regression.pl,v 1.1 2006-05-25 15:58:01 arniml Exp $
+# $Id: run_regression.pl,v 1.2 2006-05-27 22:48:52 arniml Exp $
 #
 # Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 #
@@ -31,11 +31,12 @@ my $sim_dir     = $project_dir.'/sim/rtl_sim';
 
 # the testbenches and their identifiers
 my %testbenches = ('t41x' => './tb_t411_behav_c0',
-                   't42x' => './tb_t420_behav_c0');
+                   't42x' => './tb_t420_behav_c0',
+                   'int'  => './tb_int_behav_c0');
 my ($tb_name, $tb_exec);
 
 # identify the directories below $verif_dir containing test classes
-my @classes_dirs = ('black_box');
+my @classes_dirs = ('black_box', 'int');
 
 my $dir;
 my %testdirs;
@@ -52,7 +53,7 @@ foreach $dir (@classes_dirs) {
 
     while (($tb_name, $tb_exec) = each(%testbenches)) {
         my $elem;
-        my @dirs = `find $dir -name $tb_name`;
+        my @dirs = `find $dir -type f -name $tb_name`;
 
         foreach $elem (@dirs) {
             $elem =~ s/\/[^\/]+$//;
@@ -77,7 +78,7 @@ while (($dir, $tb_exec) = each(%testdirs)) {
 
         # collect the testbenches to be executed
         while (($tb_name, $tb_exec) = each(%testbenches)) {
-            if (-e $tb_name) {
+            if (-f $tb_name) {
                 push(@execute_tbs, $tb_name);
             }
         }
