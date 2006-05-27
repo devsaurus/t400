@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.4 2006-05-22 00:03:08 arniml Exp $
+-- $Id: t400_comp_pack-p.vhd,v 1.5 2006-05-27 19:11:33 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -176,12 +176,16 @@ package t400_comp_pack is
       en_o       : out dw_t;
       skip_i     : in  boolean;
       skip_lbi_i : in  boolean;
+      int_i      : in  boolean;
       pm_addr_i  : in  pc_t;
       pm_data_i  : in  byte_t
     );
   end component;
 
   component t400_skip
+    generic (
+      opt_type_g : integer := t400_opt_type_420_c
+    );
     port (
       ck_i       : in  std_logic;
       ck_en_i    : in  boolean;
@@ -285,17 +289,18 @@ package t400_comp_pack is
   component t400_io_in
     port (
       -- System Interface -----------------------------------------------------
-      ck_i    : in  std_logic;
-      ck_en_i : in  boolean;
-      por_i   : in  boolean;
-      in_en_i : in  boolean;
+      ck_i      : in  std_logic;
+      ck_en_i   : in  boolean;
+      por_i     : in  boolean;
+      icyc_en_i : in boolean;
+      in_en_i   : in  boolean;
       -- Control Interface ----------------------------------------------------
-      op_i    : in  io_in_op_t;
-      en1_i   : in  std_logic;
+      op_i      : in  io_in_op_t;
+      en1_i     : in  std_logic;
       -- Port Interface -------------------------------------------------------
-      io_in_i : in  dw_t;
-      in_o    : out dw_t;
-      int_o   : out boolean
+      io_in_i   : in  dw_t;
+      in_o      : out dw_t;
+      int_o     : out boolean
     );
   end component;
 
@@ -350,6 +355,9 @@ end t400_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.4  2006/05/22 00:03:08  arniml
+-- io_in added
+--
 -- Revision 1.3  2006/05/21 21:47:40  arniml
 -- route cko to ALU for INIL instruction
 --

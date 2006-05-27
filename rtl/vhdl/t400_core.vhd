@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.5 2006-05-23 01:13:56 arniml Exp $
+-- $Id: t400_core.vhd,v 1.6 2006-05-27 19:11:33 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -163,6 +163,7 @@ architecture struct of t400_core is
   signal tim_c_s         : boolean;
 
   signal in_s            : dw_t;
+  signal int_s           : boolean;
 
   signal io_g_s          : std_logic_vector(io_g_i'range);
 
@@ -291,6 +292,7 @@ begin
       en_o       => en_s,
       skip_i     => skip_s,
       skip_lbi_i => skip_lbi_s,
+      int_i      => int_s,
       pm_addr_i  => pm_addr_s,
       pm_data_i  => pm_data_i
     );
@@ -300,6 +302,9 @@ begin
   -- Skip logic
   -----------------------------------------------------------------------------
   skip_b : t400_skip
+    generic map (
+      opt_type_g => opt_type_g
+    )
     port map (
       ck_i       => ck_i,
       ck_en_i    => ck_en_s,
@@ -449,20 +454,22 @@ begin
   use_in: if opt_type_g = t400_opt_type_420_c generate
     io_in_b : t400_io_in
       port map (
-        ck_i    => ck_i,
-        ck_en_i => ck_en_s,
-        por_i   => por_s,
-        in_en_i => in_en_s,
-        op_i    => io_in_op_s,
-        en1_i   => en_s(1),
-        io_in_i => io_in_i,
-        in_o    => in_s,
-        int_o   => open
+        ck_i      => ck_i,
+        ck_en_i   => ck_en_s,
+        por_i     => por_s,
+        icyc_en_i => icyc_en_s,
+        in_en_i   => in_en_s,
+        op_i      => io_in_op_s,
+        en1_i     => en_s(1),
+        io_in_i   => io_in_i,
+        in_o      => in_s,
+        int_o     => int_s
       );
   end generate;
 
   no_in: if opt_type_g /= t400_opt_type_420_c generate
-    in_s <= (others => '0');
+    in_s  <= (others => '0');
+    int_s <= false;
   end generate;
 
 
@@ -522,6 +529,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.5  2006/05/23 01:13:56  arniml
+-- use to_X01 for G input
+--
 -- Revision 1.4  2006/05/22 00:03:29  arniml
 -- io_in added
 --
