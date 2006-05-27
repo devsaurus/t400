@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: tb_pack-p.vhd,v 1.2 2006-05-23 01:17:25 arniml Exp $
+-- $Id: tb_pack-p.vhd,v 1.3 2006-05-27 19:09:29 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -10,6 +10,8 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+
+use work.t400_pack.pc_t;
 
 package tb_pack is
 
@@ -31,6 +33,9 @@ package tb_pack is
     );
   end component;
 
+  signal tb_pc_s : pc_t;
+  signal tb_sa_s : pc_t;
+
 end tb_pack;
 
 
@@ -38,6 +43,9 @@ end tb_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/23 01:17:25  arniml
+-- drive IN port
+--
 -- Revision 1.1  2006/05/15 21:55:27  arniml
 -- initial check-in
 --
