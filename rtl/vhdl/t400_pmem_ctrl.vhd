@@ -2,7 +2,7 @@
 --
 -- The Program memory controller.
 --
--- $Id: t400_pmem_ctrl.vhd,v 1.2 2006-05-27 19:16:52 arniml Exp $
+-- $Id: t400_pmem_ctrl.vhd,v 1.3 2006-05-28 15:32:40 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -153,9 +153,9 @@ begin
           -- load interrupt vector --------------------------------------------
           when PC_INT =>
             if opt_type_g = t400_opt_type_420_c then
-              -- vector to address 0x0ff
-              pc_q <= (7 downto 0 => '1',
-                       others => '0');
+              -- load address 0x100, i.e. skip first instruction at
+              -- vector address 0x0ff which has to be a NOP :-)
+              pc_q <= (8 => '1', others => '0');
             end if;
 
           when others =>
@@ -187,6 +187,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/27 19:16:52  arniml
+-- interrupt functionality added
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
