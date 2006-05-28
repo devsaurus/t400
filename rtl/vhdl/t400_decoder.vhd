@@ -3,7 +3,7 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id: t400_decoder.vhd,v 1.4 2006-05-27 19:14:18 arniml Exp $
+-- $Id: t400_decoder.vhd,v 1.5 2006-05-28 15:32:14 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -210,9 +210,17 @@ begin
 
         -- instruction byte 1 and mnemonic info -------------------------------
         if icyc_en_i and last_cycle_s then
-          ibyte1_q     <= pm_data_i;
-          mnemonic_q   <= mnemonic_s;
-          multi_byte_q <= multi_byte_s;
+          if not ack_int_s then
+            -- update instruction descriptors in normal mode
+            ibyte1_q     <= pm_data_i;
+            mnemonic_q   <= mnemonic_s;
+            multi_byte_q <= multi_byte_s;
+          else
+            -- force NOP instruction when vectoring to interrupt routine
+            ibyte1_q     <= "01000100";
+            mnemonic_q   <= MN_NOP;
+            multi_byte_q <= false;
+          end if;
         end if;
 
         -- instruction byte 2 -------------------------------------------------
@@ -273,7 +281,7 @@ begin
     variable cyc_v        : natural range 0 to 4;
     variable t41x_type_v,
              t420_type_v  : boolean;
-    variable no_int_v     : boolean;
+    variable en_int_v     : boolean;
   begin
     -- default assignments
     pc_op_o     <= PC_NONE;
@@ -291,7 +299,7 @@ begin
     is_lbi_o    <= false;
     set_en_s    <= false;
     force_mc_s  <= false;
-    no_int_v    := false;
+    en_int_v    := true;
     ack_int_s   <= false;
     cyc_v       := to_integer(cyc_cnt_q);
     -- determine type
@@ -390,7 +398,7 @@ begin
         -- Mnemonic JID -------------------------------------------------------
         when MN_JID =>
           force_mc_s     <= true;
-          no_int_v       := true;
+          en_int_v       := false;
           dec_data_o(byte_t'range) <= pm_data_i;
           if cyc_v = 1 then
             if not second_cyc_q then
@@ -409,7 +417,7 @@ begin
 
         -- Mnemonic JMP -------------------------------------------------------
         when MN_JMP =>
-          no_int_v       := true;
+          en_int_v       := false;
           dec_data_o <= ibyte1_q(1) & ibyte1_q(0) & ibyte2_q;
           if second_cyc_q and cyc_v = 1 then
             pc_op_o      <= PC_LOAD;
@@ -417,7 +425,7 @@ begin
 
         -- Mnemonic JP_JSRP ---------------------------------------------------
         when MN_JP_JSRP =>
-          no_int_v       := true;
+          en_int_v       := false;
           -- universal decoder data
           dec_data_o <= '0' & "01" & ibyte1_q(6 downto 0);
           if cyc_v = 1 then
@@ -436,7 +444,7 @@ begin
 
         -- Mnemonic JSR -------------------------------------------------------
         when MN_JSR =>
-          no_int_v       := true;
+          en_int_v       := false;
           dec_data_o <= ibyte1_q(1) & ibyte1_q(0) & ibyte2_q;
           if second_cyc_q and cyc_v = 1 then
             pc_op_o      <= PC_LOAD;
@@ -445,7 +453,7 @@ begin
 
         -- Mnemonic RET -------------------------------------------------------
         when MN_RET =>
-          no_int_v       := true;
+          en_int_v       := false;
           if cyc_v = 1 then
             pc_op_o      <= PC_POP;
             stack_op_o   <= STACK_POP;
@@ -458,7 +466,7 @@ begin
 
         -- Mnemonic RETSK -----------------------------------------------------
         when MN_RETSK =>
-          no_int_v       := true;
+          en_int_v       := false;
           if cyc_v = 1 then
             pc_op_o      <= PC_POP;
             stack_op_o   <= STACK_POP;
@@ -515,7 +523,7 @@ begin
         -- Mnemonic LQID ------------------------------------------------------
         when MN_LQID =>
           force_mc_s     <= true;
-          no_int_v       := true;
+          en_int_v       := false;
           if not second_cyc_q then
             -- first cycle: push PC and set PC from A/M,
             --              read IOL from program memory
@@ -640,7 +648,7 @@ begin
         -- Mnemonic LBI -------------------------------------------------------
         when MN_LBI =>
           is_lbi_o       <= true;
-          no_int_v       := true;
+          en_int_v       := false;
           dec_data_o(br_range_t) <= ibyte1_q(br_range_t);
           dec_data_o(bd_range_t) <= ibyte1_q(bd_range_t);
           if cyc_v = 1 and not skip_lbi_i then
@@ -782,7 +790,7 @@ begin
                 -- LBI
                 if ibyte2_q(7 downto 6) = "10" and not t41x_type_v then
                   is_lbi_o    <= true;
-                  no_int_v    := true;
+                  en_int_v    := false;
                   if cyc_v > 0 and not skip_lbi_i then
                     b_op_o    <= B_SET_B;
                     skip_op_o <= SKIP_LBI;
@@ -817,15 +825,15 @@ begin
 
     -- Interrupt handling -----------------------------------------------------
     if t420_type_v and
-       en_q(1) = '1' and int_i and not no_int_v then
+       en_q(1) = '1' and int_i and en_int_v then
       if last_cycle_s then
         if cyc_v = 1 then
-          pc_op_o    <= PC_INT;
           stack_op_o <= STACK_PUSH;
         end if;
         if icyc_en_i then
           ack_int_s  <= true;
           io_in_op_o <= IOIN_INTACK;
+          pc_op_o    <= PC_INT;
           -- push skip state that was determined by current instruction
           -- and will be valid for the next instruction which is delayed
           -- by the interrupt
@@ -851,6 +859,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.4  2006/05/27 19:14:18  arniml
+-- interrupt functionality added
+--
 -- Revision 1.3  2006/05/22 00:02:36  arniml
 -- instructions ININ and INIL implemented
 --
