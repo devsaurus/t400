@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.7 2006-05-27 19:18:20 arniml Exp $
+# $Id: Makefile,v 1.8 2006-05-28 02:49:05 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -371,4 +371,5 @@ clean:
 	rm -rf *~ UNUSED *hex \
         tb_t411_behav_c0      \
         tb_t420_behav_c0      \
+        tb_int_behav_c0       \
         work
