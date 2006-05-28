@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: int_macros.inc,v 1.2 2006-05-28 13:18:36 arniml Exp $
+	;; $Id: int_macros.inc,v 1.3 2006-05-28 13:35:23 arniml Exp $
 	;;
 	;; Defines macros for interrupt tests.
 	;;
@@ -7,7 +7,7 @@
 	;; -------------------------------------------------------------------
 	;; Save current A, M and C to M(3,15), M(3,14) and M(3,13).
 	;;
-save_m_c	MACRO
+save_a_m_c	MACRO
 	xad	3, 15		; save A to M(3,15)
 
 	x	0		; save current M
@@ -67,7 +67,7 @@ check_sa	MACRO	addr
 	;; -------------------------------------------------------------------
 	;; Restore C, M and A from M(3,13), M(3,14) and M(3,15)
 	;;
-restore_c_m	MACRO
+restore_c_m_a	MACRO
 	xad	3, 13		; restore C
 	x	0		; from M(3,13)
 	rc			;
