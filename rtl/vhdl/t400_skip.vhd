@@ -3,7 +3,7 @@
 -- The skip unit.
 -- Skip conditions are checked here and communicated to the decoder unit.
 --
--- $Id: t400_skip.vhd,v 1.3 2006-05-27 19:16:52 arniml Exp $
+-- $Id: t400_skip.vhd,v 1.4 2006-05-28 15:35:33 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -187,8 +187,10 @@ begin
             -- pop skip state for RET from interrupt routine ------------------
             when SKIP_POP =>
               if t420_type_v then
-                skip_q      <= skip_int_q;
-                skip_next_q <= false;
+                -- push'ed info must be pop'ed to skip_next_q as pop'ing
+                -- happens during RET of interrupt routine
+                -- skip info is valid for next instruction
+                skip_next_q <= skip_int_q;
                 skip_int_q  <= false;
               end if;
 
@@ -216,6 +218,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/27 19:16:52  arniml
+-- interrupt functionality added
+--
 -- Revision 1.2  2006/05/20 02:47:52  arniml
 -- skip-on-timer implemented
 --
