@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.2 2006-05-28 13:19:04 arniml Exp $
+	;; $Id: test.asm,v 1.3 2006-05-28 13:21:36 arniml Exp $
 	;;
 	;; Checks interrupt on JP.
 	;;
@@ -34,9 +34,9 @@ ret_instr:
 	jmp	fail
 int_routine:
 	nop
-	save_m_c
+	save_a_m_c
 	check_sa	ret_instr
-	restore_c_m
+	restore_c_m_a
 	ret
 
 
