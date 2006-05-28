@@ -2,7 +2,7 @@
 --
 -- Testbench for interrupt evaluation.
 --
--- $Id: tb_int.vhd,v 1.1 2006-05-27 19:08:21 arniml Exp $
+-- $Id: tb_int.vhd,v 1.2 2006-05-28 02:53:47 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -121,7 +121,7 @@ begin
     port map (
       io_l_i  => vdd_8_s,
       io_d_i  => io_d_s,
-      io_g_i  => io_g_s,
+      io_g_i  => vdd_8_s(3 downto 0),
       io_in_o => open,
       so_i    => so_s,
       si_o    => si_s,
@@ -175,6 +175,18 @@ begin
   --
   -----------------------------------------------------------------------------
 
+
+  -----------------------------------------------------------------------------
+  -- MUX the nibbles of SA to L
+  -----------------------------------------------------------------------------
+  io_l_s(3 downto 0) <=   std_logic_vector(tb_sa_s(3 downto 0))
+                        when io_g_s(1 downto 0) = "00" else
+                          std_logic_vector(tb_sa_s(7 downto 4))
+                        when io_g_s(1 downto 0) = "01" else
+                          '0' & '0' & std_logic_vector(tb_sa_s(9 downto 8))
+                        when io_g_s(1 downto 0) = "10" else
+                          (others => 'H');
+
 end behav;
 
 
@@ -182,4 +194,7 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2006/05/27 19:08:21  arniml
+-- initial check-in
+--
 -------------------------------------------------------------------------------
