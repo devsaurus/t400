@@ -2,7 +2,7 @@
 --
 -- Testbench for interrupt evaluation.
 --
--- $Id: tb_int.vhd,v 1.3 2006-05-28 15:36:59 arniml Exp $
+-- $Id: tb_int.vhd,v 1.4 2006-05-28 23:09:20 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -87,7 +87,11 @@ begin
   -----------------------------------------------------------------------------
   t420_b : t420
     generic map (
-      opt_ck_div_g => t400_opt_ck_div_4_c
+      opt_ck_div_g       => t400_opt_ck_div_4_c,
+      opt_l_out_type_3_g => t400_opt_out_type_od_c,
+      opt_l_out_type_2_g => t400_opt_out_type_od_c,
+      opt_l_out_type_1_g => t400_opt_out_type_od_c,
+      opt_l_out_type_0_g => t400_opt_out_type_od_c
     )
     port map (
       ck_i      => ck_s,
@@ -192,6 +196,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/28 15:36:59  arniml
+-- don't generate interrupt when in interrupt routine around 0x100
+--
 -- Revision 1.2  2006/05/28 02:53:47  arniml
 -- provide SA at L port
 --
