@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-05-28 18:14:19 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-28 19:22:35 arniml Exp $
 	;;
 	;; Checks interrupt on JSR and RET.
 	;;
@@ -82,9 +82,9 @@ int_routine:
 	ldd	3, 14
 	x	0
 	skmbz	0x0
-	jmp	check_sa_230
+	jp	check_sa_230
 	skmbz	0x1
-	jmp	check_sa_2b0
+	jp	check_sa_2b0
 	jmp	fail
 
 check_sa_230:
@@ -92,7 +92,6 @@ check_sa_230:
 	jmp	int_finished
 check_sa_2b0:
 	check_sa	ret_instr_2b0
-	jmp	int_finished
 
 int_finished:
 	restore_c_m_a

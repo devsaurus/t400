@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-05-28 15:26:04 arniml Exp $
+	;; $Id: test.asm,v 1.2 2006-05-28 19:22:11 arniml Exp $
 	;;
 	;; Checks interrupt on AISC.
 	;; AISC is interrupted twice:
@@ -95,9 +95,9 @@ int_routine:
 	ldd	3, 14
 	x	0
 	skmbz	0x0
-	jmp	check_sa_030
+	jp	check_sa_030
 	skmbz	0x1
-	jmp	check_sa_0b0
+	jp	check_sa_0b0
 	jmp	fail
 
 check_sa_030:
@@ -105,7 +105,6 @@ check_sa_030:
 	jmp	int_finished
 check_sa_0b0:
 	check_sa	ret_instr_0b0
-	jmp	int_finished
 
 int_finished:
 	restore_c_m_a
