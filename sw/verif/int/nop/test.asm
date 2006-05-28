@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.2 2006-05-28 13:20:49 arniml Exp $
+	;; $Id: test.asm,v 1.3 2006-05-28 15:30:06 arniml Exp $
 	;;
 	;; Checks interrupt on NOP.
 	;;
@@ -11,6 +11,7 @@
 	org	0x00
 	clra
 
+	int_flag_clear
 	lei	0x02
 	jp	int_mark
 
@@ -21,6 +22,7 @@ int_mark:
 int_instr:
 	nop
 ret_instr:
+	int_flag_check
 	jmp	pass
 
 
@@ -29,6 +31,7 @@ ret_instr:
 int_routine:
 	nop
 	save_a_m_c
+	int_flag_set
 	check_sa	ret_instr
 	restore_c_m_a
 	ret

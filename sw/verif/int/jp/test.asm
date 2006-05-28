@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.3 2006-05-28 13:21:36 arniml Exp $
+	;; $Id: test.asm,v 1.4 2006-05-28 15:29:19 arniml Exp $
 	;;
 	;; Checks interrupt on JP.
 	;;
@@ -11,6 +11,7 @@
 	org	0x00
 	clra
 
+	int_flag_clear
 	lei	0x02
 	jp	int_mark
 
@@ -27,6 +28,7 @@ int_instr:
 	org	0x3e
 +	aisc	0xf
 ret_instr:
+	int_flag_check
 	jmp	pass
 
 
@@ -35,6 +37,7 @@ ret_instr:
 int_routine:
 	nop
 	save_a_m_c
+	int_flag_set
 	check_sa	ret_instr
 	restore_c_m_a
 	ret
