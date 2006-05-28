@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: int_macros.inc,v 1.3 2006-05-28 13:35:23 arniml Exp $
+	;; $Id: int_macros.inc,v 1.4 2006-05-28 15:26:33 arniml Exp $
 	;;
 	;; Defines macros for interrupt tests.
 	;;
@@ -78,4 +78,33 @@ restore_c_m_a	MACRO
 	x	0		; from M(3,14)
 
 	xad	3, 15		; restore A
+	ENDM
+
+
+	;; -------------------------------------------------------------------
+	;; Flag that interrupt occured in M(3,12).1
+	;;
+int_flag_set	MACRO
+	clra
+	aisc	0x1
+	xad	3, 12
+	ENDM
+
+	;; -------------------------------------------------------------------
+	;; Clear 'interrupt occured' flag
+	;;
+int_flag_clear	MACRO
+	clra
+	xad	3, 12
+	ENDM
+
+	;; -------------------------------------------------------------------
+	;; Check interrupt occurence
+	;;
+int_flag_check	MACRO
+	lbi	3, 12
+	skmbz	0x0
+	jp	+
+	jmp	fail		; no interrupt!
++	lbi	0, 0
 	ENDM
