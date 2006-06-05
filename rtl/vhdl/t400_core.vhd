@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.6 2006-05-27 19:11:33 arniml Exp $
+-- $Id: t400_core.vhd,v 1.7 2006-06-05 14:19:15 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -288,10 +288,10 @@ begin
       io_in_op_o => io_in_op_s,
       sio_op_o   => sio_op_s,
       dec_data_o => dec_data_s,
-      is_lbi_o   => is_lbi_s,
       en_o       => en_s,
       skip_i     => skip_s,
       skip_lbi_i => skip_lbi_s,
+      is_lbi_o   => is_lbi_s,
       int_i      => int_s,
       pm_addr_i  => pm_addr_s,
       pm_data_i  => pm_data_i
@@ -316,12 +316,12 @@ begin
       c_i        => c_s,
       bd_i       => b_s(bd_range_t),
       is_lbi_i   => is_lbi_s,
+      skip_o     => skip_s,
+      skip_lbi_o => skip_lbi_s,
       a_i        => a_s,
       m_i        => dm_data_i,
       g_i        => io_g_s,
-      tim_c_i    => tim_c_s,
-      skip_o     => skip_s,
-      skip_lbi_o => skip_lbi_s
+      tim_c_i    => tim_c_s
     );
 
 
@@ -388,15 +388,16 @@ begin
       ck_i      => ck_i,
       ck_en_i   => ck_en_s,
       por_i     => por_s,
+      in_en_i   => in_en_s,
       op_i      => io_l_op_s,
       en2_i     => en_s(2),
       m_i       => dm_data_i,
       a_i       => a_s,
       pm_data_i => pm_data_i,
       q_o       => q_s,
-      cs_n_i    => vdd_s,
-      rd_n_i    => vdd_s,
-      wr_n_i    => vdd_s,
+      cs_n_i    => io_in_i(2),
+      rd_n_i    => io_in_i(1),
+      wr_n_i    => io_in_i(3),
       io_l_i    => io_l_i,
       io_l_o    => io_l_o,
       io_l_en_o => io_l_en_o
@@ -529,6 +530,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.6  2006/05/27 19:11:33  arniml
+-- updates for interrupt support
+--
 -- Revision 1.5  2006/05/23 01:13:56  arniml
 -- use to_X01 for G input
 --
