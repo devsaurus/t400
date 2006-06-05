@@ -3,7 +3,7 @@ SIM_DIR   = $(PROJECT_DIR)/sim/rtl_sim
 VERIF_DIR = $(PROJECT_DIR)/sw/verif
 
 # determine allowed targets
-TARGETS = $(wildcard t4* int)
+TARGETS = $(wildcard t4* int mb)
 
 .PHONY: all
 all: $(TARGETS)
@@ -15,7 +15,10 @@ t41x: $(SIM_DIR)/rom_41x.hex
 t42x: $(SIM_DIR)/rom_42x.hex
 
 .PHONY: int
-int: $(SIM_DIR)/rom_42x.hex
+int: t42x
+
+.PHONY: mb
+mb: t42x
 
 $(SIM_DIR)/rom_41x.hex: $(MODULE)_41x.p
 	p2hex $< $@
