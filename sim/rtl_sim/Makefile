@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.8 2006-05-28 02:49:05 arniml Exp $
+# $Id: Makefile,v 1.9 2006-06-05 21:05:48 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -46,6 +46,12 @@ work/generic_ram.o: $(GTECH_DIR)/generic_ram.vhd
 	$(ANALYZE) $<
 work/generic_ram-c.o: $(GTECH_DIR)/generic_ram-c.vhd \
                       work/generic_ram.o
+	$(ANALYZE) $<
+
+work/generic_ram_ena.o: $(GTECH_DIR)/generic_ram_ena.vhd
+	$(ANALYZE) $<
+work/generic_ram_ena-c.o: $(GTECH_DIR)/generic_ram_ena-c.vhd \
+                      work/generic_ram_ena.o
 	$(ANALYZE) $<
 #
 ##############################################################################
@@ -170,7 +176,6 @@ work/t400_io_g-c.o: $(RTL_DIR)/t400_io_g-c.vhd \
 	$(ANALYZE) $<
 
 work/t400_io_in.o: $(RTL_DIR)/t400_io_in.vhd \
-                   work/t400_opt_pack-p.o    \
                    work/t400_pack-p.o
 	$(ANALYZE) $<
 work/t400_io_in-c.o: $(RTL_DIR)/t400_io_in-c.vhd \
@@ -237,7 +242,7 @@ work/t410_notri.o: $(SYSTEM_DIR)/t410_notri.vhd \
 	$(ANALYZE) $<
 work/t410_notri-c.o: $(SYSTEM_DIR)/t410_notri-c.vhd \
                      work/t400_core-c.o             \
-                     work/generic_ram-c.o           \
+                     work/generic_ram_ena-c.o       \
                      work/t410_rom-lpm-c.o          \
                      work/t400_por-c.o              \
                      work/t410_notri.o
@@ -250,7 +255,7 @@ work/t420_notri.o: $(SYSTEM_DIR)/t420_notri.vhd \
 	$(ANALYZE) $<
 work/t420_notri-c.o: $(SYSTEM_DIR)/t420_notri-c.vhd \
                      work/t400_core-c.o             \
-                     work/generic_ram-c.o           \
+                     work/generic_ram_ena-c.o       \
                      work/t420_rom-lpm-c.o          \
                      work/t400_por-c.o              \
                      work/t420_notri.o
@@ -345,12 +350,24 @@ work/tb_int-c.o: $(BENCH_DIR)/tb_int-c.vhd \
                  work/tb_elems-c.o         \
                  work/tb_int.o
 	$(ANALYZE) $<
+
+work/tb_microbus.o: $(BENCH_DIR)/tb_microbus.vhd   \
+                    work/t400_opt_pack-p.o         \
+                    work/tb_pack-p.o               \
+                    work/t400_system_comp_pack-p.o
+	$(ANALYZE) $<
+work/tb_microbus-c.o: $(BENCH_DIR)/tb_microbus-c.vhd \
+                      work/t420-c.o                  \
+                      work/tb_elems-c.o              \
+                      work/tb_microbus.o
+	$(ANALYZE) $<
 #
 ##############################################################################
 
 
 .PHONY: elaborate
-elaborate: tb_t411_behav_c0 tb_t420_behav_c0 tb_int_behav_c0
+elaborate: tb_t411_behav_c0 tb_t420_behav_c0 tb_int_behav_c0 \
+           tb_microbus_behav_c0
 
 tb_t411_behav_c0: work/tb_t411-c.o
 	$(ELABORATE) $@
@@ -361,9 +378,14 @@ tb_t420_behav_c0: work/tb_t420-c.o
 tb_int_behav_c0: work/tb_int-c.o
 	$(ELABORATE) $@
 
+tb_microbus_behav_c0: work/tb_microbus-c.o
+	$(ELABORATE) $@
+
 
 .PHONY: analyze
-analyze: work work/tb_t411-c.o work/tb_t420-c.o
+analyze: work \
+         work/tb_t411-c.o work/tb_t420-c.o work/tb_int-c.o \
+         work/tb_microbus-c.o
 
 
 .PHONY: clean
@@ -372,4 +394,5 @@ clean:
         tb_t411_behav_c0      \
         tb_t420_behav_c0      \
         tb_int_behav_c0       \
+        tb_microbus_behav_c0  \
         work
