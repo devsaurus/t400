@@ -2,7 +2,7 @@
 --
 -- The G port controller.
 --
--- $Id: t400_io_g.vhd,v 1.2 2006-05-07 02:24:16 arniml Exp $
+-- $Id: t400_io_g.vhd,v 1.3 2006-06-05 20:32:34 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -55,7 +55,8 @@ entity t400_io_g is
     opt_out_type_3_g : integer := t400_opt_out_type_std_c;
     opt_out_type_2_g : integer := t400_opt_out_type_std_c;
     opt_out_type_1_g : integer := t400_opt_out_type_std_c;
-    opt_out_type_0_g : integer := t400_opt_out_type_std_c
+    opt_out_type_0_g : integer := t400_opt_out_type_std_c;
+    opt_microbus_g   : integer := t400_opt_no_microbus_c
   );
   port (
     -- System Interface -------------------------------------------------------
@@ -67,6 +68,8 @@ entity t400_io_g is
     op_i       : in  io_g_op_t;
     m_i        : in  dw_t;
     dec_data_i : in  dec_data_t;
+    cs_n_i     : in  std_logic;
+    wr_n_i     : in  std_logic;
     -- Port G Interface -------------------------------------------------------
     io_g_o     : out dw_t;
     io_g_en_o  : out dw_t
@@ -112,8 +115,14 @@ begin
           when others =>
             null;
         end case;
+
       end if;
 
+      -- reset G(0) in MICROBUS operation upon write
+      if opt_microbus_g = t400_opt_microbus_c and
+         cs_n_i = '0' and wr_n_i = '0' then
+        g_q(0) <= '0';
+      end if;
     end if;
   end process g_reg;
   --
@@ -164,6 +173,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/07 02:24:16  arniml
+-- fix sensitivity list
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
