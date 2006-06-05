@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.7 2006-06-05 14:19:15 arniml Exp $
+-- $Id: t400_core.vhd,v 1.8 2006-06-05 20:34:21 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -166,6 +166,10 @@ architecture struct of t400_core is
   signal int_s           : boolean;
 
   signal io_g_s          : std_logic_vector(io_g_i'range);
+
+  signal cs_n_s,
+         rd_n_s,
+         wr_n_s          : std_logic;
 
   signal vdd_s  : std_logic;
   signal gnd4_s : dw_t;
@@ -372,6 +376,10 @@ begin
   -----------------------------------------------------------------------------
   -- IO L module
   -----------------------------------------------------------------------------
+  cs_n_s <= io_in_i(2);
+  rd_n_s <= io_in_i(1);
+  wr_n_s <= io_in_i(3);
+  --
   io_l_b : t400_io_l
     generic map (
       opt_out_type_7_g => opt_l_out_type_7_g,
@@ -395,9 +403,9 @@ begin
       a_i       => a_s,
       pm_data_i => pm_data_i,
       q_o       => q_s,
-      cs_n_i    => io_in_i(2),
-      rd_n_i    => io_in_i(1),
-      wr_n_i    => io_in_i(3),
+      cs_n_i    => cs_n_s,
+      rd_n_i    => rd_n_s,
+      wr_n_i    => wr_n_s,
       io_l_i    => io_l_i,
       io_l_o    => io_l_o,
       io_l_en_o => io_l_en_o
@@ -434,13 +442,16 @@ begin
       opt_out_type_3_g => opt_g_out_type_3_g,
       opt_out_type_2_g => opt_g_out_type_2_g,
       opt_out_type_1_g => opt_g_out_type_1_g,
-      opt_out_type_0_g => opt_g_out_type_0_g
+      opt_out_type_0_g => opt_g_out_type_0_g,
+      opt_microbus_g   => opt_microbus_g
     )
     port map (
       ck_i       => ck_i,
       ck_en_i    => ck_en_s,
       por_i      => por_s,
       res_i      => res_s,
+      cs_n_i     => cs_n_s,
+      wr_n_i     => wr_n_s,
       op_i       => io_g_op_s,
       m_i        => dm_data_i,
       dec_data_i => dec_data_s,
@@ -530,6 +541,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.7  2006/06/05 14:19:15  arniml
+-- connect microbus control signals to IO L
+--
 -- Revision 1.6  2006/05/27 19:11:33  arniml
 -- updates for interrupt support
 --
