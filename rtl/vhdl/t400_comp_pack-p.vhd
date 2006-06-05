@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.6 2006-06-05 14:20:34 arniml Exp $
+-- $Id: t400_comp_pack-p.vhd,v 1.7 2006-06-05 20:31:56 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -276,7 +276,8 @@ package t400_comp_pack is
       opt_out_type_3_g : integer := t400_opt_out_type_std_c;
       opt_out_type_2_g : integer := t400_opt_out_type_std_c;
       opt_out_type_1_g : integer := t400_opt_out_type_std_c;
-      opt_out_type_0_g : integer := t400_opt_out_type_std_c
+      opt_out_type_0_g : integer := t400_opt_out_type_std_c;
+      opt_microbus_g   : integer := t400_opt_no_microbus_c
     );
     port (
       -- System Interface -----------------------------------------------------
@@ -284,6 +285,8 @@ package t400_comp_pack is
       ck_en_i    : in  boolean;
       por_i      : in  boolean;
       res_i      : in  boolean;
+      cs_n_i     : in  std_logic;
+      wr_n_i     : in  std_logic;
       -- Control Interface ----------------------------------------------------
       op_i       : in  io_g_op_t;
       m_i        : in  dw_t;
@@ -363,6 +366,9 @@ end t400_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.6  2006/06/05 14:20:34  arniml
+-- interface comments added
+--
 -- Revision 1.5  2006/05/27 19:11:33  arniml
 -- updates for interrupt support
 --
