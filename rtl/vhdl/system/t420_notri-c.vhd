@@ -2,7 +2,7 @@
 --
 -- T420/421 controller toplevel without tri-states.
 --
--- $Id: t420_notri-c.vhd,v 1.1 2006-05-14 22:29:01 arniml Exp $
+-- $Id: t420_notri-c.vhd,v 1.2 2006-06-05 20:03:11 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -22,8 +22,8 @@ configuration t420_notri_struct_c0 of t420_notri is
       use configuration work.t420_rom_struct_c0;
     end for;
 
-    for dmem_b: generic_ram
-      use configuration work.generic_ram_rtl_c0;
+    for dmem_b: generic_ram_ena
+      use configuration work.generic_ram_ena_rtl_c0;
     end for;
 
     for por_b: t400_por
@@ -39,4 +39,7 @@ end t420_notri_struct_c0;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2006/05/14 22:29:01  arniml
+-- initial check-in
+--
 -------------------------------------------------------------------------------

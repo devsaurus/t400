@@ -2,7 +2,7 @@
 --
 -- T410/411 controller toplevel without tri-states.
 --
--- $Id: t410_notri.vhd,v 1.2 2006-05-08 02:36:38 arniml Exp $
+-- $Id: t410_notri.vhd,v 1.3 2006-06-05 20:03:11 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -97,7 +97,7 @@ end t410_notri;
 
 use work.t400_core_comp_pack.t400_core;
 use work.t400_tech_comp_pack.t400_por;
-use work.t400_tech_comp_pack.generic_ram;
+use work.t400_tech_comp_pack.generic_ram_ena;
 
 architecture struct of t410_notri is
 
@@ -196,7 +196,7 @@ begin
   -----------------------------------------------------------------------------
   -- Data memory
   -----------------------------------------------------------------------------
-  dmem_b : generic_ram
+  dmem_b : generic_ram_ena
     generic map (
       addr_width_g => 5,
       data_width_g => 4
@@ -205,6 +205,7 @@ begin
       clk_i => ck_i,
       a_i   => dm_addr_s(4 downto 0),
       we_i  => dm_we_s,
+      ena_i => ck_en_i,
       d_i   => dm_data_from_core_s,
       d_o   => dm_data_to_core_s
     );
@@ -230,6 +231,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/08 02:36:38  arniml
+-- hand-down clock divider option
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
