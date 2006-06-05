@@ -2,7 +2,7 @@
 --
 -- T420/421 controller toplevel without tri-states.
 --
--- $Id: t420_notri.vhd,v 1.1 2006-05-14 22:29:01 arniml Exp $
+-- $Id: t420_notri.vhd,v 1.2 2006-06-05 20:03:52 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -61,6 +61,7 @@ entity t420_notri is
     opt_l_out_type_2_g   : integer := t400_opt_out_type_std_c;
     opt_l_out_type_1_g   : integer := t400_opt_out_type_std_c;
     opt_l_out_type_0_g   : integer := t400_opt_out_type_std_c;
+    opt_microbus_g       : integer := t400_opt_no_microbus_c;
     opt_d_out_type_3_g   : integer := t400_opt_out_type_std_c;
     opt_d_out_type_2_g   : integer := t400_opt_out_type_std_c;
     opt_d_out_type_1_g   : integer := t400_opt_out_type_std_c;
@@ -98,7 +99,7 @@ end t420_notri;
 
 use work.t400_core_comp_pack.t400_core;
 use work.t400_tech_comp_pack.t400_por;
-use work.t400_tech_comp_pack.generic_ram;
+use work.t400_tech_comp_pack.generic_ram_ena;
 
 architecture struct of t420_notri is
 
@@ -138,7 +139,7 @@ begin
       opt_l_out_type_2_g   => opt_l_out_type_2_g,
       opt_l_out_type_1_g   => opt_l_out_type_1_g,
       opt_l_out_type_0_g   => opt_l_out_type_0_g,
-      opt_microbus_g       => t400_opt_no_microbus_c,
+      opt_microbus_g       => opt_microbus_g,
       opt_d_out_type_3_g   => opt_d_out_type_3_g,
       opt_d_out_type_2_g   => opt_d_out_type_2_g,
       opt_d_out_type_1_g   => opt_d_out_type_1_g,
@@ -193,7 +194,7 @@ begin
   -----------------------------------------------------------------------------
   -- Data memory
   -----------------------------------------------------------------------------
-  dmem_b : generic_ram
+  dmem_b : generic_ram_ena
     generic map (
       addr_width_g => 6,
       data_width_g => 4
@@ -202,6 +203,7 @@ begin
       clk_i => ck_i,
       a_i   => dm_addr_s,
       we_i  => dm_we_s,
+      ena_i => ck_en_i,
       d_i   => dm_data_from_core_s,
       d_o   => dm_data_to_core_s
     );
@@ -227,4 +229,7 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2006/05/14 22:29:01  arniml
+-- initial check-in
+--
 -------------------------------------------------------------------------------
