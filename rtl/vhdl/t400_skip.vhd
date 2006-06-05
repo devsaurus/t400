@@ -3,7 +3,7 @@
 -- The skip unit.
 -- Skip conditions are checked here and communicated to the decoder unit.
 --
--- $Id: t400_skip.vhd,v 1.4 2006-05-28 15:35:33 arniml Exp $
+-- $Id: t400_skip.vhd,v 1.5 2006-06-05 14:20:34 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -56,22 +56,25 @@ entity t400_skip is
     opt_type_g : integer := t400_opt_type_420_c
   );
   port (
+    -- System Interface -------------------------------------------------------
     ck_i       : in  std_logic;
     ck_en_i    : in  boolean;
     por_i      : in  boolean;
     res_i      : in  boolean;
+    -- Control Interface ------------------------------------------------------
     op_i       : in  skip_op_t;
     dec_data_i : in  dec_data_t;
     carry_i    : in  std_logic;
     c_i        : in  std_logic;
     bd_i       : in  dw_t;
     is_lbi_i   : in  boolean;
+    skip_o     : out boolean;
+    skip_lbi_o : out boolean;
+    -- Data Interface ---------------------------------------------------------
     a_i        : in  dw_t;
     m_i        : in  dw_t;
     g_i        : in  dw_t;
-    tim_c_i    : in  boolean;
-    skip_o     : out boolean;
-    skip_lbi_o : out boolean
+    tim_c_i    : in  boolean
   );
 
 end t400_skip;
@@ -218,6 +221,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.4  2006/05/28 15:35:33  arniml
+-- fix pop'ing of skip flag
+--
 -- Revision 1.3  2006/05/27 19:16:52  arniml
 -- interrupt functionality added
 --

@@ -3,7 +3,7 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id: t400_decoder.vhd,v 1.5 2006-05-28 15:32:14 arniml Exp $
+-- $Id: t400_decoder.vhd,v 1.6 2006-06-05 14:20:34 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -56,6 +56,7 @@ entity t400_decoder is
     opt_type_g : integer := t400_opt_type_420_c
   );
   port (
+    -- System Interface -------------------------------------------------------
     ck_i       : in  std_logic;
     ck_en_i    : in  boolean;
     por_i      : in  boolean;
@@ -63,6 +64,7 @@ entity t400_decoder is
     out_en_i   : in  boolean;
     in_en_i    : in  boolean;
     icyc_en_i  : in  boolean;
+    -- Module Control Interface -----------------------------------------------
     pc_op_o    : out pc_op_t;
     stack_op_o : out stack_op_t;
     dmem_op_o  : out dmem_op_t;
@@ -75,11 +77,13 @@ entity t400_decoder is
     io_in_op_o : out io_in_op_t;
     sio_op_o   : out sio_op_t;
     dec_data_o : out dec_data_t;
-    is_lbi_o   : out boolean;
     en_o       : out dw_t;
+    -- Skip Interface ---------------------------------------------------------
     skip_i     : in  boolean;
     skip_lbi_i : in  boolean;
+    is_lbi_o   : out boolean;
     int_i      : in  boolean;
+    -- Program Memory Interface -----------------------------------------------
     pm_addr_i  : in  pc_t;
     pm_data_i  : in  byte_t
   );
@@ -859,6 +863,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.5  2006/05/28 15:32:14  arniml
+-- execute virtual NOP at location 0x0ff when vectoring to interrupt routine
+--
 -- Revision 1.4  2006/05/27 19:14:18  arniml
 -- interrupt functionality added
 --

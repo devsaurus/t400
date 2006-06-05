@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.5 2006-05-27 19:11:33 arniml Exp $
+-- $Id: t400_comp_pack-p.vhd,v 1.6 2006-06-05 14:20:34 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -153,6 +153,7 @@ package t400_comp_pack is
       opt_type_g : integer := t400_opt_type_420_c
     );
     port (
+      -- System Interface -----------------------------------------------------
       ck_i       : in  std_logic;
       ck_en_i    : in  boolean;
       por_i      : in  boolean;
@@ -160,6 +161,7 @@ package t400_comp_pack is
       out_en_i   : in  boolean;
       in_en_i    : in  boolean;
       icyc_en_i  : in  boolean;
+      -- Module Control Interface ---------------------------------------------
       pc_op_o    : out pc_op_t;
       stack_op_o : out stack_op_t;
       dmem_op_o  : out dmem_op_t;
@@ -172,11 +174,13 @@ package t400_comp_pack is
       io_in_op_o : out io_in_op_t;
       sio_op_o   : out sio_op_t;
       dec_data_o : out dec_data_t;
-      is_lbi_o   : out boolean;
       en_o       : out dw_t;
+      -- Skip Interface -------------------------------------------------------
       skip_i     : in  boolean;
       skip_lbi_i : in  boolean;
+      is_lbi_o   : out boolean;
       int_i      : in  boolean;
+      -- Program Memory Interface ---------------------------------------------
       pm_addr_i  : in  pc_t;
       pm_data_i  : in  byte_t
     );
@@ -187,22 +191,25 @@ package t400_comp_pack is
       opt_type_g : integer := t400_opt_type_420_c
     );
     port (
+      -- System Interface -----------------------------------------------------
       ck_i       : in  std_logic;
       ck_en_i    : in  boolean;
       por_i      : in  boolean;
       res_i      : in  boolean;
+      -- Control Interface ----------------------------------------------------
       op_i       : in  skip_op_t;
       dec_data_i : in  dec_data_t;
       carry_i    : in  std_logic;
       c_i        : in  std_logic;
       bd_i       : in  dw_t;
       is_lbi_i   : in  boolean;
+      skip_o     : out boolean;
+      skip_lbi_o : out boolean;
+      -- Data Interface -------------------------------------------------------
       a_i        : in  dw_t;
       m_i        : in  dw_t;
       g_i        : in  dw_t;
-      tim_c_i    : in  boolean;
-      skip_o     : out boolean;
-      skip_lbi_o : out boolean
+      tim_c_i    : in  boolean
     );
   end component;
 
@@ -223,6 +230,7 @@ package t400_comp_pack is
       ck_i      : in  std_logic;
       ck_en_i   : in  boolean;
       por_i     : in  boolean;
+      in_en_i   : in  boolean;
       -- Control Interface ----------------------------------------------------
       op_i      : in  io_l_op_t;
       en2_i     : in  std_logic;
@@ -355,6 +363,9 @@ end t400_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.5  2006/05/27 19:11:33  arniml
+-- updates for interrupt support
+--
 -- Revision 1.4  2006/05/22 00:03:08  arniml
 -- io_in added
 --
