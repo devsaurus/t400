@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_system_comp_pack-p.vhd,v 1.3 2006-05-23 01:16:19 arniml Exp $
+-- $Id: t400_system_comp_pack-p.vhd,v 1.4 2006-06-05 20:02:46 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -103,6 +103,7 @@ package t400_system_comp_pack is
       opt_l_out_type_2_g   : integer := t400_opt_out_type_std_c;
       opt_l_out_type_1_g   : integer := t400_opt_out_type_std_c;
       opt_l_out_type_0_g   : integer := t400_opt_out_type_std_c;
+      opt_microbus_g       : integer := t400_opt_no_microbus_c;
       opt_d_out_type_3_g   : integer := t400_opt_out_type_std_c;
       opt_d_out_type_2_g   : integer := t400_opt_out_type_std_c;
       opt_d_out_type_1_g   : integer := t400_opt_out_type_std_c;
@@ -148,6 +149,7 @@ package t400_system_comp_pack is
       opt_l_out_type_2_g   : integer := t400_opt_out_type_std_c;
       opt_l_out_type_1_g   : integer := t400_opt_out_type_std_c;
       opt_l_out_type_0_g   : integer := t400_opt_out_type_std_c;
+      opt_microbus_g       : integer := t400_opt_no_microbus_c;
       opt_d_out_type_1_g   : integer := t400_opt_out_type_std_c;
       opt_d_out_type_0_g   : integer := t400_opt_out_type_std_c;
       opt_g_out_type_2_g   : integer := t400_opt_out_type_std_c;
@@ -178,6 +180,9 @@ end t400_system_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/23 01:16:19  arniml
+-- routi CKO to t400_core
+--
 -- Revision 1.2  2006/05/14 22:29:33  arniml
 -- t420 hierarchies added
 --
