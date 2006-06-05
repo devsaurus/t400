@@ -2,7 +2,7 @@
 --
 -- Testbench for interrupt evaluation.
 --
--- $Id: tb_int.vhd,v 1.4 2006-05-28 23:09:20 arniml Exp $
+-- $Id: tb_int.vhd,v 1.5 2006-06-05 18:50:45 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -61,7 +61,6 @@ architecture behav of tb_int is
   -- 210.4 kHz clock
   constant period_c : time := 4.75 us;
   signal   ck_s     : std_logic;
-  signal   en_ck_s  : std_logic;
 
   signal reset_n_s  : std_logic;
 
@@ -196,6 +195,9 @@ end behav;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.4  2006/05/28 23:09:20  arniml
+-- lower nibble is OD to prevent contention with testbench
+--
 -- Revision 1.3  2006/05/28 15:36:59  arniml
 -- don't generate interrupt when in interrupt routine around 0x100
 --
