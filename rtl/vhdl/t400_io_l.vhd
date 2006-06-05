@@ -2,7 +2,7 @@
 --
 -- The L port controller.
 --
--- $Id: t400_io_l.vhd,v 1.3 2006-06-05 14:21:21 arniml Exp $
+-- $Id: t400_io_l.vhd,v 1.4 2006-06-05 20:33:24 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -126,11 +126,9 @@ begin
       end if;
 
       -- Microbus functionality
-      if opt_microbus_g = t400_opt_microbus_c then
-        if in_en_i and
-           cs_n_i = '0' and wr_n_i = '0' then
-          q_q <= to_X01(io_l_i);
-        end if;
+      if opt_microbus_g = t400_opt_microbus_c and
+         cs_n_i = '0' and wr_n_i = '0' then
+        q_q <= to_X01(io_l_i);
       end if;
     end if;
   end process q_reg;
@@ -221,6 +219,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/06/05 14:21:21  arniml
+-- latch io_l_i upon input enable trigger
+--
 -- Revision 1.2  2006/05/23 01:14:28  arniml
 -- use to_X01 for primary input bus
 --
