@@ -2,7 +2,7 @@
 --
 -- The L port controller.
 --
--- $Id: t400_io_l.vhd,v 1.2 2006-05-23 01:14:28 arniml Exp $
+-- $Id: t400_io_l.vhd,v 1.3 2006-06-05 14:21:21 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -67,6 +67,7 @@ entity t400_io_l is
     ck_i      : in  std_logic;
     ck_en_i   : in  boolean;
     por_i     : in  boolean;
+    in_en_i   : in  boolean;
     -- Control Interface ------------------------------------------------------
     op_i      : in  io_l_op_t;
     en2_i     : in  std_logic;
@@ -126,7 +127,8 @@ begin
 
       -- Microbus functionality
       if opt_microbus_g = t400_opt_microbus_c then
-        if cs_n_i = '0' and wr_n_i = '0' then
+        if in_en_i and
+           cs_n_i = '0' and wr_n_i = '0' then
           q_q <= to_X01(io_l_i);
         end if;
       end if;
@@ -219,6 +221,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/05/23 01:14:28  arniml
+-- use to_X01 for primary input bus
+--
 -- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
 -- import from local CVS repository, LOC_CVS_0_1
 --
