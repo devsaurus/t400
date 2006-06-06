@@ -1,7 +1,7 @@
 
 README for the T400 uController project
 =======================================
-Version: $Date: 2006-06-05 02:07:41 $
+Version: $Date: 2006-06-06 00:34:40 $
 
 
 Introduction
@@ -9,6 +9,7 @@ Introduction
 
 The T400 µController core is an implementation of the COP400 microcontroller
 family architecture. <more text from webpage>
+
 
 Download
 --------
@@ -68,9 +69,17 @@ t400
  |
  \--+-- rtl
     |    |
-    |    \-- vhdl           : VHDL code containing the RTL description
-    |         |               of the core.
-    |         \-- system    : RTL VHDL code of sample systems.
+    |    +-- vhdl           : VHDL code containing the RTL description
+    |    |    |               of the core.
+    |    |    \-- system    : RTL VHDL code of sample systems.
+    |    |
+    |    \-- tech           : Technology specific files.
+    |         |
+    |         +-- cyclone   : Cyclone technology flavor.
+    |         |
+    |         +-- spartan   : Spartan technology flavor.
+    |         |
+    |         \-- generic   : Generic RTL designs.
     |
     +-- bench
     |    |
@@ -88,7 +97,9 @@ t400
               |
               +-- black_box : Black-box verification tests.
               |
-              \-- int       : Interrupt verification tests.
+              +-- int       : Interrupt verification tests.
+              |
+              \-- system    : General system level tests.
 
 
 Compiling the VHDL Code
@@ -130,6 +141,11 @@ three testbench top-levels if appropriate for the chosen simulator:
     It instantiates the T420 system topevel and is intended to execute all
     verification tests tagged with 'int'.
 
+  * tb_microbus_behav_c0
+    The testbench for the microbus verification.
+    It instantiates the T420 system toplevel in microbus configuration and is
+    intended to execute all verifications tests tagged with 'mb'.
+
 The Makefile has a 'clean' target to delete all intermediate data:
 
   $ make clean
@@ -138,6 +154,7 @@ The basic simple sequence list can be found in COMPILE_LIST. This can be
 useful to quickly set up the analyze stage of any compiler or
 synthesizer. Especially when synthesizing the code, you want to skip the VHDL
 configurations in *-c.vhd and everything below the bench/ directory.
+
 
 Preparation of the ROM Files
 ----------------------------
@@ -157,7 +174,7 @@ These files are:
   * rom_42x.hex
     Program ROM compiled for the T42x derivatives. Maximum size 1024 bytes.
     Referenced by the t420_notri system.
-    Enabled by the 't42x' and 'int' tag.
+    Enabled by the 't42x', 'int' and 'mb' tag.
 
 The verification flow for the T400 project generates these two files
 automatically from the assembler source files. Whenever the make process
@@ -219,3 +236,39 @@ script. For each test cell, it steps through the sequence
 It is highly recommended to redirect the output of run_regression.pl into a
 file. Otherwise, analyzing the messages related to each test cell is almost
 impossible.
+
+
+Clocking System
+---------------
+
+The main clock is supplied at input ck_i. To ease system integration, ck_i can
+accept integer multiples of the target clock frequency. Input ck_en_i is used
+to qualify rising edges on ck_i as active clock edges. When ck_i is supplied
+with the target frequency, ck_en_i can be kept high constantly.
+
+
+
+FPGA Implementation
+-------------------
+
+All of the design files contain pure RTL code. This is true even for the
+technology specific power-on reset module. Two flavors exist, each of them
+implementing the desired behavior in a way that is understood by the design
+tools.  The RAM for the data memory is described by generic RTL code as
+well. It should be translated automatically by the tool chain to a technology
+specific RAM macro.
+
+There is a generic method for the program memory ROM as well, although this
+project uses a flow where hex-files are loaded by lpm_rom.vhd as the default
+method. Convert the ROM image to an RTL VHDL file with one of the two
+following commands (either from hex or bin format):
+
+  $ hex2rom -b [rom image file] rom_t41x 9l8s > rom_t41x.vhd
+  $ hex2rom -b [rom image file] rom_t42x 10l8s > rom_t42x.vhd
+
+The option -b specifies that <rom image file> contains binary data. Skip this
+option to process a file in hex format.
+
+These resulting RTL representations are instantiated by t410_rom-struct-a.vhd
+and t420_rom-struct-a.vhd. Altera and Xilinx design tools will detect and
+extract the ROM and turn it into a memory macro.
