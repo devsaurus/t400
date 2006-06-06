@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.8 2006-06-05 20:34:21 arniml Exp $
+-- $Id: t400_core.vhd,v 1.9 2006-06-06 00:33:56 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -40,15 +40,6 @@
 --
 -- The latest version of this file can be found at:
 --      http://www.opencores.org/cvsweb.shtml/t400/
---
--- Limitations :
--- =============
---
--- Compared to the original COP400 architecture, the following limitations
--- apply:
---
---   * Features of the COP42x devices are either not yet implemented or
---     not verified.
 --
 -------------------------------------------------------------------------------
 
@@ -541,6 +532,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.8  2006/06/05 20:34:21  arniml
+-- use dedicated microbus cs/rd/wr strobes
+--
 -- Revision 1.7  2006/06/05 14:19:15  arniml
 -- connect microbus control signals to IO L
 --
