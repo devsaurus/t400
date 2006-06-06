@@ -70,3 +70,7 @@ Elaborate toplevel  tb_t420_behav_c0.
 bench/vhdl/tb_int.vhd
 bench/vhdl/tb_int-c.vhd
 Elaborate toplevel tb_int_behav_c0.
+
+bench/vhdl/tb_microbus.vhd
+bench/vhdl/tb_microbus-c.vhd
+Elaborate toplevel tb_microbus_behav_c0.
