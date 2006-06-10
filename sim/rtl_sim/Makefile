@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.9 2006-06-05 21:05:48 arniml Exp $
+# $Id: Makefile,v 1.10 2006-06-10 18:51:38 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -361,13 +361,24 @@ work/tb_microbus-c.o: $(BENCH_DIR)/tb_microbus-c.vhd \
                       work/tb_elems-c.o              \
                       work/tb_microbus.o
 	$(ANALYZE) $<
+
+work/tb_prod.o: $(BENCH_DIR)/tb_prod.vhd       \
+                work/t400_opt_pack-p.o         \
+                work/tb_pack-p.o               \
+                work/t400_system_comp_pack-p.o
+	$(ANALYZE) $<
+work/tb_prod-c.o: $(BENCH_DIR)/tb_prod-c.vhd \
+                  work/t420-c.o              \
+                  work/tb_elems-c.o          \
+                  work/tb_prod.o
+	$(ANALYZE) $<
 #
 ##############################################################################
 
 
 .PHONY: elaborate
 elaborate: tb_t411_behav_c0 tb_t420_behav_c0 tb_int_behav_c0 \
-           tb_microbus_behav_c0
+           tb_microbus_behav_c0 tb_prod_behav_c0
 
 tb_t411_behav_c0: work/tb_t411-c.o
 	$(ELABORATE) $@
@@ -381,11 +392,14 @@ tb_int_behav_c0: work/tb_int-c.o
 tb_microbus_behav_c0: work/tb_microbus-c.o
 	$(ELABORATE) $@
 
+tb_prod_behav_c0: work/tb_prod-c.o
+	$(ELABORATE) $@
+
 
 .PHONY: analyze
 analyze: work \
          work/tb_t411-c.o work/tb_t420-c.o work/tb_int-c.o \
-         work/tb_microbus-c.o
+         work/tb_microbus-c.o work/tb_prod-c.o
 
 
 .PHONY: clean
@@ -395,4 +409,5 @@ clean:
         tb_t420_behav_c0      \
         tb_int_behav_c0       \
         tb_microbus_behav_c0  \
+        tb_prod_behav_c0      \
         work
