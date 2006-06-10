@@ -1,4 +1,10 @@
 
 Change log for the T400 uController core
 ========================================
-Version: $Date: 2006-06-05 02:07:41 $
+Version: $Date: 2006-06-10 20:17:14 $
+
+
+Release 1.0
+-----------
+
+* Production test plus related testbench added.
