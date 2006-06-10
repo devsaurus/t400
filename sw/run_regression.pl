@@ -4,7 +4,7 @@
 #
 # run_regression.pl
 #
-# $Id: run_regression.pl,v 1.3 2006-06-05 21:03:05 arniml Exp $
+# $Id: run_regression.pl,v 1.4 2006-06-10 19:38:27 arniml Exp $
 #
 # Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 #
@@ -33,7 +33,8 @@ my $sim_dir     = $project_dir.'/sim/rtl_sim';
 my %testbenches = ('t41x' => './tb_t411_behav_c0',
                    't42x' => './tb_t420_behav_c0',
                    'int'  => './tb_int_behav_c0',
-                   'mb'   => './tb_microbus_behav_c0');
+                   'mb'   => './tb_microbus_behav_c0',
+                   'prod' => './tb_prod_behav_c0');
 my ($tb_name, $tb_exec);
 
 # identify the directories below $verif_dir containing test classes
