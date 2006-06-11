@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.9 2006-06-06 00:33:56 arniml Exp $
+-- $Id: t400_core.vhd,v 1.10 2006-06-11 13:34:39 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -509,7 +509,8 @@ begin
   -----------------------------------------------------------------------------
   -- Timer module
   -----------------------------------------------------------------------------
-  use_tim: if opt_type_g = t400_opt_type_420_c generate
+  use_tim: if opt_type_g = t400_opt_type_420_c or
+              opt_type_g = t400_opt_type_421_c generate
     timer_b : t400_timer
       port map (
         ck_i      => ck_i,
@@ -521,7 +522,8 @@ begin
       );
   end generate;
 
-  notim: if opt_type_g /= t400_opt_type_420_c generate
+  notim: if opt_type_g /= t400_opt_type_420_c and
+            opt_type_g /= t400_opt_type_421_c generate
     tim_c_s <= false;
   end generate;
 
@@ -532,6 +534,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.9  2006/06/06 00:33:56  arniml
+-- remove note about limitations
+--
 -- Revision 1.8  2006/06/05 20:34:21  arniml
 -- use dedicated microbus cs/rd/wr strobes
 --
