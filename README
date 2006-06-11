@@ -1,7 +1,7 @@
 
 README for the T400 uController project
 =======================================
-Version: $Date: 2006-06-11 13:53:11 $
+Version: $Date: 2006-06-11 23:31:34 $
 
 
 Introduction
@@ -126,7 +126,12 @@ This will call ghdl to analzye and elaborate the complete design hierarchy.
 Make will analyze all VHDL files (RTL and testbench code) and elaborate all
 testbench top-levels:
 
-  * tb_t420_behav_c0
+  * tb_t410_behav_c0
+    Testbench for the T410 derivative.
+    It instantiates the T410 system toplevel and is intended to exectue all
+    verifcation tests tagged with 't41x'.
+
+  * tb_t411_behav_c0
     Testbench for the T411 derivative.
     It instantiates the T411 system toplevel and is intended to exectue all
     verifcation tests tagged with 't41x'.
@@ -260,6 +265,38 @@ accept integer multiples of the target clock frequency. Input ck_en_i is used
 to qualify rising edges on ck_i as active clock edges. When ck_i is supplied
 with the target frequency, ck_en_i can be kept high constantly.
 
+
+Generic Parameters
+------------------
+
+Most generic parameters are provided to set the numerous I/O options. Thus
+such options are exhibited on the toplevel designs.
+All generics are implemented with integer types to enable analysis of the RTL
+code without tool restrictions. The related constants are defined in
+t400_opt_pack-p.vhd.
+
+  opt_type_g           : Derivative type - T420, T421, T410, T411
+  opt_ck_div_g         : Internal divider on CK
+  opt_cko_g            : Enable CKO as general purpose input
+  opt_l_out_type_7_g   : Output driver type L[7]
+  opt_l_out_type_6_g   : Output driver type L[6]
+  opt_l_out_type_5_g   : Output driver type L[5]
+  opt_l_out_type_4_g   : Output driver type L[4]
+  opt_l_out_type_3_g   : Output driver type L[3]
+  opt_l_out_type_2_g   : Output driver type L[2]
+  opt_l_out_type_1_g   : Output driver type L[1]
+  opt_l_out_type_0_g   : Output driver type L[0]
+  opt_microbus_g       : Enable MICROBUS interface
+  opt_d_out_type_3_g   : Output driver type D[3]
+  opt_d_out_type_2_g   : Output driver type D[2]
+  opt_d_out_type_1_g   : Output driver type D[1]
+  opt_d_out_type_0_g   : Output driver type D[0]
+  opt_g_out_type_3_g   : Output driver type G[3]
+  opt_g_out_type_2_g   : Output driver type G[2]
+  opt_g_out_type_1_g   : Output driver type G[1]
+  opt_g_out_type_0_g   : Output driver type G[0]
+  opt_so_output_type_g : Output driver type SO
+  opt_sk_output_type_g : Output driver type SK
 
 
 FPGA Implementation
