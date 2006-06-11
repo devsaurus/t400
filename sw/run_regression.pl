@@ -4,7 +4,7 @@
 #
 # run_regression.pl
 #
-# $Id: run_regression.pl,v 1.5 2006-06-11 13:51:54 arniml Exp $
+# $Id: run_regression.pl,v 1.6 2006-06-11 22:20:45 arniml Exp $
 #
 # Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 #
@@ -30,7 +30,7 @@ my $verif_dir   = $project_dir.'/sw/verif';
 my $sim_dir     = $project_dir.'/sim/rtl_sim';
 
 # the testbenches and their identifiers
-my %testbenches = ('t41x' => ['./tb_t411_behav_c0'],
+my %testbenches = ('t41x' => ['./tb_t410_behav_c0', './tb_t411_behav_c0'],
                    't42x' => ['./tb_t420_behav_c0', './tb_t421_behav_c0'],
                    't420' => ['./tb_t420_behav_c0'],
                    'int'  => ['./tb_int_behav_c0'],
