@@ -4,7 +4,7 @@
 #
 # run_regression.pl
 #
-# $Id: run_regression.pl,v 1.4 2006-06-10 19:38:27 arniml Exp $
+# $Id: run_regression.pl,v 1.5 2006-06-11 13:51:54 arniml Exp $
 #
 # Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 #
@@ -30,11 +30,12 @@ my $verif_dir   = $project_dir.'/sw/verif';
 my $sim_dir     = $project_dir.'/sim/rtl_sim';
 
 # the testbenches and their identifiers
-my %testbenches = ('t41x' => './tb_t411_behav_c0',
-                   't42x' => './tb_t420_behav_c0',
-                   'int'  => './tb_int_behav_c0',
-                   'mb'   => './tb_microbus_behav_c0',
-                   'prod' => './tb_prod_behav_c0');
+my %testbenches = ('t41x' => ['./tb_t411_behav_c0'],
+                   't42x' => ['./tb_t420_behav_c0', './tb_t421_behav_c0'],
+                   't420' => ['./tb_t420_behav_c0'],
+                   'int'  => ['./tb_int_behav_c0'],
+                   'mb'   => ['./tb_microbus_behav_c0'],
+                   'prod' => ['./tb_prod_behav_c0']);
 my ($tb_name, $tb_exec);
 
 # identify the directories below $verif_dir containing test classes
@@ -89,7 +90,11 @@ while (($dir, $tb_exec) = each(%testdirs)) {
         chdir($sim_dir);
         foreach $tb_name (@execute_tbs) {
             print("Executing for $tb_name\n");
-            system("$testbenches{$tb_name} $ghdl_options");
+
+            foreach $tb_exec (@{$testbenches{$tb_name}}) {
+                print("Executing testbench $tb_exec\n");
+                system("$tb_exec $ghdl_options");
+            }
         }
     } else {
         print("Build failed\n");
