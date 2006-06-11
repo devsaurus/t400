@@ -2,7 +2,7 @@
 --
 -- T420/421 controller toplevel without tri-states.
 --
--- $Id: t420_notri.vhd,v 1.2 2006-06-05 20:03:52 arniml Exp $
+-- $Id: t420_notri.vhd,v 1.3 2006-06-11 13:48:43 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -51,6 +51,7 @@ use work.t400_opt_pack.all;
 entity t420_notri is
 
   generic (
+    opt_type_g           : integer := t400_opt_type_420_c;
     opt_ck_div_g         : integer := t400_opt_ck_div_16_c;
     opt_cko_g            : integer := t400_opt_cko_crystal_c;
     opt_l_out_type_7_g   : integer := t400_opt_out_type_std_c;
@@ -128,7 +129,7 @@ begin
   -----------------------------------------------------------------------------
   core_b : t400_core
     generic map (
-      opt_type_g           => t400_opt_type_420_c,
+      opt_type_g           => opt_type_g,
       opt_ck_div_g         => opt_ck_div_g,
       opt_cko_g            => opt_cko_g,
       opt_l_out_type_7_g   => opt_l_out_type_7_g,
@@ -229,6 +230,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.2  2006/06/05 20:03:52  arniml
+-- connect microbus generic and include generic_ram_ena
+--
 -- Revision 1.1  2006/05/14 22:29:01  arniml
 -- initial check-in
 --
