@@ -2,7 +2,7 @@
 --
 -- T420 system toplevel.
 --
--- $Id: t420.vhd,v 1.5 2006-06-05 20:04:11 arniml Exp $
+-- $Id: t420.vhd,v 1.6 2006-06-11 13:49:18 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -62,8 +62,11 @@ entity t420 is
     opt_l_out_type_1_g   : integer := t400_opt_out_type_std_c;
     opt_l_out_type_0_g   : integer := t400_opt_out_type_std_c;
     opt_microbus_g       : integer := t400_opt_no_microbus_c;
+    opt_d_out_type_3_g   : integer := t400_opt_out_type_std_c;
+    opt_d_out_type_2_g   : integer := t400_opt_out_type_std_c;
     opt_d_out_type_1_g   : integer := t400_opt_out_type_std_c;
     opt_d_out_type_0_g   : integer := t400_opt_out_type_std_c;
+    opt_g_out_type_3_g   : integer := t400_opt_out_type_std_c;
     opt_g_out_type_2_g   : integer := t400_opt_out_type_std_c;
     opt_g_out_type_1_g   : integer := t400_opt_out_type_std_c;
     opt_g_out_type_0_g   : integer := t400_opt_out_type_std_c;
@@ -110,6 +113,7 @@ begin
   -----------------------------------------------------------------------------
   t420_notri_b : t420_notri
     generic map (
+      opt_type_g           => t400_opt_type_420_c,
       opt_ck_div_g         => opt_ck_div_g,
       opt_cko_g            => opt_cko_g,
       opt_l_out_type_7_g   => opt_l_out_type_7_g,
@@ -121,11 +125,11 @@ begin
       opt_l_out_type_1_g   => opt_l_out_type_1_g,
       opt_l_out_type_0_g   => opt_l_out_type_0_g,
       opt_microbus_g       => opt_microbus_g,
-      opt_d_out_type_3_g   => t400_opt_out_type_std_c,
-      opt_d_out_type_2_g   => t400_opt_out_type_std_c,
+      opt_d_out_type_3_g   => opt_d_out_type_3_g,
+      opt_d_out_type_2_g   => opt_d_out_type_2_g,
       opt_d_out_type_1_g   => opt_d_out_type_1_g,
       opt_d_out_type_0_g   => opt_d_out_type_0_g,
-      opt_g_out_type_3_g   => t400_opt_out_type_std_c,
+      opt_g_out_type_3_g   => opt_g_out_type_3_g,
       opt_g_out_type_2_g   => opt_g_out_type_2_g,
       opt_g_out_type_1_g   => opt_g_out_type_1_g,
       opt_g_out_type_0_g   => opt_g_out_type_0_g,
@@ -190,6 +194,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.5  2006/06/05 20:04:11  arniml
+-- connect microbus generic
+--
 -- Revision 1.4  2006/05/23 01:16:05  arniml
 -- routi CKO to t400_core
 --
