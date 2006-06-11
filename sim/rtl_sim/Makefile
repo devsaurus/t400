@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.11 2006-06-11 13:50:41 arniml Exp $
+# $Id: Makefile,v 1.12 2006-06-11 22:21:04 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -264,7 +264,17 @@ work/t420_notri-c.o: $(SYSTEM_DIR)/t420_notri-c.vhd \
 work/t400_system_comp_pack-p.o: $(SYSTEM_DIR)/t400_system_comp_pack-p.vhd
 	$(ANALYZE) $<
 
+work/t410.o: $(SYSTEM_DIR)/t410.vhd         \
+             work/t400_opt_pack-p.o         \
+             work/t400_system_comp_pack-p.o
+	$(ANALYZE) $<
+work/t410-c.o: $(SYSTEM_DIR)/t410-c.vhd \
+               work/t410_notri-c.o      \
+               work/t410.o
+	$(ANALYZE) $<
+
 work/t411.o: $(SYSTEM_DIR)/t411.vhd         \
+             work/t400_opt_pack-p.o         \
              work/t400_system_comp_pack-p.o
 	$(ANALYZE) $<
 work/t411-c.o: $(SYSTEM_DIR)/t411-c.vhd \
@@ -326,6 +336,17 @@ work/tb_elems.o: $(BENCH_DIR)/tb_elems.vhd
 	$(ANALYZE) $<
 work/tb_elems-c.o: $(BENCH_DIR)/tb_elems-c.vhd \
                    work/tb_elems.o
+	$(ANALYZE) $<
+
+work/tb_t410.o: $(BENCH_DIR)/tb_t410.vhd       \
+                work/t400_opt_pack-p.o         \
+                work/tb_pack-p.o               \
+                work/t400_system_comp_pack-p.o
+	$(ANALYZE) $<
+work/tb_t410-c.o: $(BENCH_DIR)/tb_t410-c.vhd \
+                  work/t410-c.o              \
+                  work/tb_elems-c.o          \
+                  work/tb_t410.o
 	$(ANALYZE) $<
 
 work/tb_t411.o: $(BENCH_DIR)/tb_t411.vhd       \
@@ -398,8 +419,12 @@ work/tb_prod-c.o: $(BENCH_DIR)/tb_prod-c.vhd \
 
 
 .PHONY: elaborate
-elaborate: tb_t411_behav_c0 tb_t420_behav_c0 tb_t421_behav_c0 \
+elaborate: tb_t410_behav_c0 tb_t411_behav_c0 \
+           tb_t420_behav_c0 tb_t421_behav_c0 \
            tb_int_behav_c0 tb_microbus_behav_c0 tb_prod_behav_c0
+
+tb_t410_behav_c0: work/tb_t410-c.o
+	$(ELABORATE) $@
 
 tb_t411_behav_c0: work/tb_t411-c.o
 	$(ELABORATE) $@
@@ -422,13 +447,15 @@ tb_prod_behav_c0: work/tb_prod-c.o
 
 .PHONY: analyze
 analyze: work \
-         work/tb_t411-c.o work/tb_t420-c.o work/tb_t421-c.o \
+         work/tb_t410-c.o work/tb_t411-c.o \
+         work/tb_t420-c.o work/tb_t421-c.o \
          work/tb_int-c.o work/tb_microbus-c.o work/tb_prod-c.o
 
 
 .PHONY: clean
 clean:
 	rm -rf *~ UNUSED *hex \
+        tb_t410_behav_c0      \
         tb_t411_behav_c0      \
         tb_t420_behav_c0      \
         tb_t421_behav_c0      \
