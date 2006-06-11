@@ -35,8 +35,8 @@ rtl/vhdl/t400_timer.vhd
 rtl/vhdl/t400_timer-c.vhd
 rtl/vhdl/t400_core.vhd
 rtl/vhdl/t400_core-c.vhd
-rtl/tech/generic/generic_ram.vhd
-rtl/tech/generic/generic_ram-c.vhd
+rtl/tech/generic/generic_ram_ena.vhd
+rtl/tech/generic/generic_ram_ena-c.vhd
 bench/vhdl/lpm_rom.vhd
 rtl/vhdl/system/t410_rom-e.vhd
 bench/vhdl/t410_rom-lpm-a.vhd
@@ -48,10 +48,16 @@ rtl/tech/t400_tech_comp_pack-p.vhd
 rtl/vhdl/system/t410_notri.vhd
 rtl/vhdl/system/t410_notri-c.vhd
 rtl/vhdl/system/t400_system_comp_pack-p.vhd
-rtl/vhdl/system/t411.vhd
-rtl/vhdl/system/t411-c.vhd
+rtl/vhdl/system/t410.vhd
+rtl/vhdl/system/t410-c.vhd
 bench/vhdl/tb_elems.vhd
 bench/vhdl/tb_elems-c.vhd
+bench/vhdl/tb_t410.vhd
+bench/vhdl/tb_t410-c.vhd
+Elaborate toplevel tb_t410_behav_c0.
+
+rtl/vhdl/system/t411.vhd
+rtl/vhdl/system/t411-c.vhd
 bench/vhdl/tb_t411.vhd
 bench/vhdl/tb_t411-c.vhd
 Elaborate toplevel tb_t411_behav_c0.
@@ -65,7 +71,13 @@ rtl/vhdl/system/t420.vhd
 rtl/vhdl/system/t420-c.vhd
 bench/vhdl/tb_t420.vhd
 bench/vhdl/tb_t420-c.vhd
-Elaborate toplevel  tb_t420_behav_c0.
+Elaborate toplevel tb_t420_behav_c0.
+
+rtl/vhdl/system/t421.vhd
+rtl/vhdl/system/t421-c.vhd
+bench/vhdl/tb_t421.vhd
+bench/vhdl/tb_t421-c.vhd
+Elaborate toplevel tb_t421_behav_c0.
 
 bench/vhdl/tb_int.vhd
 bench/vhdl/tb_int-c.vhd
@@ -74,3 +86,7 @@ Elaborate toplevel tb_int_behav_c0.
 bench/vhdl/tb_microbus.vhd
 bench/vhdl/tb_microbus-c.vhd
 Elaborate toplevel tb_microbus_behav_c0.
+
+bench/vhdl/tb_prod.vhd
+bench/vhdl/tb_prod-c.vhd
+Elaborate toplevel tb_prod_behav_c0.
