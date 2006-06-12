@@ -1,14 +1,18 @@
 
 README for the T400 uController project
 =======================================
-Version: $Date: 2006-06-11 23:31:34 $
+Version: $Date: 2006-06-12 00:09:56 $
 
 
 Introduction
 ------------
 
-The T400 µController core is an implementation of the COP400 microcontroller
-family architecture. <more text from webpage>
+The T400 µController is an implementation of National's 4-bit COP400
+microcontroller family architecture. It is intended to be used as a
+replacement for the original chip in SOCs recreating legacy systems.
+Its final target is to provide design variants that are compatible with the
+COP420/421 and COP410L/411L family members. All of them derived from the
+common t400_core design.
 
 
 Download
