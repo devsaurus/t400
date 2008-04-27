@@ -74,4 +74,3 @@ set_instance_assignment -name PARTITION_HIERARCHY no_file_for_top_partition -to 
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 
 set_global_assignment -name CYCLONE_OPTIMIZATION_TECHNIQUE AREA
-set_global_assignment -name ALLOW_ANY_ROM_SIZE_FOR_RECOGNITION ON
