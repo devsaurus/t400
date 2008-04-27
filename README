@@ -1,7 +1,7 @@
 
 README for the T400 uController project
 =======================================
-Version: $Date: 2008-04-27 22:15:43 $
+Version: $Date: 2008-04-27 22:28:06 $
 
 
 Introduction
@@ -95,9 +95,11 @@ t400
     |
     +-- syn
     |    |
-    |    +-- ep1c12         : Synthesis for Altera Cyclone.
-    |    |
-    |    \-- xc3s1000       : Synthesis for Xilinx Spartan3.
+    |    \-- t421           : T421 toplevel example synthesis.
+    |         |
+    |         +-- ep1c12    : for Altera Cyclone.
+    |         |
+    |         \-- xc3s1000  : for Xilinx Spartan3.
     |
     \-- sw                  : General purpose scripts and files.
          |
