@@ -1,7 +1,7 @@
 
 README for the T400 uController project
 =======================================
-Version: $Date: 2006-06-12 00:09:56 $
+Version: $Date: 2008-04-27 22:15:43 $
 
 
 Introduction
@@ -93,6 +93,12 @@ t400
     |    |
     |    \-- rtl_sim        : Directory for running simulations.
     |
+    +-- syn
+    |    |
+    |    +-- ep1c12         : Synthesis for Altera Cyclone.
+    |    |
+    |    \-- xc3s1000       : Synthesis for Xilinx Spartan3.
+    |
     \-- sw                  : General purpose scripts and files.
          |
          \-- verif          : The verification suite.
@@ -183,7 +189,7 @@ Preparation of the ROM Files
 ----------------------------
 
 All testbenches listed above load the internal ROM of the controller from a
-file in hex-format. Its existance is mandatory as it is referenced in the
+file in hex-format. Its existance is mandatory since it is referenced in the
 VHDL code of the ROM model lpm_rom.vhd. In case it is missing, the
 simulation will stop immediately after elaborating the design.
 
@@ -309,7 +315,7 @@ FPGA Implementation
 All of the design files contain pure RTL code. This is true even for the
 technology specific power-on reset module. Two flavors exist, each of them
 implementing the desired behavior in a way that is understood by the design
-tools.  The RAM for the data memory is described by generic RTL code as
+tools. The RAM for the data memory is described by generic RTL code as
 well. It should be translated automatically by the tool chain to a technology
 specific RAM macro.
 
