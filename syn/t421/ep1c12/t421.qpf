@@ -20,7 +20,7 @@
 
 
 
-QUARTUS_VERSION = "7.2"
+QUARTUS_VERSION = "7.0"
 DATE = "20:42:11  April 27, 2008"
 
 
