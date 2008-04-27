@@ -2,7 +2,7 @@
 --
 -- Parametrizable, generic RAM.
 --
--- $Id: generic_ram.vhd,v 1.2 2006-06-17 14:20:59 arniml Exp $
+-- $Id: generic_ram.vhd,v 1.3 2008-04-27 22:13:15 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -75,7 +75,6 @@ architecture rtl of generic_ram is
     := (others => (others => '0'))
     -- pragma translate_on
     ;
-  signal a_q : std_logic_vector(a_i'range);
 
 begin
 
@@ -87,11 +86,9 @@ begin
         mem_q(to_integer(unsigned(a_i))) <= d_i;
       end if;
 
-      a_q <= a_i;
+      d_o <= mem_q(to_integer(unsigned(a_i)));
     end if;
 
   end process mem;
-
-  d_o <= mem_q(to_integer(unsigned(a_q)));
 
 end rtl;
