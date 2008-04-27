@@ -13,17 +13,11 @@ entity rom_t42x is
 end rom_t42x;
 
 architecture rtl of rom_t42x is
-	signal A_r : std_logic_vector(9 downto 0);
 begin
 	process (Clk)
 	begin
 		if Clk'event and Clk = '1' then
-			A_r <= A;
-		end if;
-	end process;
-	process (A_r)
-	begin
-		case to_integer(unsigned(A_r)) is
+		case to_integer(unsigned(A)) is
 		when 000000 => D <= "01000100";	-- 0x0000
 		when 000001 => D <= "00110011";	-- 0x0001
 		when 000002 => D <= "01011001";	-- 0x0002
@@ -605,5 +599,6 @@ begin
 		when 000578 => D <= "01000001";	-- 0x0242
 		when others => D <= "--------";
 		end case;
+	end if;
 	end process;
 end;
