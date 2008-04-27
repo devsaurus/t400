@@ -60,6 +60,8 @@
 //
 // 0244 : Added Leonardo .UCF option
 //
+// 28-Apr-2008 : Generate D for synchronous ROM in clocked process.
+//
 
 #include <stdio.h>
 #include <string>
@@ -704,17 +706,11 @@ int main (int argc, char *argv[])
 			}
 			else if (O == 's')
 			{
-				printf("\n\tsignal A_r : std_logic_vector(%d downto 0);", aWidth - 1);
 				printf("\nbegin");
 				printf("\n\tprocess (Clk)");
 				printf("\n\tbegin");
 				printf("\n\t\tif Clk'event and Clk = '1' then");
-				printf("\n\t\t\tA_r <= A;");
-				printf("\n\t\tend if;");
-				printf("\n\tend process;");
-				printf("\n\tprocess (A_r)");
-				printf("\n\tbegin");
-				printf("\n\t\tcase to_integer(unsigned(A_r)) is");
+				printf("\n\t\tcase to_integer(unsigned(A)) is");
 			}
 			else
 			{
@@ -762,6 +758,8 @@ int main (int argc, char *argv[])
 			{
 				printf("\n\t\twhen others => D <= \"%s\";", strDC.c_str());
 				printf("\n\t\tend case;");
+				if (O == 's')
+					printf("\n\tend if;");
 				printf("\n\tend process;");
 			}
 			else
