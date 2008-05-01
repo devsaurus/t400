@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_pack-p.vhd,v 1.3 2006-05-27 19:16:52 arniml Exp $
+-- $Id: t400_pack-p.vhd,v 1.4 2008-05-01 19:51:47 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -116,49 +116,6 @@ package t400_pack is
   type    sio_op_t   is (SIO_NONE,
                          SIO_LOAD);
 
-  -- Mnemonics ----------------------------------------------------------------
-  type    mnemonic_t is (-- Arithmetic instructions
-                         MN_ASC,
-                         MN_ADD,
-                         MN_ADT,
-                         MN_AISC,
-                         MN_CASC,
-                         MN_CLRA,
-                         MN_COMP,
-                         MN_NOP,
-                         MN_C,
-                         MN_XOR,
-                         -- Transfer of control instructions
-                         MN_JID,
-                         MN_JMP,
-                         MN_JP_JSRP,
-                         MN_JSR,
-                         MN_RET,
-                         MN_RETSK,
-                         -- Memory reference instructions
-                         MN_LD,
-                         MN_LDD_XAD,
-                         MN_LQID,
-                         MN_RMB,
-                         MN_SMB,
-                         MN_STII,
-                         MN_X,
-                         MN_XDS,
-                         MN_XIS,
-                         -- Register reference instructions
-                         MN_CAB,
-                         MN_CBA,
-                         MN_LBI,
-                         MN_XABR,
-                         -- Test instructions
-                         MN_SKC,
-                         MN_SKE,
-                         MN_SKMBZ,
-                         MN_SKT,
-                         -- Input/output instructions
-                         MN_EXT,
-                         MN_XAS);
-
 end t400_pack;
 
 
@@ -166,6 +123,9 @@ end t400_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/05/27 19:16:52  arniml
+-- interrupt functionality added
+--
 -- Revision 1.2  2006/05/22 00:01:21  arniml
 -- operations for IN port added
 --
