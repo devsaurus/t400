@@ -1,7 +1,20 @@
 
 Change log for the T400 uController core
 ========================================
-Version: $Date: 2006-06-11 23:58:49 $
+Version: $Date: 2008-05-01 20:14:52 $
+$Name: not supported by cvs2svn $
+
+
+Release 1.1
+-----------
+
+* code optimizations in the decoder to reduce LUT usage with
+  Xilinx ISE/XST.
+
+* synthesis templates for QuartusII and ISE.
+
+* updated version of hex2rom utility for RTL ROM generation
+  (keeps compatibility with QuartusII 7.2).
 
 
 Release 1.0
