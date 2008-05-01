@@ -9,9 +9,8 @@ rtl/vhdl/t400_pmem_ctrl.vhd
 rtl/vhdl/t400_pmem_ctrl-c.vhd
 rtl/vhdl/t400_dmem_ctrl.vhd
 rtl/vhdl/t400_dmem_ctrl-c.vhd
-rtl/vhdl/t400_opc_table.vhd
-rtl/vhdl/t400_opc_table-c.vhd
 rtl/vhdl/t400_comp_pack-p.vhd
+rtl/vhdl/t400_mnemonic_pack-p.vhd
 rtl/vhdl/t400_decoder.vhd
 rtl/vhdl/t400_decoder-c.vhd
 rtl/vhdl/t400_skip.vhd

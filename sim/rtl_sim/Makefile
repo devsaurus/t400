@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.12 2006-06-11 22:21:04 arniml Exp $
+# $Id: Makefile,v 1.13 2008-05-01 19:50:34 arniml Exp $
 #
 # The dependencies for all VHDL source files are stored here.
 #
@@ -123,14 +123,6 @@ work/t400_dmem_ctrl-c.o: $(RTL_DIR)/t400_dmem_ctrl-c.vhd \
                          work/t400_dmem_ctrl.o
 	$(ANALYZE) $<
 
-work/t400_opc_table.o: $(RTL_DIR)/t400_opc_table.vhd \
-                       work/t400_opt_pack-p.o        \
-                       work/t400_pack-p.o
-	$(ANALYZE) $<
-work/t400_opc_table-c.o: $(RTL_DIR)/t400_opc_table-c.vhd \
-                         work/t400_opc_table.o
-	$(ANALYZE) $<
-
 work/t400_skip.o: $(RTL_DIR)/t400_skip.vhd \
                   work/t400_pack-p.o
 	$(ANALYZE) $<
@@ -138,13 +130,17 @@ work/t400_skip-c.o: $(RTL_DIR)/t400_skip-c.vhd \
                     work/t400_skip.o
 	$(ANALYZE) $<
 
+work/t400_mnemonic_pack-p.o: $(RTL_DIR)/t400_mnemonic_pack-p.vhd \
+                             work/t400_pack-p.o                  \
+                             work/t400_opt_pack-p.o
+	$(ANALYZE) $<
+
 work/t400_decoder.o: $(RTL_DIR)/t400_decoder.vhd \
                      work/t400_opt_pack-p.o      \
                      work/t400_pack-p.o          \
-                     work/t400_comp_pack-p.o
+                     work/t400_mnemonic_pack-p.o
 	$(ANALYZE) $<
 work/t400_decoder-c.o: $(RTL_DIR)/t400_decoder-c.vhd \
-                       work/t400_opc_table-c.o       \
                        work/t400_decoder.o
 	$(ANALYZE) $<
 

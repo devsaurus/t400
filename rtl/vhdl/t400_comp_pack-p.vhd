@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.7 2006-06-05 20:31:56 arniml Exp $
+-- $Id: t400_comp_pack-p.vhd,v 1.8 2008-05-01 19:49:55 arniml Exp $
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -134,17 +134,6 @@ package t400_comp_pack is
       dm_data_i  : in  dw_t;
       dm_data_o  : out dw_t;
       dm_we_o    : out std_logic
-    );
-  end component;
-
-  component t400_opc_table
-    generic (
-      opt_type_g   : integer := t400_opt_type_420_c
-    );
-    port (
-      opcode_i     : in  byte_t;
-      mnemonic_o   : out mnemonic_t;
-      multi_byte_o : out boolean
     );
   end component;
 
@@ -366,6 +355,9 @@ end t400_comp_pack;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.7  2006/06/05 20:31:56  arniml
+-- microbus support for IO G added
+--
 -- Revision 1.6  2006/06/05 14:20:34  arniml
 -- interface comments added
 --

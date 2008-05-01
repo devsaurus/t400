@@ -3,7 +3,7 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id: t400_decoder.vhd,v 1.6 2006-06-05 14:20:34 arniml Exp $
+-- $Id: t400_decoder.vhd,v 1.7 2008-05-01 19:49:55 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -94,26 +94,27 @@ end t400_decoder;
 library ieee;
 use ieee.numeric_std.all;
 
-use work.t400_comp_pack.t400_opc_table;
+use work.t400_mnemonic_pack.all;
 
 architecture rtl of t400_decoder is
 
-  signal cyc_cnt_q    : unsigned(2 downto 0);
+  signal cyc_cnt_q      : unsigned(2 downto 0);
   signal ibyte1_q,
-         ibyte2_q     : byte_t;
+         ibyte2_q       : byte_t;
 
-  signal opcode_s     : byte_t;
-  signal second_cyc_q : boolean;
+  signal opcode_s       : byte_t;
+  signal second_cyc_q   : boolean;
+  signal mnemonic_rec_s : mnemonic_rec_t;
   signal mnemonic_s,
-         mnemonic_q   : mnemonic_t;
+         mnemonic_q     : mnemonic_t;
   signal multi_byte_s,
-         multi_byte_q : boolean;
-  signal last_cycle_s : boolean;
-  signal force_mc_s   : boolean;
+         multi_byte_q   : boolean;
+  signal last_cycle_s   : boolean;
+  signal force_mc_s     : boolean;
 
-  signal en_q         : dw_t;
-  signal set_en_s     : boolean;
-  signal ack_int_s    : boolean;
+  signal en_q           : dw_t;
+  signal set_en_s       : boolean;
+  signal ack_int_s      : boolean;
 
 begin
 
@@ -256,16 +257,14 @@ begin
 
   -----------------------------------------------------------------------------
   -- Opcode decoder table
+  --
+  mnemonic_rec_s <= decode_opcode_f(opcode   => opcode_s,
+                                    opt_type => opt_type_g);
+  --
+  mnemonic_s   <= mnemonic_rec_s.mnemonic;
+  multi_byte_s <= mnemonic_rec_s.multi_byte;
+  --
   -----------------------------------------------------------------------------
-  opc_table_b : t400_opc_table
-    generic map (
-      opt_type_g   => opt_type_g
-    )
-    port map (
-      opcode_i     => opcode_s,
-      mnemonic_o   => mnemonic_s,
-      multi_byte_o => multi_byte_s
-    );
 
 
   -----------------------------------------------------------------------------
@@ -863,6 +862,9 @@ end rtl;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.6  2006/06/05 14:20:34  arniml
+-- interface comments added
+--
 -- Revision 1.5  2006/05/28 15:32:14  arniml
 -- execute virtual NOP at location 0x0ff when vectoring to interrupt routine
 --
