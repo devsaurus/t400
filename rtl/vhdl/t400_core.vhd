@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.10 2006-06-11 13:34:39 arniml Exp $
+-- $Id: t400_core.vhd,v 1.11 2008-05-01 19:51:12 arniml Exp $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -162,14 +162,7 @@ architecture struct of t400_core is
          rd_n_s,
          wr_n_s          : std_logic;
 
-  signal vdd_s  : std_logic;
-  signal gnd4_s : dw_t;
-
 begin
-
-  -- dummies
-  vdd_s  <= '1';
-  gnd4_s <= (others => '0');
 
   ck_en_s <= ck_en_i = '1';
   por_s   <= por_n_i = '0';
@@ -534,6 +527,12 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.10  2006/06/11 13:34:39  arniml
+-- Fix bug:
+-- "Timer skipped in T421 configuration"
+-- The generate block that instantiates the timer module considers
+-- now t400_opt_type_421_x as well.
+--
 -- Revision 1.9  2006/06/06 00:33:56  arniml
 -- remove note about limitations
 --
