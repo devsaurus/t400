@@ -2,7 +2,8 @@
 --
 -- T411 system toplevel.
 --
--- $Id: t411.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id: t411.vhd,v 1.2 2008-08-23 11:19:20 arniml Exp $
+-- $Name: not supported by cvs2svn $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -190,4 +191,7 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
+-- import from local CVS repository, LOC_CVS_0_1
+--
 -------------------------------------------------------------------------------

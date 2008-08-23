@@ -2,7 +2,8 @@
 --
 -- T420 system toplevel.
 --
--- $Id: t420.vhd,v 1.6 2006-06-11 13:49:18 arniml Exp $
+-- $Id: t420.vhd,v 1.7 2008-08-23 11:19:20 arniml Exp $
+-- $Name: not supported by cvs2svn $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -28,7 +29,7 @@
 -- PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE
 -- LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
 -- CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
--- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
 -- INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
 -- CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
@@ -194,6 +195,10 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.6  2006/06/11 13:49:18  arniml
+-- * hand generic opt_type_g down to t420_notri
+-- * full generic list
+--
 -- Revision 1.5  2006/06/05 20:04:11  arniml
 -- connect microbus generic
 --

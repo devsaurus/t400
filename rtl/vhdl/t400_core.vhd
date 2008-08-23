@@ -2,7 +2,8 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.11 2008-05-01 19:51:12 arniml Exp $
+-- $Id: t400_core.vhd,v 1.12 2008-08-23 11:19:17 arniml Exp $
+-- $Name: not supported by cvs2svn $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -527,6 +528,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.11  2008/05/01 19:51:12  arniml
+-- removed obsolete signals
+--
 -- Revision 1.10  2006/06/11 13:34:39  arniml
 -- Fix bug:
 -- "Timer skipped in T421 configuration"

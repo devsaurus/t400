@@ -2,7 +2,8 @@
 --
 -- T410/411 controller toplevel without tri-states.
 --
--- $Id: t410_notri.vhd,v 1.3 2006-06-05 20:03:11 arniml Exp $
+-- $Id: t410_notri.vhd,v 1.4 2008-08-23 11:19:20 arniml Exp $
+-- $Name: not supported by cvs2svn $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -231,6 +232,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/06/05 20:03:11  arniml
+-- include generic_ram_ena
+--
 -- Revision 1.2  2006/05/08 02:36:38  arniml
 -- hand-down clock divider option
 --

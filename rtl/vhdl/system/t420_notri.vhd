@@ -2,7 +2,8 @@
 --
 -- T420/421 controller toplevel without tri-states.
 --
--- $Id: t420_notri.vhd,v 1.3 2006-06-11 13:48:43 arniml Exp $
+-- $Id: t420_notri.vhd,v 1.4 2008-08-23 11:19:20 arniml Exp $
+-- $Name: not supported by cvs2svn $
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -230,6 +231,9 @@ end struct;
 -- File History:
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.3  2006/06/11 13:48:43  arniml
+-- hand generic opt_type_g down to t400_core
+--
 -- Revision 1.2  2006/06/05 20:03:52  arniml
 -- connect microbus generic and include generic_ram_ena
 --
