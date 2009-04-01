@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: int_pass_fail.asm,v 1.1 2006-05-27 19:06:37 arniml Exp $
+	;; $Id$
 	;;
 	;; Provides pass/fail signalling via port D for interrupt tests.
 	;;

@@ -2,7 +2,7 @@
 --
 -- T420 system toplevel.
 --
--- $Id: t420-c.vhd,v 1.1 2006-05-14 22:29:01 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -54,10 +54,3 @@ configuration t420_struct_c0 of t420 is
   end for;
 
 end t420_struct_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 -- The clock generation unit.
 -- PHI1 clock and input/output clock enables are generated here.
 --
--- $Id: t400_clkgen.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -140,10 +140,3 @@ begin
   in_en_o   <= ck_en_i and ck_div_half_s; 
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 --
 -- T420/421 ROM.
 --
--- $Id: t420_rom-struct-a.vhd,v 1.1 2006-06-05 22:44:29 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -63,10 +63,3 @@ begin
     );
 
 end struct;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

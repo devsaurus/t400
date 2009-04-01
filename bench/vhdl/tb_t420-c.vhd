@@ -2,7 +2,7 @@
 --
 -- Testbench for the T420 system toplevel.
 --
--- $Id: tb_t420-c.vhd,v 1.1 2006-05-15 22:21:59 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -25,10 +25,3 @@ configuration tb_t420_behav_c0 of tb_t420 is
   end for;
 
 end tb_t420_behav_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

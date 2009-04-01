@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-06-05 02:12:19 arniml Exp $
+	;; $Id$
 	;;
 	;; Checks interrupt on a sequence of "transfer of control"
 	;; instructions.

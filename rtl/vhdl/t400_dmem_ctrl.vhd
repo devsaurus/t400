@@ -2,7 +2,7 @@
 --
 -- The Data memory controller.
 --
--- $Id: t400_dmem_ctrl.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -242,10 +242,3 @@ begin
   b_o(bd_range_t) <= std_logic_vector(bd_q);
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

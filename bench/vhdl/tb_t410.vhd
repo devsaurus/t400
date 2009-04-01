@@ -2,7 +2,7 @@
 --
 -- Testbench for the T410 system toplevel.
 --
--- $Id: tb_t410.vhd,v 1.1 2006-06-11 22:19:32 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -124,28 +124,3 @@ begin
     );
 
 end behav;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.6  2006/06/05 18:50:45  arniml
--- remove obsolete en_clk_s
---
--- Revision 1.5  2006/05/27 19:10:12  arniml
--- explicitly select clock divider 8
---
--- Revision 1.4  2006/05/23 01:18:26  arniml
--- consider IN port
---
--- Revision 1.3  2006/05/15 21:56:02  arniml
--- moved elements to separate design unit tb_elems
---
--- Revision 1.2  2006/05/06 13:34:25  arniml
--- remove delta cycle filter on sk_s
---
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

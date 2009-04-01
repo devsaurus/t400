@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-05-27 19:05:42 arniml Exp $
+	;; $Id$
 	;;
 	;; Pass interrupt test.
 	;; Always finds the pass mark when there's an interrupt

@@ -2,7 +2,7 @@
 --
 -- The Program memory controller.
 --
--- $Id: t400_pmem_ctrl.vhd,v 1.3 2006-05-28 15:32:40 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -181,16 +181,3 @@ begin
   pm_addr_o <= pc_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.2  2006/05/27 19:16:52  arniml
--- interrupt functionality added
---
--- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

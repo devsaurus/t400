@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.2 2006-05-17 00:29:52 arniml Exp $
+	;; $Id$
 	;;
 	;; Checks the JP instruction.
 	;; Both for pages 2,3 and other pages.

@@ -2,7 +2,7 @@
 --
 -- Testbench for the production test.
 --
--- $Id: tb_prod-c.vhd,v 1.1 2006-06-10 18:50:51 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -25,10 +25,3 @@ configuration tb_prod_behav_c0 of tb_prod is
   end for;
 
 end tb_prod_behav_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

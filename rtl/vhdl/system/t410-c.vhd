@@ -2,7 +2,7 @@
 --
 -- T410 system toplevel.
 --
--- $Id: t410-c.vhd,v 1.1 2006-06-11 22:18:28 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -54,10 +54,3 @@ configuration t410_struct_c0 of t410 is
   end for;
 
 end t410_struct_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

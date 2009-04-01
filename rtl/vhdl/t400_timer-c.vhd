@@ -2,7 +2,7 @@
 --
 -- The timer unit.
 --
--- $Id: t400_timer-c.vhd,v 1.1 2006-05-20 02:47:12 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -16,10 +16,3 @@ configuration t400_timer_rtl_c0 of t400_timer is
   end for;
 
 end t400_timer_rtl_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

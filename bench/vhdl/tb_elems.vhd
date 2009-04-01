@@ -2,7 +2,7 @@
 --
 -- Generic testbench elements
 --
--- $Id: tb_elems.vhd,v 1.6 2006-05-27 22:48:00 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -304,25 +304,3 @@ begin
   end process clk;
 
 end behav;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.5  2006/05/27 19:08:53  arniml
--- add fail reporting for port d
---
--- Revision 1.4  2006/05/23 01:17:25  arniml
--- drive IN port
---
--- Revision 1.3  2006/05/18 00:24:18  arniml
--- extend D-port checks
---
--- Revision 1.2  2006/05/17 00:47:45  arniml
--- enhance G-port check for T420
---
--- Revision 1.1  2006/05/15 21:55:27  arniml
--- initial check-in
---
--------------------------------------------------------------------------------

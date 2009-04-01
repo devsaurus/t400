@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_pack-p.vhd,v 1.4 2008-05-01 19:51:47 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -117,19 +117,3 @@ package t400_pack is
                          SIO_LOAD);
 
 end t400_pack;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.3  2006/05/27 19:16:52  arniml
--- interrupt functionality added
---
--- Revision 1.2  2006/05/22 00:01:21  arniml
--- operations for IN port added
---
--- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

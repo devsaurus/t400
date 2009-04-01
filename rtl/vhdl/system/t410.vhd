@@ -2,8 +2,7 @@
 --
 -- T410 system toplevel.
 --
--- $Id: t410.vhd,v 1.2 2008-08-23 11:19:20 arniml Exp $
--- $Name: not supported by cvs2svn $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -187,13 +186,3 @@ begin
                       'Z';
 
 end struct;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.1  2006/06/11 22:18:28  arniml
--- initial check-in
---
--------------------------------------------------------------------------------

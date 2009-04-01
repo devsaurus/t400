@@ -4,7 +4,7 @@
 #
 # run_regression.pl
 #
-# $Id: run_regression.pl,v 1.6 2006-06-11 22:20:45 arniml Exp $
+# $Id$
 #
 # Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 #

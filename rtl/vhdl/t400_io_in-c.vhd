@@ -2,7 +2,7 @@
 --
 -- The IN port controller.
 --
--- $Id: t400_io_in-c.vhd,v 1.1 2006-05-22 00:00:55 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -16,10 +16,3 @@ configuration t400_io_in_rtl_c0 of t400_io_in is
   end for;
 
 end t400_io_in_rtl_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

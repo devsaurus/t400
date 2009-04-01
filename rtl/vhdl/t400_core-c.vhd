@@ -2,7 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core-c.vhd,v 1.3 2006-05-22 00:03:29 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -77,16 +77,3 @@ configuration t400_core_struct_c0 of t400_core is
   end for;
 
 end t400_core_struct_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.2  2006/05/20 02:48:17  arniml
--- timer module included
---
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

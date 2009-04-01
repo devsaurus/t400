@@ -3,7 +3,7 @@
 -- The Arithmetic Logic Unit (ALU).
 -- It contains the accumulator and the C flag.
 --
--- $Id: t400_alu.vhd,v 1.3 2006-05-22 00:01:56 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -248,16 +248,3 @@ begin
   c_o     <= c_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.2  2006/05/21 21:47:40  arniml
--- route cko to ALU for INIL instruction
---
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

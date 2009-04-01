@@ -3,7 +3,7 @@
 -- The skip unit.
 -- Skip conditions are checked here and communicated to the decoder unit.
 --
--- $Id: t400_skip.vhd,v 1.5 2006-06-05 14:20:34 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -215,22 +215,3 @@ begin
   skip_lbi_o <= skip_lbi_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.4  2006/05/28 15:35:33  arniml
--- fix pop'ing of skip flag
---
--- Revision 1.3  2006/05/27 19:16:52  arniml
--- interrupt functionality added
---
--- Revision 1.2  2006/05/20 02:47:52  arniml
--- skip-on-timer implemented
---
--- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

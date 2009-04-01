@@ -2,7 +2,7 @@
 --
 -- T420 ROM wrapper for lpm_rom.
 --
--- $Id: t420_rom-lpm-a.vhd,v 1.1 2006-05-14 22:31:08 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -87,10 +87,3 @@ begin
     );
 
 end lpm;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

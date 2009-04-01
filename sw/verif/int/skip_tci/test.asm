@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-06-05 02:12:36 arniml Exp $
+	;; $Id$
 	;;
 	;; Checks interrupt on a skipped "transfer of control" instruction.
 	;;

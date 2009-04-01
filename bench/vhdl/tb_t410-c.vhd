@@ -2,7 +2,7 @@
 --
 -- Testbench for the T410 system toplevel.
 --
--- $Id: tb_t410-c.vhd,v 1.1 2006-06-11 22:19:32 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -25,10 +25,3 @@ configuration tb_t410_behav_c0 of tb_t410 is
   end for;
 
 end tb_t410_behav_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

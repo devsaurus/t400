@@ -2,7 +2,7 @@
 --
 -- The D port controller.
 --
--- $Id: t400_io_d.vhd,v 1.2 2006-05-07 02:24:16 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -152,13 +152,3 @@ begin
   -----------------------------------------------------------------------------
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

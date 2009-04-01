@@ -2,7 +2,7 @@
 --
 -- The stack unit.
 --
--- $Id: t400_stack.vhd,v 1.3 2006-06-11 02:12:11 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -140,16 +140,3 @@ begin
   pc_o <= sa_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.2  2006/05/27 19:15:59  arniml
--- instrument testbench
---
--- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

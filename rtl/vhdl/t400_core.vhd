@@ -2,8 +2,7 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id: t400_core.vhd,v 1.12 2008-08-23 11:19:17 arniml Exp $
--- $Name: not supported by cvs2svn $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -522,46 +521,3 @@ begin
   end generate;
 
 end struct;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.11  2008/05/01 19:51:12  arniml
--- removed obsolete signals
---
--- Revision 1.10  2006/06/11 13:34:39  arniml
--- Fix bug:
--- "Timer skipped in T421 configuration"
--- The generate block that instantiates the timer module considers
--- now t400_opt_type_421_x as well.
---
--- Revision 1.9  2006/06/06 00:33:56  arniml
--- remove note about limitations
---
--- Revision 1.8  2006/06/05 20:34:21  arniml
--- use dedicated microbus cs/rd/wr strobes
---
--- Revision 1.7  2006/06/05 14:19:15  arniml
--- connect microbus control signals to IO L
---
--- Revision 1.6  2006/05/27 19:11:33  arniml
--- updates for interrupt support
---
--- Revision 1.5  2006/05/23 01:13:56  arniml
--- use to_X01 for G input
---
--- Revision 1.4  2006/05/22 00:03:29  arniml
--- io_in added
---
--- Revision 1.3  2006/05/21 21:47:40  arniml
--- route cko to ALU for INIL instruction
---
--- Revision 1.2  2006/05/20 02:48:17  arniml
--- timer module included
---
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

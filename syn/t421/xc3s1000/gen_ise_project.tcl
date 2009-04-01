@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# $Id: gen_ise_project.tcl,v 1.1 2008-04-26 22:13:59 arniml Exp $
+# $Id$
 #
 # Based on
 # Created by Phil Hays, Xilinx

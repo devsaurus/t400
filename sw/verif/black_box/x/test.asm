@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id$
 	;;
 	;; Checks the X instruction.
 	;; Br can't be observed directly via XABR on COP41x.

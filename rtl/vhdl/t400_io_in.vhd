@@ -2,7 +2,7 @@
 --
 -- The IN port controller.
 --
--- $Id: t400_io_in.vhd,v 1.3 2006-05-27 19:14:18 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -164,18 +164,3 @@ begin
   int_o <= int_icyc_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.2  2006/05/23 01:13:28  arniml
--- + reset neg_edge flip-flops to '1'
---   -> after por, a 1-to-0 edge is required to trigger the latches initially
--- + use to_X01
---
--- Revision 1.1  2006/05/22 00:00:55  arniml
--- initial check-in
---
--------------------------------------------------------------------------------

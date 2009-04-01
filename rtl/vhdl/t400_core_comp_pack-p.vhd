@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_core_comp_pack-p.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -70,10 +70,3 @@ package t400_core_comp_pack is
   end component;
 
 end t400_core_comp_pack;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

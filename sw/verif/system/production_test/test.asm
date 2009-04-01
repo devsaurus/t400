@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-06-10 18:49:47 arniml Exp $
+	;; $Id$
 	;;
 	;; Production test as proposed by
 	;;   "Testing of COP400 Familiy Devices"

@@ -2,7 +2,7 @@
 --
 -- T400 Core
 --
--- $Id: t400_por.vhd,v 1.1 2006-05-07 01:47:51 arniml Exp $
+-- $Id$
 --
 -- Wrapper for technology dependent power-on reset circuitry.
 --

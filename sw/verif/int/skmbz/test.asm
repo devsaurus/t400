@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-06-01 00:36:16 arniml Exp $
+	;; $Id$
 	;;
 	;; Checks interrupt on SKMBZ.
 	;; AISC is interrupted twice:

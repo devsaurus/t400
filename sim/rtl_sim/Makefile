@@ -2,7 +2,7 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id: Makefile,v 1.13 2008-05-01 19:50:34 arniml Exp $
+# $Id$
 #
 # The dependencies for all VHDL source files are stored here.
 #

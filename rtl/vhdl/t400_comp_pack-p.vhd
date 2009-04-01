@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_comp_pack-p.vhd,v 1.8 2008-05-01 19:49:55 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -349,31 +349,3 @@ package t400_comp_pack is
   end component;
 
 end t400_comp_pack;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.7  2006/06/05 20:31:56  arniml
--- microbus support for IO G added
---
--- Revision 1.6  2006/06/05 14:20:34  arniml
--- interface comments added
---
--- Revision 1.5  2006/05/27 19:11:33  arniml
--- updates for interrupt support
---
--- Revision 1.4  2006/05/22 00:03:08  arniml
--- io_in added
---
--- Revision 1.3  2006/05/21 21:47:40  arniml
--- route cko to ALU for INIL instruction
---
--- Revision 1.2  2006/05/20 02:48:17  arniml
--- timer module included
---
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

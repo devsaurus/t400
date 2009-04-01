@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: int_macros.inc,v 1.4 2006-05-28 15:26:33 arniml Exp $
+	;; $Id$
 	;;
 	;; Defines macros for interrupt tests.
 	;;

@@ -2,7 +2,7 @@
 --
 -- T421 system toplevel.
 --
--- $Id: t421-c.vhd,v 1.1 2006-06-11 13:47:24 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -54,10 +54,3 @@ configuration t421_struct_c0 of t421 is
   end for;
 
 end t421_struct_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

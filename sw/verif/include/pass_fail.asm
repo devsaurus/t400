@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: pass_fail.asm,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+	;; $Id$
 	;;
 	;; Provides pass/fail signalling via port L.
 	;;

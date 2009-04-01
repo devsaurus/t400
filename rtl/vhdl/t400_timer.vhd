@@ -2,7 +2,7 @@
 --
 -- The timer unit.
 --
--- $Id: t400_timer.vhd,v 1.1 2006-05-20 02:47:12 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -113,10 +113,3 @@ begin
   c_o <= c_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.2 2006-05-28 19:22:11 arniml Exp $
+	;; $Id$
 	;;
 	;; Checks interrupt on AISC.
 	;; AISC is interrupted twice:

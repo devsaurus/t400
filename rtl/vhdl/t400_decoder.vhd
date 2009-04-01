@@ -3,7 +3,7 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id: t400_decoder.vhd,v 1.7 2008-05-01 19:49:55 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -856,28 +856,3 @@ begin
   en_o <= en_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.6  2006/06/05 14:20:34  arniml
--- interface comments added
---
--- Revision 1.5  2006/05/28 15:32:14  arniml
--- execute virtual NOP at location 0x0ff when vectoring to interrupt routine
---
--- Revision 1.4  2006/05/27 19:14:18  arniml
--- interrupt functionality added
---
--- Revision 1.3  2006/05/22 00:02:36  arniml
--- instructions ININ and INIL implemented
---
--- Revision 1.2  2006/05/07 02:24:16  arniml
--- fix sensitivity list
---
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

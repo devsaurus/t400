@@ -2,7 +2,7 @@
 --
 -- T400 Core
 --
--- $Id: t400_por.vhd,v 1.1.1.1 2006-05-06 01:56:44 arniml Exp $
+-- $Id$
 --
 -- Wrapper for technology dependent power-on reset circuitry.
 --
@@ -113,10 +113,3 @@ begin
   por_n_o <= por_n_q;
 
 end cyclone;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

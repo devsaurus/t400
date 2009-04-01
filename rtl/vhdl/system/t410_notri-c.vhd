@@ -2,7 +2,7 @@
 --
 -- T410/411 controller toplevel without tri-states.
 --
--- $Id: t410_notri-c.vhd,v 1.3 2006-06-05 20:03:11 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -33,16 +33,3 @@ configuration t410_notri_struct_c0 of t410_notri is
   end for;
 
 end t410_notri_struct_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.2  2006/05/07 01:49:03  arniml
--- renamed t400_por configuration to rtl
---
--- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

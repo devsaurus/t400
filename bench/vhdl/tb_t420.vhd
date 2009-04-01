@@ -2,7 +2,7 @@
 --
 -- Testbench for the T420 system toplevel.
 --
--- $Id: tb_t420.vhd,v 1.5 2006-06-05 18:50:45 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -129,22 +129,3 @@ begin
     );
 
 end behav;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.4  2006/05/27 19:10:20  arniml
--- explicitly select clock divider 4
---
--- Revision 1.3  2006/05/24 00:48:49  arniml
--- connect cko_i to bit 2 of IN bus
---
--- Revision 1.2  2006/05/23 01:18:10  arniml
--- consider CKO and IN port
---
--- Revision 1.1  2006/05/15 22:21:59  arniml
--- initial check-in
---
--------------------------------------------------------------------------------

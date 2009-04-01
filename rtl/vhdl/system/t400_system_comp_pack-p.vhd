@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- $Id: t400_system_comp_pack-p.vhd,v 1.6 2006-06-11 22:18:52 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -250,26 +250,3 @@ package t400_system_comp_pack is
   end component;
 
 end t400_system_comp_pack;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.5  2006/06/11 13:48:13  arniml
--- * t421 added
--- * fixed generic list for t420 and t420_notri
---
--- Revision 1.4  2006/06/05 20:02:46  arniml
--- use microbus generic
---
--- Revision 1.3  2006/05/23 01:16:19  arniml
--- routi CKO to t400_core
---
--- Revision 1.2  2006/05/14 22:29:33  arniml
--- t420 hierarchies added
---
--- Revision 1.1.1.1  2006/05/06 01:56:45  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

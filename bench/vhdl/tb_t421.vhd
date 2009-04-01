@@ -2,7 +2,7 @@
 --
 -- Testbench for the T421 system toplevel.
 --
--- $Id: tb_t421.vhd,v 1.1 2006-06-11 13:49:50 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -128,10 +128,3 @@ begin
     );
 
 end behav;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

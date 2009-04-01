@@ -2,7 +2,7 @@
 --
 -- The L port controller.
 --
--- $Id: t400_io_l.vhd,v 1.4 2006-06-05 20:33:24 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -213,19 +213,3 @@ begin
   -----------------------------------------------------------------------------
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.3  2006/06/05 14:21:21  arniml
--- latch io_l_i upon input enable trigger
---
--- Revision 1.2  2006/05/23 01:14:28  arniml
--- use to_X01 for primary input bus
---
--- Revision 1.1.1.1  2006/05/06 01:56:44  arniml
--- import from local CVS repository, LOC_CVS_0_1
---
--------------------------------------------------------------------------------

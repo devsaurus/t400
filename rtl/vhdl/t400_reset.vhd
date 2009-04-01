@@ -2,7 +2,7 @@
 --
 -- The reset generation unit.
 --
--- $Id: t400_reset.vhd,v 1.1.1.1 2006-05-06 01:56:45 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -136,10 +136,3 @@ begin
   res_o <= res_q;
 
 end rtl;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

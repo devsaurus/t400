@@ -2,8 +2,7 @@
 --
 -- T420 system toplevel.
 --
--- $Id: t420.vhd,v 1.8 2008-08-28 18:51:58 arniml Exp $
--- $Name: not supported by cvs2svn $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -189,32 +188,3 @@ begin
                       'Z';
 
 end struct;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.7  2008/08/23 11:19:20  arniml
--- added name keyword
---
--- Revision 1.6  2006/06/11 13:49:18  arniml
--- * hand generic opt_type_g down to t420_notri
--- * full generic list
---
--- Revision 1.5  2006/06/05 20:04:11  arniml
--- connect microbus generic
---
--- Revision 1.4  2006/05/23 01:16:05  arniml
--- routi CKO to t400_core
---
--- Revision 1.3  2006/05/20 02:49:04  arniml
--- select CK divide by 8
---
--- Revision 1.2  2006/05/17 00:38:31  arniml
--- connect missing input direction for IO G
---
--- Revision 1.1  2006/05/14 22:29:01  arniml
--- initial check-in
---
--------------------------------------------------------------------------------

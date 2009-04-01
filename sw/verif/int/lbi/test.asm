@@ -1,5 +1,5 @@
 	;; *******************************************************************
-	;; $Id: test.asm,v 1.1 2006-05-31 00:55:32 arniml Exp $
+	;; $Id$
 	;;
 	;; Checks interrupt on LBI.
 	;; LBI is interrupted twice:

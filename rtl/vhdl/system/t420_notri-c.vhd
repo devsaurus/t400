@@ -2,7 +2,7 @@
 --
 -- T420/421 controller toplevel without tri-states.
 --
--- $Id: t420_notri-c.vhd,v 1.2 2006-06-05 20:03:11 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -33,13 +33,3 @@ configuration t420_notri_struct_c0 of t420_notri is
   end for;
 
 end t420_notri_struct_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.1  2006/05/14 22:29:01  arniml
--- initial check-in
---
--------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 --
 -- Parametrizable, generic RAM.
 --
--- $Id: generic_ram.vhd,v 1.3 2008-04-27 22:13:15 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --

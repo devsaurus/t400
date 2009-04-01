@@ -2,7 +2,7 @@
 --
 -- Testbench for MICROBUS evaluation.
 --
--- $Id: tb_microbus.vhd,v 1.1 2006-06-05 21:04:52 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
@@ -262,10 +262,3 @@ begin
 
 
 end behav;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--------------------------------------------------------------------------------

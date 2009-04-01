@@ -2,7 +2,7 @@
 --
 -- Testbench for interrupt evaluation.
 --
--- $Id: tb_int-c.vhd,v 1.2 2006-06-05 14:42:50 arniml Exp $
+-- $Id$
 --
 -- Copyright (c) 2006, Arnim Laeuger (arniml@opencores.org)
 --
@@ -25,13 +25,3 @@ configuration tb_int_behav_c0 of tb_int is
   end for;
 
 end tb_int_behav_c0;
-
-
--------------------------------------------------------------------------------
--- File History:
---
--- $Log: not supported by cvs2svn $
--- Revision 1.1  2006/05/27 19:08:21  arniml
--- initial check-in
---
--------------------------------------------------------------------------------
