@@ -17,13 +17,9 @@ common t400_core design.
 Download
 --------
 
-Download the latest stable release from the project homepage at OpenCores.org:
+Download the latest stable release from github:
 
-  http://www.opencores.org/projects.cgi/web/t400/overview/
-
-You can get the latest version of the design files from CVS:
-
-  http://www.opencores.org/pdownloads.cgi/list/t400
+  https://github.com/devsaurus/t400
 
 Please keep in mind that this is work in progress and might contain smaller or
 bigger problems.
