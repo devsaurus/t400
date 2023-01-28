@@ -26,7 +26,7 @@ jobs:
 
     - name: Build test benches
       run: |
-        cd $SIM_DIR
+        cd sim/rtl_sim
         make
 
     - name: Cache asl
