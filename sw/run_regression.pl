@@ -30,12 +30,12 @@ my $verif_dir   = $project_dir.'/sw/verif';
 my $sim_dir     = $project_dir.'/sim/rtl_sim';
 
 # the testbenches and their identifiers
-my %testbenches = ('t41x' => ['./tb_t410_behav_c0', './tb_t411_behav_c0'],
-                   't42x' => ['./tb_t420_behav_c0', './tb_t421_behav_c0'],
-                   't420' => ['./tb_t420_behav_c0'],
-                   'int'  => ['./tb_int_behav_c0'],
-                   'mb'   => ['./tb_microbus_behav_c0'],
-                   'prod' => ['./tb_prod_behav_c0']);
+my %testbenches = ('t41x' => ['./tb_t410', './tb_t411'],
+                   't42x' => ['./tb_t420', './tb_t421'],
+                   't420' => ['./tb_t420'],
+                   'int'  => ['./tb_int'],
+                   'mb'   => ['./tb_microbus'],
+                   'prod' => ['./tb_prod']);
 my ($tb_name, $tb_exec);
 
 # identify the directories below $verif_dir containing test classes

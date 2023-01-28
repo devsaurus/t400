@@ -52,7 +52,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.t400_system_comp_pack.t420;
 use work.tb_pack.all;
 use work.t400_opt_pack.all;
 
@@ -88,7 +87,7 @@ begin
   -----------------------------------------------------------------------------
   -- DUT
   -----------------------------------------------------------------------------
-  t420_b : t420
+  t420_b : entity work.t420
     generic map (
       opt_ck_div_g   => t400_opt_ck_div_4_c,
       opt_microbus_g => t400_opt_microbus_c

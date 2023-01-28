@@ -51,7 +51,6 @@ end tb_t411;
 library ieee;
 use ieee.std_logic_1164.all;
 
-use work.t400_system_comp_pack.t411;
 use work.tb_pack.tb_elems;
 use work.t400_opt_pack.all;
 
@@ -82,7 +81,7 @@ begin
   -----------------------------------------------------------------------------
   -- DUT
   -----------------------------------------------------------------------------
-  t411_b : t411
+  t411_b : entity work.t411
     generic map (
       opt_ck_div_g => t400_opt_ck_div_8_c
     )

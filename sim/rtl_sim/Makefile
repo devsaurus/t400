@@ -6,7 +6,7 @@
 #
 # The dependencies for all VHDL source files are stored here.
 #
-# Copyright (c) 2006, Arnim Laeuger (arnim.laeuger@gmx.net)
+# Copyright (c) 2006-2023, Arnim Laeuger (arnim.laeuger@gmx.net)
 #
 # All rights reserved
 #
@@ -27,13 +27,13 @@ ELABORATE = ghdl -m $(WORKDIR)
 
 .PHONY: all
 all: work
-	$(ELABORATE) tb_t410_behav_c0
-	$(ELABORATE) tb_t411_behav_c0
-	$(ELABORATE) tb_t420_behav_c0
-	$(ELABORATE) tb_t421_behav_c0
-	$(ELABORATE) tb_int_behav_c0
-	$(ELABORATE) tb_microbus_behav_c0
-	$(ELABORATE) tb_prod_behav_c0
+	$(ELABORATE) tb_t410
+	$(ELABORATE) tb_t411
+	$(ELABORATE) tb_t420
+	$(ELABORATE) tb_t421
+	$(ELABORATE) tb_int
+	$(ELABORATE) tb_microbus
+	$(ELABORATE) tb_prod
 
 .PHONY: clean
 clean:
@@ -43,12 +43,6 @@ clean:
 .PHONY: veryclean
 veryclean: clean
 	rm -rf work
-
-
-.PHONY: run_behav
-run_rom: $(COMMONDEP) work intel
-	ghdl -m $(WORKDIR) tb_rom behav
-	./tb_rom-behav --wave=tbrom.ghw
 
 work:
 	make import

@@ -106,7 +106,6 @@ end t400_core;
 
 
 use work.t400_pack.all;
-use work.t400_comp_pack.all;
 
 architecture struct of t400_core is
 
@@ -172,7 +171,7 @@ begin
   -----------------------------------------------------------------------------
   -- Clock generator
   -----------------------------------------------------------------------------
-  clkgen_b : t400_clkgen
+  clkgen_b : entity work.t400_clkgen
     generic map (
       opt_ck_div_g => opt_ck_div_g
     )
@@ -190,7 +189,7 @@ begin
   -----------------------------------------------------------------------------
   -- Reset module
   -----------------------------------------------------------------------------
-  reset_b : t400_reset
+  reset_b : entity work.t400_reset
     port map (
       ck_i      => ck_i,
       icyc_en_i => icyc_en_s,
@@ -203,7 +202,7 @@ begin
   -----------------------------------------------------------------------------
   -- Program memory controller
   -----------------------------------------------------------------------------
-  pmem_ctrl_b : t400_pmem_ctrl
+  pmem_ctrl_b : entity work.t400_pmem_ctrl
     generic map (
       opt_type_g => opt_type_g
     )
@@ -227,7 +226,7 @@ begin
   -----------------------------------------------------------------------------
   -- Data memory controller
   -----------------------------------------------------------------------------
-  dmem_ctrl_b : t400_dmem_ctrl
+  dmem_ctrl_b : entity work.t400_dmem_ctrl
     generic map (
       opt_type_g => opt_type_g
     )
@@ -252,7 +251,7 @@ begin
   -----------------------------------------------------------------------------
   -- Decoder
   -----------------------------------------------------------------------------
-  decoder_b : t400_decoder
+  decoder_b : entity work.t400_decoder
     generic map (
       opt_type_g => opt_type_g
     )
@@ -289,7 +288,7 @@ begin
   -----------------------------------------------------------------------------
   -- Skip logic
   -----------------------------------------------------------------------------
-  skip_b : t400_skip
+  skip_b : entity work.t400_skip
     generic map (
       opt_type_g => opt_type_g
     )
@@ -316,7 +315,7 @@ begin
   -----------------------------------------------------------------------------
   -- ALU
   -----------------------------------------------------------------------------
-  alu_b : t400_alu
+  alu_b : entity work.t400_alu
     generic map (
       opt_cko_g => opt_cko_g
     )
@@ -343,7 +342,7 @@ begin
   -----------------------------------------------------------------------------
   -- Stack module
   -----------------------------------------------------------------------------
-  stack_b : t400_stack
+  stack_b : entity work.t400_stack
     generic map (
       opt_type_g => opt_type_g
     )
@@ -364,7 +363,7 @@ begin
   rd_n_s <= io_in_i(1);
   wr_n_s <= io_in_i(3);
   --
-  io_l_b : t400_io_l
+  io_l_b : entity work.t400_io_l
     generic map (
       opt_out_type_7_g => opt_l_out_type_7_g,
       opt_out_type_6_g => opt_l_out_type_6_g,
@@ -399,7 +398,7 @@ begin
   -----------------------------------------------------------------------------
   -- IO D module
   -----------------------------------------------------------------------------
-  io_d_b : t400_io_d
+  io_d_b : entity work.t400_io_d
     generic map (
       opt_out_type_3_g => opt_d_out_type_3_g,
       opt_out_type_2_g => opt_d_out_type_2_g,
@@ -421,7 +420,7 @@ begin
   -----------------------------------------------------------------------------
   -- IO G module
   -----------------------------------------------------------------------------
-  io_g_b : t400_io_g
+  io_g_b : entity work.t400_io_g
     generic map (
       opt_out_type_3_g => opt_g_out_type_3_g,
       opt_out_type_2_g => opt_g_out_type_2_g,
@@ -448,7 +447,7 @@ begin
   -- IO IN module
   -----------------------------------------------------------------------------
   use_in: if opt_type_g = t400_opt_type_420_c generate
-    io_in_b : t400_io_in
+    io_in_b : entity work.t400_io_in
       port map (
         ck_i      => ck_i,
         ck_en_i   => ck_en_s,
@@ -472,7 +471,7 @@ begin
   -----------------------------------------------------------------------------
   -- SIO module
   -----------------------------------------------------------------------------
-  sio_b : t400_sio
+  sio_b : entity work.t400_sio
     generic map (
       opt_so_output_type_g => opt_so_output_type_g,
       opt_sk_output_type_g => opt_sk_output_type_g
@@ -504,7 +503,7 @@ begin
   -----------------------------------------------------------------------------
   use_tim: if opt_type_g = t400_opt_type_420_c or
               opt_type_g = t400_opt_type_421_c generate
-    timer_b : t400_timer
+    timer_b : entity work.t400_timer
       port map (
         ck_i      => ck_i,
         ck_en_i   => ck_en_s,

@@ -83,8 +83,6 @@ entity t411 is
 end t411;
 
 
-use work.t400_system_comp_pack.t410_notri;
-
 architecture struct of t411 is
 
   signal io_l_from_t410_s,
@@ -109,7 +107,7 @@ begin
   -----------------------------------------------------------------------------
   -- T411 without tri-states
   -----------------------------------------------------------------------------
-  t410_notri_b : t410_notri
+  t410_notri_b : entity work.t410_notri
     generic map (
       opt_ck_div_g         => opt_ck_div_g,
       opt_cko_g            => t400_opt_cko_crystal_c,

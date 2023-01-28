@@ -90,8 +90,6 @@ entity t420 is
 end t420;
 
 
-use work.t400_system_comp_pack.t420_notri;
-
 architecture struct of t420 is
 
   signal io_l_from_t420_s,
@@ -111,7 +109,7 @@ begin
   -----------------------------------------------------------------------------
   -- T420 without tri-states
   -----------------------------------------------------------------------------
-  t420_notri_b : t420_notri
+  t420_notri_b : entity work.t420_notri
     generic map (
       opt_type_g           => t400_opt_type_420_c,
       opt_ck_div_g         => opt_ck_div_g,

@@ -95,19 +95,7 @@ entity t410_notri is
 end t410_notri;
 
 
-use work.t400_core_comp_pack.t400_core;
-use work.t400_tech_comp_pack.t400_por;
-use work.t400_tech_comp_pack.generic_ram_ena;
-
 architecture struct of t410_notri is
-
-  component t410_rom
-    port (
-      ck_i   : in  std_logic;
-      addr_i : in  std_logic_vector(8 downto 0);
-      data_o : out std_logic_vector(7 downto 0)
-    );
-  end component;
 
   signal por_n_s             : std_logic;
 
@@ -128,7 +116,7 @@ begin
   -----------------------------------------------------------------------------
   -- T400 core
   -----------------------------------------------------------------------------
-  core_b : t400_core
+  core_b : entity work.t400_core
     generic map (
       opt_type_g           => t400_opt_type_410_c,
       opt_ck_div_g         => opt_ck_div_g,
@@ -185,7 +173,7 @@ begin
   -----------------------------------------------------------------------------
   -- Program memory
   -----------------------------------------------------------------------------
-  pmem_b : t410_rom
+  pmem_b : entity work.t410_rom
     port map (
       ck_i   => ck_i,
       addr_i => pm_addr_s(8 downto 0),
@@ -196,7 +184,7 @@ begin
   -----------------------------------------------------------------------------
   -- Data memory
   -----------------------------------------------------------------------------
-  dmem_b : generic_ram_ena
+  dmem_b : entity work.generic_ram_ena
     generic map (
       addr_width_g => 5,
       data_width_g => 4
@@ -214,7 +202,7 @@ begin
   -----------------------------------------------------------------------------
   -- Power-on reset circuit
   -----------------------------------------------------------------------------
-  por_b : t400_por
+  por_b : entity work.t400_por
     generic map (
       delay_g     => 4,
       cnt_width_g => 2
