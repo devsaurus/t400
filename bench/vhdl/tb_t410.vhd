@@ -70,12 +70,9 @@ architecture behav of tb_t410 is
          so_s,
          sk_s       : std_logic;
 
-  signal vdd_s      : std_logic;
-
 begin
 
 
-  vdd_s     <= '1';
   reset_n_s <= '1';
 
   -----------------------------------------------------------------------------
@@ -87,7 +84,7 @@ begin
     )
     port map (
       ck_i      => ck_s,
-      ck_en_i   => vdd_s,
+      ck_en_i   => '1',
       reset_n_i => reset_n_s,
       si_i      => si_s,
       so_o      => so_s,

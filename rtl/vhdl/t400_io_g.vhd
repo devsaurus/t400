@@ -84,11 +84,7 @@ architecture rtl of t400_io_g is
 
   signal g_q   : dw_t;
 
-  signal vdd_s : std_logic;
-
 begin
-
-  vdd_s <= '1';
 
   -----------------------------------------------------------------------------
   -- Process g_reg
@@ -135,31 +131,30 @@ begin
   -- Purpose:
   --   Implements the output driver data and enable.
   --
-  out_driver: process (g_q,
-                       vdd_s)
+  out_driver: process (g_q)
   begin
     -- bit 3
     io_g_o(3)    <= io_out_f(dat => g_q(3),
                              opt => opt_out_type_3_g);
-    io_g_en_o(3) <= io_en_f (en  => vdd_s, dat => g_q(3),
+    io_g_en_o(3) <= io_en_f (en  => '1', dat => g_q(3),
                              opt => opt_out_type_3_g);
 
      -- bit 2
     io_g_o(2)    <= io_out_f(dat => g_q(2),
                              opt => opt_out_type_2_g);
-    io_g_en_o(2) <= io_en_f (en  => vdd_s, dat => g_q(2),
+    io_g_en_o(2) <= io_en_f (en  => '1', dat => g_q(2),
                              opt => opt_out_type_2_g);
 
     -- bit 1
     io_g_o(1)    <= io_out_f(dat => g_q(1),
                              opt => opt_out_type_1_g);
-    io_g_en_o(1) <= io_en_f (en  => vdd_s, dat => g_q(1),
+    io_g_en_o(1) <= io_en_f (en  => '1', dat => g_q(1),
                              opt => opt_out_type_1_g);
 
     -- bit 0
     io_g_o(0)    <= io_out_f(dat => g_q(0),
                              opt => opt_out_type_0_g);
-    io_g_en_o(0) <= io_en_f (en  => vdd_s, dat => g_q(0),
+    io_g_en_o(0) <= io_en_f (en  => '1', dat => g_q(0),
                              opt => opt_out_type_0_g);
 
   end process out_driver;

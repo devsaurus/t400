@@ -102,11 +102,7 @@ architecture struct of t421 is
   signal sk_s,
          sk_en_s           : std_logic;
 
-  signal vdd4_s            : std_logic_vector(3 downto 0);
-
 begin
-
-  vdd4_s <= (others => '1');
 
   -----------------------------------------------------------------------------
   -- T420 without tri-states in T421 configuration
@@ -149,7 +145,7 @@ begin
       io_g_i    => io_g_b,
       io_g_o    => io_g_from_t420_s,
       io_g_en_o => io_g_en_s,
-      io_in_i   => vdd4_s,
+      io_in_i   => (others => '1'),
       si_i      => si_i,
       so_o      => so_s,
       so_en_o   => so_en_s,

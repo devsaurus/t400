@@ -98,11 +98,7 @@ architecture struct of t411 is
   signal sk_s,
          sk_en_s           : std_logic;
 
-  signal gnd_s             : std_logic;
-
 begin
-
-  gnd_s <= '0';
 
   -----------------------------------------------------------------------------
   -- T411 without tri-states
@@ -134,7 +130,7 @@ begin
       ck_i      => ck_i,
       ck_en_i   => ck_en_i,
       reset_n_i => reset_n_i,
-      cko_i     => gnd_s,
+      cko_i     => '0',
       io_l_i    => io_l_b,
       io_l_o    => io_l_from_t410_s,
       io_l_en_o => io_l_en_s,

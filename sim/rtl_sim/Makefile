@@ -50,7 +50,6 @@ work:
 .PHONY: import
 import:
 	mkdir -p work
-	ghdl -i $(WORKDIR) $(TECH_DIR)/../*.vhd
 	ghdl -i $(WORKDIR) $(TECH_DIR)/*.vhd
 	ghdl -i $(WORKDIR) $(GTECH_DIR)/*.vhd
 	ghdl -i $(WORKDIR) $(RTL_DIR)/*.vhd

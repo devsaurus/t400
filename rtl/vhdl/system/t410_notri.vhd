@@ -107,11 +107,8 @@ architecture struct of t410_notri is
   signal dm_data_to_core_s,
          dm_data_from_core_s : std_logic_vector(3 downto 0);
 
-  signal gnd4_s              : std_logic_vector(3 downto 0);
-
 begin
 
-  gnd4_s <= (others => '0');
 
   -----------------------------------------------------------------------------
   -- T400 core
@@ -161,7 +158,7 @@ begin
       io_g_i    => io_g_i,
       io_g_o    => io_g_o,
       io_g_en_o => io_g_en_o,
-      io_in_i   => gnd4_s,
+      io_in_i   => (others => '0'),
       si_i      => si_i,
       so_o      => so_o,
       so_en_o   => so_en_o,

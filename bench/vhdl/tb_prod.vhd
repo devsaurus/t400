@@ -90,11 +90,9 @@ architecture behav of tb_prod is
   signal pass_s     : std_logic := 'L';
   signal fail_s     : std_logic := 'L';
 
-  signal vdd4_s     : std_logic_vector(3 downto 0);
 
 begin
 
-  vdd4_s    <= (others => '1');
   reset_n_s <= '1';
 
   -----------------------------------------------------------------------------
@@ -140,8 +138,8 @@ begin
     )
     port map (
       io_l_i  => tb_io_l_s,
-      io_d_i  => vdd4_s,
-      io_g_i  => vdd4_s,
+      io_d_i  => (others => '1'),
+      io_g_i  => (others => '1'),
       io_in_o => open,
       so_i    => so_s,
       si_o    => si_s,

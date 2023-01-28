@@ -65,11 +65,7 @@ architecture lpm of t420_rom is
     );
   end component;
 
-  signal vdd_s : std_logic;
-
 begin
-
-  vdd_s <= '1';
 
   rom_b : lpm_rom
     generic map (
@@ -82,7 +78,7 @@ begin
       ADDRESS  => addr_i,
       INCLOCK  => ck_i,
       OUTCLOCK => ck_i,
-      MEMENAB  => vdd_s,
+      MEMENAB  => '1',
       Q        => data_o
     );
 

@@ -72,12 +72,9 @@ architecture behav of tb_int is
          so_s,
          sk_s       : std_logic;
 
-  signal vdd_8_s    : std_logic_vector(7 downto 0);
-
 begin
 
 
-  vdd_8_s   <= (others => '1');
   reset_n_s <= '1';
 
   -----------------------------------------------------------------------------
@@ -93,7 +90,7 @@ begin
     )
     port map (
       ck_i      => ck_s,
-      ck_en_i   => vdd_8_s(0),
+      ck_en_i   => '1',
       reset_n_i => reset_n_s,
       cko_i     => io_in_s(2),
       si_i      => si_s,
@@ -121,9 +118,9 @@ begin
       g_width_g => 4
     )
     port map (
-      io_l_i  => vdd_8_s,
+      io_l_i  => (others => '1'),
       io_d_i  => io_d_s,
-      io_g_i  => vdd_8_s(3 downto 0),
+      io_g_i  => (others => '1'),
       io_in_o => open,
       so_i    => so_s,
       si_o    => si_s,

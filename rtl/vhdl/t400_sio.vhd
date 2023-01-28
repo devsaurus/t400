@@ -109,11 +109,7 @@ architecture rtl of t400_sio is
   signal so_s,
          sk_s       : std_logic;
 
-  signal vdd_s      : std_logic;
-
 begin
-
-  vdd_s <= '1';
 
   -----------------------------------------------------------------------------
   -- Process seq
@@ -280,10 +276,10 @@ begin
   so_s    <= en3_i and (en0_i or sio_q(3));
   sk_s    <= phi1_en_q and (en0_i or phi1_i);
   so_o    <= io_out_f(dat => so_s, opt => opt_so_output_type_g);
-  so_en_o <= io_en_f (en  => vdd_s,
+  so_en_o <= io_en_f (en  => '1',
                       dat => so_s, opt => opt_so_output_type_g);
   sk_o    <= io_out_f(dat => sk_s, opt => opt_sk_output_type_g);
-  sk_en_o <= io_en_f (en  => vdd_s,
+  sk_en_o <= io_en_f (en  => '1',
                       dat => sk_s, opt => opt_sk_output_type_g);
 
 end rtl;
