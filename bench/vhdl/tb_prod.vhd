@@ -181,7 +181,7 @@ begin
   -- Purpose:
   --   Sets the expected values for D and G ports.
   --
-  exp: process
+  exp_p: process
     procedure w_p(signal sig : in std_logic_vector) is
     begin
       wait until sig'event;
@@ -356,7 +356,7 @@ begin
       pass_s  <= '1';
     end if;
     wait;
-  end process exp;
+  end process exp_p;
   --
   -----------------------------------------------------------------------------
 

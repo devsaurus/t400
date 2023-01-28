@@ -280,7 +280,7 @@ begin
 	variable mem_data : lpm_memory;
 	variable mem_data_tmp : integer := 0;
 	variable mem_init: boolean := false;
-	variable i, j, k, lineno : integer := 0;
+	variable i, k, lineno : integer := 0;
 	variable buf: line ;
 	variable booval: boolean ;
 	FILE mem_data_file: TEXT IS IN LPM_FILE;
@@ -294,8 +294,8 @@ begin
 		-- INITIALIZE --
 		if NOT(mem_init) then
 			-- INITIALIZE TO 0 --
-			for i in mem_data'LOW to mem_data'HIGH loop
-				mem_data(i) := (OTHERS => '0');
+			for idx in mem_data'LOW to mem_data'HIGH loop
+				mem_data(idx) := (OTHERS => '0');
 			end loop;
 
 			if (LPM_FILE = "UNUSED") then
@@ -354,7 +354,7 @@ begin
 							-- k = no. of bytes per CAM entry.
 							while (i < ibyte) loop
 								mem_data_tmp := 0;
-								for j in 1 to k loop
+								for idx in 1 to k loop
 									READ(L=>buf, VALUE=>datain,good=>booval); -- read in data a byte (2 hex chars) at a time.
 									if not (booval) then
 										ASSERT FALSE
@@ -377,7 +377,7 @@ begin
 								REPORT "[Line "& int_to_str(lineno) & "]:Illegal Intel Hex Format for record type 02! "
 								SEVERITY ERROR;
 							end if;
-							for i in 0 to (ibyte-1) loop
+							for idx in 0 to (ibyte-1) loop
 								READ(L=>buf, VALUE=>base,good=>booval);
 								ibase := ibase * 256 + hex_str_to_int(base);
 								if not (booval) then
