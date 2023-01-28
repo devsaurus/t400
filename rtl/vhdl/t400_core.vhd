@@ -2,8 +2,6 @@
 --
 -- T400 Microcontroller Core
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

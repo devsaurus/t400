@@ -3,8 +3,6 @@
 -- The clock generation unit.
 -- PHI1 clock and input/output clock enables are generated here.
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

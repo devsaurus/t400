@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks interrupt on a skipped "transfer of control" instruction.
 	;;

@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Pass interrupt test.
 	;; Always finds the pass mark when there's an interrupt

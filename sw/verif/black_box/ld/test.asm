@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks the LD instruction.
 	;; Br can't be observed directly via XABR on COP41x.

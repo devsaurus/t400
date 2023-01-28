@@ -2,8 +2,6 @@
 --
 -- T410/411 controller toplevel without tri-states.
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

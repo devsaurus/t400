@@ -3,8 +3,6 @@
 -- The decoder unit.
 -- Implements the instruction opcodes and controls all units of the T400 core.
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

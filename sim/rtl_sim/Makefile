@@ -2,8 +2,6 @@
 #
 # Makefile for the T400 Core project.
 #
-# $Id$
-#
 # The dependencies for all VHDL source files are stored here.
 #
 # Copyright (c) 2006-2023, Arnim Laeuger (arnim.laeuger@gmx.net)

@@ -2,8 +2,6 @@
 --
 -- T410 ROM wrapper for lpm_rom.
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

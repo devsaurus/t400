@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks the JP instruction.
 	;; Both for pages 2,3 and other pages.

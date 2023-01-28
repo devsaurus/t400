@@ -2,8 +2,6 @@
 --
 -- The IN port controller.
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

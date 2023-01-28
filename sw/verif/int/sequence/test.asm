@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks interrupt on a sequence of "transfer of control"
 	;; instructions.

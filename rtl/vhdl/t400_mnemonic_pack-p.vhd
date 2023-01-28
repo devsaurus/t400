@@ -1,7 +1,5 @@
 -------------------------------------------------------------------------------
 --
--- $Id$
---
 -- Copyright (c) 2008, Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

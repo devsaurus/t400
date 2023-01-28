@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks interrupt on SKMBZ.
 	;; AISC is interrupted twice:

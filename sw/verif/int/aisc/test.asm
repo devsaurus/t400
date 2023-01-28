@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks interrupt on AISC.
 	;; AISC is interrupted twice:

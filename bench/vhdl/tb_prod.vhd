@@ -6,8 +6,6 @@
 --   COP Note 7
 --   April 1991
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

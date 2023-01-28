@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks the RMB and SMB instructions.
 	;; Starting with 0 in M, all bits are set and then reset.

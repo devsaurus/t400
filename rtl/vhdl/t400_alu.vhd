@@ -3,8 +3,6 @@
 -- The Arithmetic Logic Unit (ALU).
 -- It contains the accumulator and the C flag.
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved

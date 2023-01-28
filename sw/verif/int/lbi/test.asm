@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Checks interrupt on LBI.
 	;; LBI is interrupted twice:

@@ -2,8 +2,6 @@
 --
 -- T400 Core
 --
--- $Id$
---
 -- Wrapper for technology dependent power-on reset circuitry.
 --
 -- Xilinx Spartan3 flavor.

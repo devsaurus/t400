@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Provides pass/fail signalling via port D for interrupt tests.
 	;;

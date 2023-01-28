@@ -1,5 +1,4 @@
 	;; *******************************************************************
-	;; $Id$
 	;;
 	;; Production test as proposed by
 	;;   "Testing of COP400 Familiy Devices"

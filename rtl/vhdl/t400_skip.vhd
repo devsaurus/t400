@@ -3,8 +3,6 @@
 -- The skip unit.
 -- Skip conditions are checked here and communicated to the decoder unit.
 --
--- $Id$
---
 -- Copyright (c) 2006 Arnim Laeuger (arniml@opencores.org)
 --
 -- All rights reserved
