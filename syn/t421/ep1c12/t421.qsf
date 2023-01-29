@@ -27,21 +27,37 @@ set_global_assignment -name TOP_LEVEL_ENTITY t421
 # Project-Wide Assignments
 # ========================
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "7.0 SP1"
-set_global_assignment -name PROJECT_CREATION_TIME_DATE "20:20:14  April 27, 2008"
-set_global_assignment -name LAST_QUARTUS_VERSION 7.0
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_opt_pack-p.vhd
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "20:20:14  APRIL 27, 2008"
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
+
+# Analysis & Synthesis Assignments
+# ================================
+set_global_assignment -name VHDL_INPUT_VERSION VHDL_1993
+
+set_global_assignment -name FAMILY Cyclone
+set_global_assignment -name DEVICE EP1C12Q240C8
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED WITH WEAK PULL-UP"
+set_global_assignment -name RESERVE_ASDO_AFTER_CONFIGURATION "AS INPUT TRI-STATED"
+set_global_assignment -name FMAX_REQUIREMENT "4 MHz" -section_id ck_i
+set_instance_assignment -name CLOCK_SETTINGS ck_i -to ck_i
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+
+set_global_assignment -name CYCLONE_OPTIMIZATION_TECHNIQUE AREA
+
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VHDL_FILE "../../../rtl/vhdl/t400_opt_pack-p.vhd"
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_clkgen.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_reset.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_pack-p.vhd
+set_global_assignment -name VHDL_FILE "../../../rtl/vhdl/t400_pack-p.vhd"
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_pmem_ctrl.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_dmem_ctrl.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_comp_pack-p.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_mnemonic_pack-p.vhd
+set_global_assignment -name VHDL_FILE "../../../rtl/vhdl/t400_mnemonic_pack-p.vhd"
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_decoder.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_skip.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_alu.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_stack.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_io_pack-p.vhd
+set_global_assignment -name VHDL_FILE "../../../rtl/vhdl/t400_io_pack-p.vhd"
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_io_l.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_io_d.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_io_g.vhd
@@ -51,26 +67,10 @@ set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_timer.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_core.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/tech/generic/generic_ram_ena.vhd
 set_global_assignment -name VHDL_FILE rom_t42x.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/system/t420_rom-e.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/system/t420_rom-struct-a.vhd
+set_global_assignment -name VHDL_FILE "../../t420_rom-struct-a.vhd"
+set_global_assignment -name VHDL_FILE "../../../rtl/vhdl/system/t420_rom-e.vhd"
 set_global_assignment -name VHDL_FILE ../../../rtl/tech/cyclone/t400_por.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/t400_core_comp_pack-p.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/tech/t400_tech_comp_pack-p.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/system/t420_notri.vhd
-set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/system/t400_system_comp_pack-p.vhd
 set_global_assignment -name VHDL_FILE ../../../rtl/vhdl/system/t421.vhd
 
-# Analysis & Synthesis Assignments
-# ================================
-set_global_assignment -name VHDL_INPUT_VERSION VHDL87
-
-set_global_assignment -name FAMILY Cyclone
-set_global_assignment -name DEVICE EP1C12Q240C8
-set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED WITH WEAK PULL-UP"
-set_global_assignment -name RESERVE_ASDO_AFTER_CONFIGURATION "AS INPUT TRI-STATED"
-set_global_assignment -name FMAX_REQUIREMENT "4 MHz" -section_id ck_i
-set_instance_assignment -name CLOCK_SETTINGS ck_i -to ck_i
-set_instance_assignment -name PARTITION_HIERARCHY no_file_for_top_partition -to | -section_id Top
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-
-set_global_assignment -name CYCLONE_OPTIMIZATION_TECHNIQUE AREA
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

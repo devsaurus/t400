@@ -4,7 +4,6 @@
 ../../../rtl/vhdl/t400_pack-p.vhd
 ../../../rtl/vhdl/t400_pmem_ctrl.vhd
 ../../../rtl/vhdl/t400_dmem_ctrl.vhd
-../../../rtl/vhdl/t400_comp_pack-p.vhd
 ../../../rtl/vhdl/t400_mnemonic_pack-p.vhd
 ../../../rtl/vhdl/t400_decoder.vhd
 ../../../rtl/vhdl/t400_skip.vhd
@@ -21,10 +20,7 @@
 ../../../rtl/tech/generic/generic_ram_ena.vhd
 rom_t42x.vhd
 ../../../rtl/vhdl/system/t420_rom-e.vhd
-../../../rtl/vhdl/system/t420_rom-struct-a.vhd
+../../t420_rom-struct-a.vhd
 ../../../rtl/tech/spartan/t400_por.vhd
-../../../rtl/vhdl/t400_core_comp_pack-p.vhd
-../../../rtl/tech/t400_tech_comp_pack-p.vhd
 ../../../rtl/vhdl/system/t420_notri.vhd
-../../../rtl/vhdl/system/t400_system_comp_pack-p.vhd
 ../../../rtl/vhdl/system/t421.vhd
